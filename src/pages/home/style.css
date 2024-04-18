@@ -1,0 +1,23 @@
+.container-home {
+    position: absolute;
+    top: 90px;
+    right: 0;
+    width: 87%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container-infos {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 120px;
+}
+
+.title-home {
+    display: flex;
+    flex-direction: column;
+}
