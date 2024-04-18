@@ -5,24 +5,6 @@ import './style.css';
 
 export const Home = () => {
 
-    const data = [
-        {
-            id: 1,
-            total: 21,
-            type: 'Animaís castrados'
-        },
-        {
-            id: 3,
-            total: 18,
-            type: 'Animais não castrados'
-        },
-        {
-            id: 2,
-            total: 9,
-            type: 'Em Análise'
-        }
-    ]
-
     return (
         <div>
             <DashBoardComponent />

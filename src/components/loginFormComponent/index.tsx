@@ -3,7 +3,7 @@ import './style.css'
 import { Button, TextField } from '@mui/material';
 import { Typography } from '@mui/material';
 
-export const LoginFormComponent = ({ email, password, getLogin }: any) => {
+export const LoginFormComponent = ({ getLogin }: any) => {
     const [showPassword, setShowPassword] = useState(true);
 
     return (
@@ -12,9 +12,9 @@ export const LoginFormComponent = ({ email, password, getLogin }: any) => {
                 <Typography style={{ color: '#2e7d32' }} className='title' component={'span'} fontSize={23} fontWeight={500} fontFamily={'sans-serif'}>Tela de Acesso</Typography>
             </div>
             <form onSubmit={getLogin}>
-                <TextField color='success' id="outlined-basic" label="Email" variant="outlined" onChange={email} size='small' />
+                <TextField color='success' id="outlined-basic" label="Email" variant="outlined" size='small' />
                 <div className='fields'>
-                    <TextField color='success' id="outlined-basic" label="Password" variant="outlined" type={showPassword ? "password" : "text"} onChange={password} size='small' />
+                    <TextField color='success' id="outlined-basic" label="Password" variant="outlined" type={showPassword ? "password" : "text"}  size='small' />
                     {showPassword ? (
                         <i onClick={() => setShowPassword(false)} id='eye' className="bi bi-eye-fill"></i>
                     ) : (
