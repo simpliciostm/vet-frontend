@@ -4,7 +4,7 @@ import './style.css';
 export const ShowAlert = ({ status, msg }: any) => {
     return (
         <div className='container-alert'>
-            {status == 'warning' ? (
+            {status === 'warning' ? (
 
                 <div id='box' className='box-alert-warning'>
                     <div className='icon'>
@@ -16,7 +16,7 @@ export const ShowAlert = ({ status, msg }: any) => {
                 </div>
             ) : null}
 
-            {status == 'success' ? (
+            {status === 'success' ? (
 
                 <div id='box' className='box-alert-success'>
                     <div className='icon'>
@@ -28,7 +28,7 @@ export const ShowAlert = ({ status, msg }: any) => {
                 </div>
             ) : null}
 
-            {status == 'error' ? (
+            {status === 'error' ? (
 
                 <div id='box' className='box-alert-error'>
                     <div className='icon'>
