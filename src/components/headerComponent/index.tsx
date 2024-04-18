@@ -11,6 +11,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { Badge, IconButton, MenuItem } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 export const Header = () => {
 
@@ -42,6 +43,17 @@ export const Header = () => {
                                 </IconButton>
                             </MenuItem>
                             <Typography color={'inherit'}>Thiago Simplicio</Typography>
+                            <MenuItem onClick={() => {}}>
+                                <IconButton
+                                    size="large"
+                                    aria-label="account of current user"
+                                    aria-controls="primary-search-account-menu"
+                                    aria-haspopup="true"
+                                    color="inherit"
+                                >
+                                    <AccountCircleIcon fontSize='large' />
+                                </IconButton>
+                            </MenuItem>
                         </div>
                     </Toolbar>
                 </AppBar>
