@@ -1,43 +1,27 @@
 import React from 'react';
 import './style.css';
+import { Alert } from '@mui/material';
 
-export const ShowAlert = ({ status, msg }: any) => {
+interface props {
+    status: string;
+    msg: string;
+}
+
+export const ShowAlert = ({ status, msg }: props) => {
     return (
         <div className='container-alert'>
-            {status === 'warning' ? (
-
-                <div id='box' className='box-alert-warning'>
-                    <div className='icon'>
-                        <i className="bi bi-exclamation-triangle-fill"></i>
-                    </div>
-                    <div className='text'>
-                        <span>{msg}</span>
-                    </div>
-                </div>
-            ) : null}
-
             {status === 'success' ? (
 
-                <div id='box' className='box-alert-success'>
-                    <div className='icon'>
-                        <i className="bi bi-exclamation-circle-fill"></i>
-                    </div>
-                    <div className='text'>
-                        <span>{msg}</span>
-                    </div>
-                </div>
+                <Alert variant="filled" severity="success">
+                    {msg}
+                </Alert>
             ) : null}
 
             {status === 'error' ? (
 
-                <div id='box' className='box-alert-error'>
-                    <div className='icon'>
-                        <i className="bi bi-exclamation-triangle-fill"></i>
-                    </div>
-                    <div className='text'>
-                        <span>{msg}</span>
-                    </div>
-                </div>
+                <Alert variant="filled" severity="error">
+                    {msg}
+                </Alert>
             ) : null}
         </div>
     )
