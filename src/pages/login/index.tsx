@@ -3,6 +3,7 @@ import './style.css'
 import { LoginFormComponent } from '../../components/loginFormComponent';
 import api from '../../api';
 import { ShowAlert } from '../../components/ShowAlertComponent';
+import { setStorage } from '../../services/localStorage';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
@@ -36,9 +37,10 @@ export const Login = () => {
             setStatus('success');
             setMsg(response.data.msg);
             timer();
-            window.localStorage.setItem('idUser', response.data.idUser);
-            window.localStorage.setItem('token', response.data.token);
-            window.localStorage.setItem('auth', response.data.auth);
+            setStorage('token', response.data.token);
+            setStorage('id', response.data.idUser);
+            setStorage('auth', response.data.auth);
+            setStorage('permission', response.data.permission);
             window.location.href = '/dashboard/home';
         }
     }

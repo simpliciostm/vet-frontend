@@ -20,7 +20,7 @@ export const RegisterFormCompnent = () => {
                 </div>
                 <form>
                     <div className="field">
-                        <TextField color='success' style={{ width: '200px' }} variant="outlined" size='small' label='Espécie' />
+                        <TextField color='success' style={{ width: '400px' }} variant="outlined" size='small' label='Espécie' />
                     </div>
                     <div className="field">
                         <FormControl fullWidth>
@@ -31,7 +31,7 @@ export const RegisterFormCompnent = () => {
                                 value={''}
                                 label="Sexo"
                                 onChange={() => { }}
-                                style={{ width: '120px', height: '40px' }}
+                                style={{ width: '400px', height: '40px' }}
                                 color='success'
                             >
                                 <MenuItem value={10}>M</MenuItem>
@@ -40,16 +40,16 @@ export const RegisterFormCompnent = () => {
                         </FormControl>
                     </div>
                     <div className="field">
-                        <TextField color='success' variant="outlined" size='small' label='Nome' />
+                        <TextField style={{ width: '400px' }} color='success' variant="outlined" size='small' label='Nome' />
                     </div>
                     <div className="field">
-                        <TextField color='success' variant="outlined" size='small' label='Cor' />
+                        <TextField style={{ width: '400px' }} color='success' variant="outlined" size='small' label='Cor' />
                     </div>
                     <div className="field">
                         <FormControl fullWidth>
                             <InputLabel color='success' id="demo-simple-select-label">Peso</InputLabel>
                             <OutlinedInput
-                                sx={{ width: '121px' }}
+                                sx={{ width: '400px' }}
                                 color='success'
                                 id="outlined-adornment-weight"
                                 label='Peso'
@@ -63,14 +63,15 @@ export const RegisterFormCompnent = () => {
                         </FormControl>
                     </div>
                     <div className="field">
-                        <TextField color='success' variant="outlined" size='small' label='MicroChip' />
+                        <TextField style={{ width: '400px' }} color='success' variant="outlined" size='small' label='MicroChip' />
                     </div>
                     <div className="field">
-                        <TextField color='success' variant="outlined" size='small' label='Intercorrência' />
+                        <TextField style={{ width: '400px' }} color='success' variant="outlined" size='small' label='Intercorrência' />
                     </div>
                     <div className="field">
                         <TextField
-                            size='small'
+                            style={{ width: '400px' }}                            
+                             size='small'
                             id="date"
                             label="Data"
                             type="date"
@@ -82,27 +83,27 @@ export const RegisterFormCompnent = () => {
                         />
                     </div>
                     <div className="field">
-                        <TextField sx={{ width: '220px' }} color='success' variant="outlined" size='small' label='Nome Tutor' />
+                        <TextField style={{ width: '400px' }} sx={{ width: '220px' }} color='success' variant="outlined" size='small' label='Nome Tutor' />
                     </div>
                     <div className="field">
-                        <TextField sx={{ width: '220px' }} color='success' variant="outlined" size='small' label='CPF' />
+                        <TextField style={{ width: '400px' }} sx={{ width: '220px' }} color='success' variant="outlined" size='small' label='CPF' />
                     </div>
                     <div className="field">
-                        <TextField sx={{ width: '220px' }} color='success' variant="outlined" size='small' label='Telefone' />
+                        <TextField style={{ width: '400px' }} sx={{ width: '220px' }} color='success' variant="outlined" size='small' label='Telefone' />
                     </div>
                     <div className="field">
-                        <TextField sx={{ width: '220px' }} color='success' variant="outlined" size='small' label='Cidade' />
+                        <TextField style={{ width: '400px' }} sx={{ width: '220px' }} color='success' variant="outlined" size='small' label='Cidade' />
                     </div>
                     <div className="field">
-                        <TextField sx={{ width: '260px' }} color='success' variant="outlined" size='small' label='Endereço' />
+                        <TextField style={{ width: '400px' }} sx={{ width: '260px' }} color='success' variant="outlined" size='small' label='Endereço' />
                     </div>
                     <div className="field">
-                        <TextField sx={{ width: '250px' }} color='success' variant="outlined" size='small' label='Bairro' />
+                        <TextField style={{ width: '400px' }} sx={{ width: '250px' }} color='success' variant="outlined" size='small' label='Bairro' />
                     </div>
                 </form>
-                <div className="button">
-                    <Button onClick={() => close()} sx={{ width: '200px' }} color='success' variant="outlined">Cancelar</Button>
-                    <Button sx={{ width: '250px' }} color='success' variant="contained">Salvar</Button>
+                <div className="button-field">
+                    <Button className='button-cancel' onClick={() => close()} sx={{ width: '400px' }} variant="contained">Cancelar</Button>
+                    <Button className='button-save' sx={{ width: '250px' }} variant="contained">Salvar</Button>
                 </div>
             </div>
         </div> : null

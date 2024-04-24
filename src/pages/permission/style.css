@@ -1,8 +1,4 @@
-.container {
-    overflow-y: scroll;
-    height: 100%;
-}
-.register-box {
+.home-box {
     position: absolute;
     top: 90px;
     right: 0;
@@ -14,7 +10,29 @@
     padding-right: 30px;
 }
 
-.register-box .box-title {
+.home-box .field-permissions {
+    display: flex;
+    gap: 50px;
+}
+
+.box-link {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.box-link .link {
+    text-decoration: none;
+    cursor: pointer;
+    color: rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.box-link .link:hover {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.home-box .box-title {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -23,38 +41,38 @@
     gap: 12px;
 }
 
-.register-box .box-add {
+.home-box .box-add {
     width: 20%;
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.register-box .box-add .circle-add {
+.home-box .box-add .circle-add {
     width: 45px;
     height: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50px;
-    background-color: var(--default-primary-color);
-    color: var(--white-color);
+    background-color: #2e7d32;
+    color: white;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.register-box .box-add .circle-add:hover {
-    background-color: var(--white-color);
-    box-shadow: 0px 0px 0px 1px #c6c7c6;
-    color: var(--default-primary-color);
+.home-box .box-add .circle-add:hover {
+    background-color: white;
+    box-shadow: 0px 0px 0px 1px #2e7d32;
+    color: #2e7d32;
 }
 
-.register-box .box-filter {
+.home-box .box-filter {
     width: 70%;
     height: 60px;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
     gap: 10px;
     padding: 10px;
@@ -62,30 +80,20 @@
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
-.register-box .box-filter .fields {
+.home-box .box-filter .fields {
     display: flex;
     gap: 20px;
 }
 
-.register-box .box-filter .fields-filter{
+.home-box .box-filter .fields-filter{
     display: flex;
     gap: 20px;
 }
 
-.register-box .box-title .title {
+.home-box .box-title .title {
     color: #000000e6;
 }
 
-.register-box .box-filter .filter {
+.home-box .box-filter .filter {
     color: rgba(0, 0, 0, 0.8);
-}
-
-.box-filter .fields .search-button .button {
-    background-color: var(--default-primary-color);
-    transition: all 0.3s ease;
-}
-
-.box-filter .fields .search-button .button:hover {
-    color: var(--default-primary-color);
-    background-color: var(--white-color);
 }

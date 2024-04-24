@@ -2,4 +2,7 @@
   --error-color: #f05f60;
   --warning-color: #f0e35f;
   --success-color: #2e7d32;
+  --default-primary-color: #751b1b;
+  --default-secondary-color: #5b1c30;
+  --white-color: #ffff;
 }
