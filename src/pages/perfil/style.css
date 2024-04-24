@@ -1,0 +1,63 @@
+.perfil-box {
+    position: absolute;
+    top: 90px;
+    right: 0;
+    width: 86%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-right: 30px;
+    min-width: 60%;
+}
+
+.perfil-box .box-title {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 85px;
+    gap: 12px;
+}
+
+.perfil-box .container-perfil form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.perfil-box .container-perfil form #field-password {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.perfil-box .container-perfil form #field-password #eye {
+    position: absolute;
+    cursor: pointer;
+    right: 20px;
+    transition: all 0.2s ease;
+    color: rgba(0, 0, 0, 0.2);
+}
+
+.perfil-box .container-perfil form #field-password #eye:hover {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.perfil-button {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.perfil-button .button {
+    background-color: var(--default-primary-color);
+    color: white;
+}
+
+.perfil-button .button:hover {
+    background-color: white;
+    color: var(--default-primary-color);
+}

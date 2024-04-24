@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './style.css'
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
@@ -12,8 +12,27 @@ import { Badge, IconButton, MenuItem } from '@mui/material';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import api from '../../api';
+import { getStorage } from '../../services/localStorage';
+import img from '../../assets/images/logo.jpeg';
 
 export const Header = () => {
+    const [name, setName] = useState('');
+
+    useEffect(() => {
+        const loadUserInfo = async () => {
+
+            const idUser = getStorage('id');
+            if (idUser) {
+                const response = await api.get(`/user/${idUser}`);
+                if (response.data && response.data.status === 1) {
+                    setName(response.data.data.name);
+                }
+            }
+        }
+        loadUserInfo();
+    })
+
 
     const logout = () => {
         window.location.href = '/'
@@ -21,14 +40,12 @@ export const Header = () => {
     }
 
     return (
-        <div className='header-box' style={{ position: 'fixed' }}>
             <Box>
-                <AppBar position="static" color='inherit'>
+                <AppBar className='app-bar' position="static" color='inherit'>
                     <Toolbar className='nav-bar'>
                         <div className='logo'>
-                            <Typography style={{ color: '#2e7d32' }} variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                                LOGO | NOME
-                            </Typography>
+                            <img src={img} alt="logo" />
+                            a
                         </div>
                         <div className="user">
                             <MenuItem>
@@ -42,8 +59,8 @@ export const Header = () => {
                                     </Badge>
                                 </IconButton>
                             </MenuItem>
-                            <Typography color={'inherit'}>Thiago Simplicio</Typography>
-                            <MenuItem onClick={() => {}}>
+                            <Typography color={'inherit'}>{name}</Typography>
+                            <MenuItem onClick={() => { }}>
                                 <IconButton
                                     size="large"
                                     aria-label="account of current user"
@@ -66,9 +83,11 @@ export const Header = () => {
                             <li>
                                 <FormatListBulletedIcon fontSize='small' /><Link to="/dashboard/register">Castrações</Link>
                             </li>
-                            <li>
-                                <PersonIcon fontSize='small' /><Link to="/dashboard/usuarios">Admin</Link>
-                            </li>
+                            {
+                                getStorage('permission') === 'Admin' ? <li>
+                                    <PersonIcon fontSize='small' /><Link to="/dashboard/admin">Admin</Link>
+                                </li> : null
+                            }
                             <li onClick={() => logout()} className="logout" style={{ cursor: 'pointer' }} >
                                 <LogoutIcon fontSize={'small'} /><Typography fontFamily={'sans-serif'} fontSize={14} fontWeight={700}>Sair</Typography>
                             </li>
@@ -76,6 +95,5 @@ export const Header = () => {
                     </nav>
                 </div>
             </Box >
-        </div >
     )
 }
