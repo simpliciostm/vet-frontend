@@ -14,14 +14,11 @@ export const Admin = () => {
                     <Typography component={'span'} fontSize={25} >Painel de Admin</Typography>
                 </div>
                 <div className="box-title-link">
-                    <div className="title-admin" style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
-                        <ChecklistRtlIcon fontSize='small' />
-                        <Typography component={'span'} fontSize={18} > Cadastros</Typography>
-                    </div>
+                    <Typography component={'span'} fontSize={18} > Cadastros</Typography>
                     <ul>
-                        <li>  <Link to='/dashboard/admin/perfil'><Typography component={'span'} fontSize={14}>Meu Perfil</Typography></Link></li>
-                        <li>  <Link to='/dashboard/admin/users'><Typography component={'span'} fontSize={14}>Usuários</Typography></Link></li>
-                        <li>  <Link to='/dashboard/admin/permission'><Typography component={'span'} fontSize={14}>Permissões</Typography></Link></li>
+                        <Link className='link' to='/dashboard/admin/perfil'><li>  <Typography component={'span'} fontSize={14}>Meu Perfil</Typography></li></Link>
+                        <Link className='link' to='/dashboard/admin/users'><li>  <Typography component={'span'} fontSize={14}>Usuários</Typography></li></Link>
+                        <Link className='link' to='/dashboard/admin/permission'><li> <Typography component={'span'} fontSize={14}>Permissões</Typography></li></Link>
                     </ul>
                 </div>
             </div>

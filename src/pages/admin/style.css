@@ -29,6 +29,11 @@
     gap: 5px;
 }
 
+.box-title-link ul .link {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.9);
+}
+
 .box-title-link ul li {
     text-decoration: none;
     display: flex;

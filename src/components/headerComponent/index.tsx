@@ -18,6 +18,7 @@ import img from '../../assets/images/logo.jpeg';
 
 export const Header = () => {
     const [name, setName] = useState('');
+    const [permission, setPermission] = useState('');
 
     useEffect(() => {
         const loadUserInfo = async () => {
@@ -27,6 +28,7 @@ export const Header = () => {
                 const response = await api.get(`/user/${idUser}`);
                 if (response.data && response.data.status === 1) {
                     setName(response.data.data.name);
+                    setPermission(response.data.data.permissions.name_permission)
                 }
             }
         }
@@ -40,60 +42,47 @@ export const Header = () => {
     }
 
     return (
-            <Box>
-                <AppBar className='app-bar' position="static" color='inherit'>
-                    <Toolbar className='nav-bar'>
-                        <div className='logo'>
-                            <img src={img} alt="logo" />
-                            a
+        <Box>
+            <AppBar className='app-bar' position="static" color='inherit'>
+                <Toolbar className='nav-bar'>
+                    <div className='logo'>
+                        <img src={img} alt="logo" />
+                        a
+                    </div>
+                    <div className="user">
+                        <Typography component={'span'} fontWeight={'bold'} >{name}</Typography>
+                        <div className="circle-user">
+                            <Typography component={'span'} fontSize={18} fontWeight={'bold'} >{name[0]}</Typography>
                         </div>
-                        <div className="user">
-                            <MenuItem>
-                                <IconButton
-                                    size="small"
-                                    aria-label="show 17 new notifications"
-                                    color="inherit"
-                                >
-                                    <Badge badgeContent={3} color="error">
-                                        <NotificationsIcon />
-                                    </Badge>
-                                </IconButton>
-                            </MenuItem>
-                            <Typography color={'inherit'}>{name}</Typography>
-                            <MenuItem onClick={() => { }}>
-                                <IconButton
-                                    size="large"
-                                    aria-label="account of current user"
-                                    aria-controls="primary-search-account-menu"
-                                    aria-haspopup="true"
-                                    color="inherit"
-                                >
-                                    <AccountCircleIcon fontSize='large' />
-                                </IconButton>
-                            </MenuItem>
-                        </div>
-                    </Toolbar>
-                </AppBar>
-                <div className="submenu">
-                    <nav>
-                        <ul>
+                    </div>
+                </Toolbar>
+            </AppBar>
+            <div className="submenu">
+                <nav>
+                    <ul>
+                        <Link to="/dashboard/home">
                             <li>
-                                <HomeRoundedIcon fontSize='small' /><Link to="/dashboard/home">Início</Link>
+                                <HomeRoundedIcon fontSize='small' />Início
                             </li>
+                        </Link>
+                        <Link to="/dashboard/register">
                             <li>
-                                <FormatListBulletedIcon fontSize='small' /><Link to="/dashboard/register">Castrações</Link>
+                                <FormatListBulletedIcon fontSize='small' />Castrações
                             </li>
-                            {
-                                getStorage('permission') === 'Admin' ? <li>
-                                    <PersonIcon fontSize='small' /><Link to="/dashboard/admin">Admin</Link>
-                                </li> : null
-                            }
-                            <li onClick={() => logout()} className="logout" style={{ cursor: 'pointer' }} >
-                                <LogoutIcon fontSize={'small'} /><Typography fontFamily={'sans-serif'} fontSize={14} fontWeight={700}>Sair</Typography>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </Box >
+                        </Link>
+                        {
+                            permission === 'Admin' ? <Link to="/dashboard/admin">
+                                <li>
+                                    <PersonIcon fontSize='small' />Admin
+                                </li>
+                            </Link> : null
+                        }
+                        <li onClick={() => logout()} className="logout" style={{ cursor: 'pointer' }} >
+                            <LogoutIcon fontSize={'small'} /><Typography fontFamily={'sans-serif'} fontSize={14} fontWeight={700}>Sair</Typography>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </Box >
     )
 }

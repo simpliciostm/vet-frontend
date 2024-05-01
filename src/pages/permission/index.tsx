@@ -27,7 +27,7 @@ export const Permission = () => {
       ];
 
     const getPer = (e: any) => {
-        console.log(e)
+        // console.log(e)
     }
 
     return (

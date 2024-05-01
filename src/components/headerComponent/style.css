@@ -31,6 +31,19 @@ div .app-bar {
     flex-direction: row;
     font-family: sans-serif;
     color: rgba(0, 0, 0, 0.8);
+    gap: 20px;
+}
+
+.nav-bar .user .circle-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: white;
+    border: 1px solid var(--default-primary-color);
+    color: var(--default-primary-color);
 }
 
 .submenu {

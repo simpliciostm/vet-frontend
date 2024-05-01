@@ -62,8 +62,14 @@
     color: var(--default-primary-color);
 }
 
+.user-box .box-data {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 .user-box .box-filter {
-    width: 70%;
+    width: 40%;
     height: 60px;
     display: flex;
     justify-content: center;
