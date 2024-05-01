@@ -116,7 +116,7 @@ export const Register = () => {
     ]
 
     return (
-        <div className='container'>
+        <div className='container-register'>
             <Header />
             <div className='register-box'>
                 <div className="box-title">

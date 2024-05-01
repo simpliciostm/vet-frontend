@@ -8,8 +8,27 @@ import { Usuarios } from '../pages/usuario';
 import { Perfil } from '../pages/perfil';
 import { OnlyAdminRoutes, PrivateRoutes } from '../routes/privateRoutes';
 import { Permission } from '../pages/permission';
+import { useEffect, useState } from 'react';
+import api from '../api';
+import { getStorage } from '../services/localStorage';
 
 export const Routers = () => {
+    const [permission, setPermission] = useState('');
+
+    useEffect(() => {
+        const getIdUser = async () => {
+            const idUser = getStorage('id');
+            if (idUser) {
+                const response = await api.get(`/user/${idUser}`);
+                if (response.data.status === 1) {
+                    setPermission(response.data.data.permissions.name_permission);
+                }
+            }
+        }
+
+        getIdUser();
+    })
+
     return (
         <Router.BrowserRouter>
             <Router.Routes>
@@ -24,25 +43,25 @@ export const Routers = () => {
                         <Register />
                     </PrivateRoutes>
                 } />
-                <Router.Route path='/dashboard/admin' element={
-                    <OnlyAdminRoutes>
-                        <Admin />
-                    </OnlyAdminRoutes>
-                } />
+                <Router.Route path='/dashboard/admin' element=
+                    {
+                        permission === 'Admin' ? <Admin /> : <OnlyAdminRoutes />
+                    }
+                />
                 <Router.Route path='/dashboard/admin/users' element={
-                    <OnlyAdminRoutes>
-                        <Usuarios />
-                    </OnlyAdminRoutes>
+
+                    permission === 'Admin' ? <Usuarios /> : <OnlyAdminRoutes />
+
                 } />
                 <Router.Route path='/dashboard/admin/perfil' element={
-                    <OnlyAdminRoutes>
-                        <Perfil />
-                    </OnlyAdminRoutes>
+
+                    permission === 'Admin' ? <Perfil /> : <OnlyAdminRoutes />
+
                 } />
                 <Router.Route path='/dashboard/admin/permission' element={
-                    <OnlyAdminRoutes>
-                        <Permission />
-                    </OnlyAdminRoutes>
+                    
+                    permission === 'Admin' ? <Permission /> : <OnlyAdminRoutes />
+
                 } />
                 <Router.Route path='*' element={<Login />} />
             </Router.Routes>

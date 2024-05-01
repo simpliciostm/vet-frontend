@@ -81,13 +81,6 @@ export const Perfil = () => {
                 permissions: name_permission
             });
             if (response.status === 200 && response.data && response.data.status === 1) {
-                const permissions = await api.get(`/permissionList?_id=${name_permission}`)
-
-                if (permissions.data && permissions.data.data && permissions.data.status === 1) {
-                    permissions.data.data.forEach((per: any) => {
-                        setStorage('permission', per.name_permission)
-                    })
-                }
                 setStatusPromise(true);
                 setMsg(response.data.msg);
                 setStatusAlert('success');

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import './style.css'
-import { LoginFormComponent } from '../../components/loginFormComponent';
 import api from '../../api';
 import { ShowAlert } from '../../components/ShowAlertComponent';
 import { setStorage } from '../../services/localStorage';
+import './style.css'
+import { Button, TextField } from '@mui/material';
+import img from '../../assets/images/logo.jpeg'
+import { TextFieldInputComponent } from '../../components/inputComponent';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
@@ -11,8 +14,9 @@ export const Login = () => {
     const [alert, setAlert] = useState(false);
     const [status, setStatus] = useState('');
     const [msg, setMsg] = useState('');
+    const [showPassword, setShowPassword] = useState(true);  
 
-    const getEmail = (email: string) => {
+    const getChange = (email: string) => {
         setEmail(email);
     }
 
@@ -40,7 +44,6 @@ export const Login = () => {
             setStorage('token', response.data.token);
             setStorage('id', response.data.idUser);
             setStorage('auth', response.data.auth);
-            setStorage('permission', response.data.permission);
             window.location.href = '/dashboard/home';
         }
     }
@@ -53,7 +56,27 @@ export const Login = () => {
 
     return (
         <div className='background-login'>
-            <LoginFormComponent login={(e: any) => login(e)} getPassword={(password: string) => getPassword(password)} getEmail={(email: string) => getEmail(email)} />
+            <div className='modal'>
+            <div className='box-img'>
+                <img src={img} alt="logo" />
+            </div>
+            <form>
+                <div className="box-input">
+                    <TextFieldInputComponent label='Email' type='email' onChange={(value: string) => getChange(value)} />
+                    <div className='fields'>
+                        <TextField className='text-field' onChange={(e) => getPassword(e.target.value)} id="outlined-basic" label="Password" variant="outlined" type={showPassword ? "password" : "text"} size='small' />
+                        {showPassword ? (
+                            <i onClick={() => setShowPassword(false)} id='eye' className="bi bi-eye-fill"></i>
+                        ) : (
+                            <i onClick={() => setShowPassword(true)} id='eye' className="bi bi-eye-slash-fill"></i>
+                        )}
+                    </div>
+                </div>
+                <div className='button-fields'>
+                    <Button className='button' onClick={(e) => login(e)} sx={{ width: '200px' }} variant='contained' >Entrar</Button>
+                </div>
+            </form>
+        </div>
             {alert ? <ShowAlert status={status} msg={msg} /> : null}
         </div>
     )
