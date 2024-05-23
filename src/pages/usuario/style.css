@@ -37,7 +37,7 @@
 }
 
 .user-box .box-add {
-    width: 20%;
+    width: 700px;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -68,25 +68,26 @@
     gap: 15px;
 }
 
-.user-box .box-filter {
-    width: 40%;
+.user-box .box-filter-users {
+    width: 100%;
     height: 60px;
     display: flex;
     justify-content: center;
-    align-items: flex-start;
     flex-direction: column;
     gap: 10px;
     padding: 10px;
     border-radius: 7px;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--default-primary-color);
 }
 
-.user-box .box-filter .fields {
+.user-box .box-data .box-filter-users .fields-users {
     display: flex;
+    justify-content: space-between;
     gap: 20px;
 }
 
-.user-box .box-filter .fields-filter{
+.user-box .box-filter-users .fields-filter {
     display: flex;
     gap: 20px;
 }
@@ -95,6 +96,85 @@
     color: #000000e6;
 }
 
-.user-box .box-filter .filter {
+.user-box .box-filter-users .filter {
     color: rgba(0, 0, 0, 0.8);
+}
+
+.table-users-pagination {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+.table-users-pagination .table-users-button {
+    display: flex;
+    gap: 5px;
+}
+
+.table-users-pagination .button-pagination-user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: all 0.1s ease;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 2px;
+    background-color: var(--default-primary-color);
+    color: white;
+    border: none;
+    outline: 0;
+    border-radius: 7px;
+}
+
+.table-users-pagination .button-pagination-user-disabled {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    transition: all 0.1s ease;
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-size: 12px;
+    padding: 2px;
+    background-color: var(--default-primary-color);
+    color: white;
+    border: none;
+    outline: 0;
+    border-radius: 7px;
+    opacity: 0.3;
+}
+
+.search-button-users {
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-button-users .button-filter-users {
+    background-color: var(--default-primary-color);
+    transition: all 0.3s ease;
+}
+
+.search-button-users .button-filter-users:hover {
+    background-color: white;
+    color: var(--default-primary-color);
+}
+
+.search-button-users .button-remove-filter-users {
+    width: 25px;
+    background-color: var(--default-primary-color);
+    transition: all 0.3s ease;
+}
+
+.search-button-users .button-remove-filter-users:hover {
+    background-color: white;
+    color: var(--default-primary-color);
 }

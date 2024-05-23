@@ -21,7 +21,7 @@
     padding: 10px;
     border-radius: 7px;
     gap: 30px;
-    overflow-y: scroll;
+    overflow-y: auto;
     animation: animaModal 0.3s forwards;
 }
 

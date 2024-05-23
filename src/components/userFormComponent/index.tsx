@@ -3,7 +3,6 @@ import './style.css';
 import TextField from '@mui/material/TextField';
 import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import api from '../../api';
-import { getStorage } from '../../services/localStorage';
 import { ShowAlert } from '../ShowAlertComponent';
 
 interface props {
@@ -19,7 +18,6 @@ interface props {
 }
 
 export const UserFormComponent = (props: props) => {
-    const [showPassword, setShowPassword] = useState(true);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -29,6 +27,10 @@ export const UserFormComponent = (props: props) => {
     const [statusPromise, setStatusPromise] = useState(true);
     const [msg, setMsg] = useState('');
     const [statusAlert, setStatusAlert] = useState('');
+    const [validateNameField, setValidateNameField] = useState(false);
+    const [validateEmailField, setValidateEmailField] = useState(false);
+    const [validatePasswordField, setValidatePasswordField] = useState(false);
+    const [validatePermissionField, setValidatePermissiondField] = useState(false);
 
     useEffect(() => {
 
@@ -66,7 +68,7 @@ export const UserFormComponent = (props: props) => {
         getPermissions();
         getUser()
 
-    }, []);
+    }, [props.name, props.email, props.id, props.operation, props.password, props.permission]);
 
     const changePermissionUser = async (e: any) => {
         try {
@@ -83,47 +85,59 @@ export const UserFormComponent = (props: props) => {
     const registerOurUpdate = async (e: any, operation: string) => {
         try {
             e.preventDefault();
+            const isValidateErrors = validateErrors();
             let result: any;
 
-            if (operation === 'register') {
-                result = await api.post('/userInsert', {
-                    name: name,
-                    email: email,
-                    password: password,
-                    permissions: name_permission
-                });
-            }
+            if (isValidateErrors) {
+                if (operation === 'register') {
+                    result = await api.post('/userInsert', {
+                        name: name,
+                        email: email,
+                        password: password,
+                        permissions: name_permission
+                    });
+                }
 
-            if (operation === 'update') {
-                console.log(props.id)
-                result = await api.put(`/userUpdate/${props.id}`, {
-                    name: name,
-                    email: email,
-                    password: password,
-                    permissions: name_permission
-                });
-            }
+                if (operation === 'update') {
+                    result = await api.put(`/userUpdate/${props.id}`, {
+                        name: name,
+                        email: email,
+                        password: password,
+                        permissions: name_permission
+                    });
+                }
 
-            if (result.data) {
-                switch (result.data.status) {
-                    case 1:
-                        setStatusPromise(true);
-                        setMsg(result.data.msg);
-                        setStatusAlert('success');
-                        timerUpdate();
-                        break;
-                    case 0:
-                        setStatusPromise(true);
-                        setMsg(result.data.msg);
-                        setStatusAlert('error');
-                        timer();
-                        break;
+                if (result.data) {
+                    switch (result.data.status) {
+                        case 1:
+                            setStatusPromise(true);
+                            setMsg(result.data.msg);
+                            setStatusAlert('success');
+                            timerUpdate();
+                            break;
+                        case 0:
+                            setStatusPromise(true);
+                            setMsg(result.data.msg);
+                            setStatusAlert('error');
+                            timer();
+                            break;
+                    }
                 }
             }
 
         } catch (err) {
             console.log(err);
         }
+    }
+
+    const validateErrors = (): boolean => {
+        name ? setValidateNameField(false) : setValidateNameField(true);
+        email ? setValidateEmailField(false) : setValidateEmailField(true);
+        password ? setValidatePasswordField(false) : setValidatePasswordField(true);
+        name_permission ? setValidatePermissiondField(false) : setValidatePermissiondField(true);
+
+        if (name || email || password || name_permission) return true
+        else return false
     }
 
     const timer = () => {
@@ -157,22 +171,17 @@ export const UserFormComponent = (props: props) => {
                         </Typography>
                     </div>
                     <div className="field-input">
-                        <TextField onChange={(e) => setName(e.target.value)} label='Nome' type='text' size='small' value={name} disabled={props.operation === 'view' ? true : false} />
+                        <TextField error={validateNameField} focused={false} onChange={(e) => setName(e.target.value)} label='Nome' type='text' size='small' value={name} disabled={props.operation === 'view' ? true : false} />
                     </div>
                     <div className="field-input">
-                        <TextField onChange={(e) => setEmail(e.target.value)} label='Email' type='email' required size='small' value={email} disabled={props.operation === 'view' ? true : false} />
+                        <TextField error={validateEmailField} focused={false} onChange={(e) => setEmail(e.target.value)} label='Email' type='email' required size='small' value={email} disabled={props.operation === 'view' ? true : false} />
                     </div>
                     <div id='field-input-password' className="field-input">
-                        <TextField value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" label="Password" variant="outlined" type={showPassword ? "password" : "text"} size='small' required disabled={props.operation === 'view' ? true : false} />
-                        {showPassword ? (
-                            <i onClick={() => setShowPassword(false)} id='eye' className="bi bi-eye-fill"></i>
-                        ) : (
-                            <i onClick={() => setShowPassword(true)} id='eye' className="bi bi-eye-slash-fill"></i>
-                        )}
+                        <TextField error={validatePasswordField} focused={false} value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" label="Password" variant="outlined" type="password" size='small' required disabled={props.operation === 'view' ? true : false} />
                     </div>
                     <div className="field-input">
-                        <FormControl fullWidth>
-                            <InputLabel required color='success' id="demo-simple-select-label">Permissão</InputLabel>
+                        <FormControl>
+                            <InputLabel error={validatePermissionField} focused={false} required color='primary' id="demo-simple-select-label">Permissão</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -180,11 +189,11 @@ export const UserFormComponent = (props: props) => {
                                 label="Permissão"
                                 onChange={(e) => { changePermissionUser(e.target.value) }}
                                 style={{ width: '250px' }}
-                                color='success'
                                 size='small'
                                 defaultValue=''
                                 required
                                 disabled={props.operation === 'view' ? true : false}
+                                error={validatePermissionField}
                             >
                                 {permissions.length >= 1 ? permissions.map((per: any) => (
                                     <MenuItem key={per._id} value={per._id}>{per.name_permission}</MenuItem>
