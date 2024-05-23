@@ -7,6 +7,7 @@ import { ShowAlert } from '../ShowAlertComponent';
 interface confirmComponentProps {
     msg: string;
     id: string;
+    onClose: () => void;
 }
 
 export const DeleteConfirmComponent = (props: confirmComponentProps) => {
@@ -43,22 +44,20 @@ export const DeleteConfirmComponent = (props: confirmComponentProps) => {
     }
 
     return (
-        !closeModal ? (
-            <div className='container-delete'>
-                <div className="modal-delete">
-                    <div className="title-delete">
-                        <Typography fontSize={24} fontWeight={'bold'}>Deletar registro</Typography>
-                    </div>
-                    <div className="msg-delete">
-                        <Typography fontSize={18} >{props.msg}</Typography>
-                    </div>
-                    <div className="buttons-delete">
-                        <Button onClick={() => setCloseModal(true)} size='medium' color='error' variant='outlined' >Cancelar</Button>
-                        <Button onClick={() => deleteRegister()} size='medium' color='success' variant='outlined' >Sim</Button>
-                    </div>
+        <div className='container-delete'>
+            <div className="modal-delete">
+                <div className="title-delete">
+                    <Typography fontSize={24} fontWeight={'bold'}>Deletar registro</Typography>
                 </div>
-                {statusPromise ? <ShowAlert msg={msg} status={statusAlert} /> : null}
+                <div className="msg-delete">
+                    <Typography fontSize={18} >{props.msg}</Typography>
+                </div>
+                <div className="buttons-delete">
+                    <Button onClick={props.onClose} size='medium' color='error' variant='outlined' >Cancelar</Button>
+                    <Button onClick={() => deleteRegister()} size='medium' color='success' variant='outlined' >Sim</Button>
+                </div>
             </div>
-        ) : null
+            {statusPromise ? <ShowAlert msg={msg} status={statusAlert} /> : null}
+        </div>
     )
 }
