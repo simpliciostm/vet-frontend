@@ -1,12 +1,13 @@
 .container-home {
     position: absolute;
-    top: 90px;
+    top: 130px;
     right: 0;
     width: 87%;
 
     display: flex;
     flex-direction: column;
     gap: 20px;
+    overflow-x: hidden;
 }
 
 .container-infos {

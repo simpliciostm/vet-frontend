@@ -53,6 +53,12 @@ div .app-bar {
     position: fixed;
     background-color: var(--default-primary-color);
     box-shadow: 0px 5px 5px 2px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+}
+
+.submenu-mobile {
+    display: none;
 }
 
 .submenu ul {
@@ -64,7 +70,7 @@ div .app-bar {
     gap: 15px;
     height: 900px;
     position: relative;
-    align-items: flex-start;
+    align-items: flex-start     ;
 }
 
 .submenu ul li {
@@ -77,6 +83,7 @@ div .app-bar {
     border-radius: 3px;
     color: var(--white-color);
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .submenu ul li:hover {
@@ -92,9 +99,9 @@ div .app-bar {
     font-weight: bold;
 }
 
-.submenu nav ul li:hover a{
+.submenu nav ul li:hover a {
     color: var(--default-primary-color);
-}   
+}
 
 .logout {
     width: 50%;
@@ -104,12 +111,95 @@ div .app-bar {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--white-color);      
+    color: var(--white-color);
     border-radius: 7px;
     transition: all 0.3s ease;
+}
+
+.button-open-submenu-mobile {
+    display: none;
 }
 
 .logout:hover {
     color: var(--white-color);
     background-color: var(--default-primary-color);
+}
+
+@media (max-width: 1200px) {
+    .submenu {
+        display: none;
+    }
+
+    .button-open-submenu-mobile {
+        display: flex;
+        position: fixed;
+        left: 17px;
+        top: 95px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 99;
+        background-color: white;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 7px;
+    }
+
+    .button-open-submenu-mobile:hover {
+        opacity: 0.7;
+    }
+
+    .submenu-mobile {
+        width: 10%;
+        top: 60px;
+        height: 100%;
+        position: fixed;
+        background-color: var(--default-primary-color);
+        box-shadow: 0px 5px 5px 2px rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        animation: animaMenuMobile 0.2s ease;
+    }
+
+    .submenu-mobile ul {
+        display: flex;
+        justify-content: flex-start;
+        padding-top: 80px;
+        flex-direction: column;
+        gap: 15px;
+        height: 900px;
+        position: relative;
+        align-items: center;
+    }
+
+    .submenu-mobile ul li {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        transition: all 0.3s ease;
+        padding: 7px;
+        border-radius: 3px;
+        color: var(--white-color);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .submenu ul li:hover {
+        background-color: var(--white-color);
+        color: var(--default-primary-color);
+    }
+
+    @keyframes animaMenuMobile {
+        0%{
+            transform: translateX(-30px);
+        }
+        100% {
+            transform: translateX(1);
+        }
+    }
 }
