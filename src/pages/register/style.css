@@ -4,7 +4,7 @@
 }
 .register-box {
     position: absolute;
-    top: 90px;
+    top: 130px;
     right: 0;
     width: 87%;
 
@@ -12,6 +12,7 @@
     flex-direction: column;
     gap: 20px;
     padding-right: 30px;
+    overflow-x: hidden;
 }
 
 .register-box .box-title {

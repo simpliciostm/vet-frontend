@@ -8,17 +8,16 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Badge, IconButton, MenuItem } from '@mui/material';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import PersonIcon from '@mui/icons-material/Person';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import api from '../../api';
 import { getStorage } from '../../services/localStorage';
 import img from '../../assets/images/logo.jpeg';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export const Header = () => {
     const [name, setName] = useState('');
     const [permission, setPermission] = useState('');
+    const [showMenuMobile, setShowMenuMobile] = useState(false);
 
     useEffect(() => {
         const loadUserInfo = async () => {
@@ -39,6 +38,10 @@ export const Header = () => {
     const logout = () => {
         window.location.href = '/'
         window.localStorage.clear()
+    }
+
+    const toggleShowMenu = () => {
+        showMenuMobile ? setShowMenuMobile(false) : setShowMenuMobile(true);
     }
 
     return (
@@ -83,6 +86,41 @@ export const Header = () => {
                     </ul>
                 </nav>
             </div>
-        </Box >
+
+            <div className="button-open-submenu-mobile" onClick={() => toggleShowMenu()}>
+                <MenuIcon fontSize='small' />
+            </div>
+            {
+                showMenuMobile ? (
+                    <div className="submenu-mobile">
+                        <nav>
+                            <ul>
+                                <Link to="/dashboard/home">
+                                    <li>
+                                        <HomeRoundedIcon fontSize='small' />
+                                    </li>
+                                </Link>
+                                <Link to="/dashboard/register">
+                                    <li>
+                                        <FormatListBulletedIcon fontSize='small' />
+                                    </li>
+                                </Link>
+                                {
+                                    permission === 'Admin' ? <Link to="/dashboard/admin">
+                                        <li>
+                                            <PersonIcon fontSize='small' />
+                                        </li>
+                                    </Link> : null
+                                }
+                                <li onClick={() => logout()} className="logout" style={{ cursor: 'pointer' }} >
+                                    <LogoutIcon fontSize={'small'} /><Typography fontFamily={'sans-serif'} fontSize={14} fontWeight={700}></Typography>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                ) : null
+            }
+
+        </Box>
     )
 }
