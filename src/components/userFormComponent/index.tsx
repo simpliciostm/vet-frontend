@@ -15,6 +15,7 @@ interface props {
         _id: string;
         name_permission: string;
     };
+    onClose: () => void;
 }
 
 export const UserFormComponent = (props: props) => {
@@ -153,68 +154,65 @@ export const UserFormComponent = (props: props) => {
         }, 1200)
     }
 
-
     return (
-        !closeModal ? (
-            <div className='container-user-form'>
-                <form className='modal-user-form' action="">
-                    <div className="title-user-form">
-                        <Typography component={'span'} fontSize={22} fontWeight={'bold'} color={'#5b1c30'} >
-                            {props.operation === 'register' ? "Formulario de Usuário" : null}
-                            {props.operation === 'update' ? "Atualização de Usuário" : null}
-                            {props.operation === 'view' ? "Visualização de Usuário" : null}
-                        </Typography>
-                        <Typography component={'span'} fontSize={16} >
-                            {props.operation === 'register' ? "Preencha o formulário para adicionar um novo usuário" : null}
-                            {props.operation === 'update' ? "Preencha o formulário para atualizar os dados do usuário" : null}
-                            {props.operation === 'view' ? "Aqui você pode ver os dados do usuário" : null}
-                        </Typography>
+        <div className='container-user-form'>
+            <form className='modal-user-form' action="">
+                <div className="title-user-form">
+                    <Typography component={'span'} fontSize={22} fontWeight={'bold'} color={'#5b1c30'} >
+                        {props.operation === 'register' ? "Formulario de Usuário" : null}
+                        {props.operation === 'update' ? "Atualização de Usuário" : null}
+                        {props.operation === 'view' ? "Visualização de Usuário" : null}
+                    </Typography>
+                    <Typography component={'span'} fontSize={16} >
+                        {props.operation === 'register' ? "Preencha o formulário para adicionar um novo usuário" : null}
+                        {props.operation === 'update' ? "Preencha o formulário para atualizar os dados do usuário" : null}
+                        {props.operation === 'view' ? "Aqui você pode ver os dados do usuário" : null}
+                    </Typography>
+                </div>
+                <div className="field-input">
+                    <TextField error={validateNameField} focused={false} onChange={(e) => setName(e.target.value)} label='Nome' type='text' size='small' value={name} disabled={props.operation === 'view' ? true : false} />
+                </div>
+                <div className="field-input">
+                    <TextField error={validateEmailField} focused={false} onChange={(e) => setEmail(e.target.value)} label='Email' type='email' required size='small' value={email} disabled={props.operation === 'view' ? true : false} />
+                </div>
+                <div id='field-input-password' className="field-input">
+                    <TextField error={validatePasswordField} focused={false} value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" label="Password" variant="outlined" type="password" size='small' required disabled={props.operation === 'view' ? true : false} />
+                </div>
+                <div className="field-input">
+                    <FormControl>
+                        <InputLabel error={validatePermissionField} focused={false} required color='primary' id="demo-simple-select-label">Permissão</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            value={name_permission}
+                            label="Permissão"
+                            onChange={(e) => { changePermissionUser(e.target.value) }}
+                            style={{ width: '250px' }}
+                            size='small'
+                            defaultValue=''
+                            required
+                            disabled={props.operation === 'view' ? true : false}
+                            error={validatePermissionField}
+                        >
+                            {permissions.length >= 1 ? permissions.map((per: any) => (
+                                <MenuItem key={per._id} value={per._id}>{per.name_permission}</MenuItem>
+                            )) : null
+                            }
+                        </Select>
+                    </FormControl>
+                </div>
+                {props.operation === 'register' || props.operation === 'update' ? (
+                    <div className="button-field">
+                        <Button onClick={props.onClose} className='button-cancel' sx={{ width: '150px' }} variant="contained">Cancelar</Button>
+                        <Button onClick={(e) => registerOurUpdate(e, props.operation)} className='button-save' sx={{ width: '100px' }} variant="contained">Salvar</Button>
                     </div>
-                    <div className="field-input">
-                        <TextField error={validateNameField} focused={false} onChange={(e) => setName(e.target.value)} label='Nome' type='text' size='small' value={name} disabled={props.operation === 'view' ? true : false} />
+                ) : (
+                    <div className="button-field">
+                        <Button onClick={props.onClose} className='button-cancel' sx={{ width: '150px' }} variant="contained">Fechar</Button>
                     </div>
-                    <div className="field-input">
-                        <TextField error={validateEmailField} focused={false} onChange={(e) => setEmail(e.target.value)} label='Email' type='email' required size='small' value={email} disabled={props.operation === 'view' ? true : false} />
-                    </div>
-                    <div id='field-input-password' className="field-input">
-                        <TextField error={validatePasswordField} focused={false} value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" label="Password" variant="outlined" type="password" size='small' required disabled={props.operation === 'view' ? true : false} />
-                    </div>
-                    <div className="field-input">
-                        <FormControl>
-                            <InputLabel error={validatePermissionField} focused={false} required color='primary' id="demo-simple-select-label">Permissão</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={name_permission}
-                                label="Permissão"
-                                onChange={(e) => { changePermissionUser(e.target.value) }}
-                                style={{ width: '250px' }}
-                                size='small'
-                                defaultValue=''
-                                required
-                                disabled={props.operation === 'view' ? true : false}
-                                error={validatePermissionField}
-                            >
-                                {permissions.length >= 1 ? permissions.map((per: any) => (
-                                    <MenuItem key={per._id} value={per._id}>{per.name_permission}</MenuItem>
-                                )) : null
-                                }
-                            </Select>
-                        </FormControl>
-                    </div>
-                    {props.operation === 'register' || props.operation === 'update' ? (
-                        <div className="button-field">
-                            <Button onClick={(e) => close(e)} className='button-cancel' sx={{ width: '150px' }} variant="contained">Cancelar</Button>
-                            <Button onClick={(e) => registerOurUpdate(e, props.operation)} className='button-save' sx={{ width: '100px' }} variant="contained">Salvar</Button>
-                        </div>
-                    ) : (
-                        <div className="button-field">
-                            <Button onClick={(e) => close(e)} className='button-cancel' sx={{ width: '150px' }} variant="contained">Fechar</Button>
-                        </div>
-                    )}
-                </form>
-                {statusPromise ? <ShowAlert msg={msg} status={statusAlert} /> : null}
-            </div>
-        ) : null
+                )}
+            </form>
+            {statusPromise ? <ShowAlert msg={msg} status={statusAlert} /> : null}
+        </div>
     )
 }

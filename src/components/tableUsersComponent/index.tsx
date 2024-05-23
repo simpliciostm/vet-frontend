@@ -67,6 +67,18 @@ export const TableUsersComponent = ({ data, columns }: props) => {
         !openModalView ? setOpenModalView(true) : setOpenModalView(false);
     }
 
+    const closeModalView = () => {
+        setOpenModalView(false);
+    }
+
+    const closeModalUpdate = () => {
+        setOpenModalUpdate(false);
+    }
+
+    const closeModalConfirmDelete = () => {
+        setDeleteConfirm(false);
+    }
+
     return (
         <div style={{ width: '100%' }}>
             <TableContainer sx={{ border: '1px solid #751b1b', padding: '10px' }} component={Paper}>
@@ -74,7 +86,7 @@ export const TableUsersComponent = ({ data, columns }: props) => {
                     <TableHead>
                         <TableRow>
                             {columns.map((col: string) => (
-                                <TableCell style={{ color: '#751b1b', fontWeight: 'bold' ,textTransform: 'uppercase' }} key={col} align='left'>{col}</TableCell>
+                                <TableCell style={{ color: '#751b1b', fontWeight: 'bold', textTransform: 'uppercase' }} key={col} align='left'>{col}</TableCell>
                             ))}
                         </TableRow>
                     </TableHead>
@@ -100,9 +112,9 @@ export const TableUsersComponent = ({ data, columns }: props) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            {deleteConfirm ? <DeleteConfirmComponent msg='Tem certeza que deseja deletar esse usuário ?' id={idUser} /> : null}
-            {openModalUpdate ? <UserFormComponent operation='update' id={idUser} name={user.name} email={user.email} password={user.password} permission={user.permissions} /> : null}
-            {openModalView ? <UserFormComponent operation='view' id={idUser} /> : null}
+            {deleteConfirm ? <DeleteConfirmComponent msg='Tem certeza que deseja deletar esse usuário ?' id={idUser} onClose={closeModalConfirmDelete} /> : null}
+            {openModalUpdate ? <UserFormComponent operation='update' id={idUser} name={user.name} email={user.email} password={user.password} permission={user.permissions} onClose={closeModalUpdate} /> : null}
+            {openModalView ? <UserFormComponent operation='view' id={idUser} onClose={closeModalView} /> : null}
         </div>
     )
 }

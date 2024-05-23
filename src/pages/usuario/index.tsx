@@ -86,19 +86,23 @@ export const Usuarios = () => {
             email: emailFilter
         });
     }
- 
+
     const nextPagination = async () => {
         setTotalPageLastClick(totalPageLastClick + 1);
         setCurrentPagination(currentPage + 5);
-        await getUsers(filterUser ,currentPage)
+        await getUsers(filterUser, currentPage);
         setDisableButtonBack(false);
     }
 
     const backPagination = async () => {
         setTotalPageLastClick(totalPageLastClick - 1);
         setCurrentPagination(currentPage - 5);
-        await getUsers(filterUser ,currentPage)
+        await getUsers(filterUser, currentPage);
         setDisableButtonNext(false)
+    }
+
+    const closeModal = () => {
+        setShowAdd(false);
     }
 
     return (
@@ -154,7 +158,7 @@ export const Usuarios = () => {
                         )
                     }
                 </div>
-                {showAdd ? <UserFormComponent operation={operation} /> : null}
+                {showAdd ? <UserFormComponent operation={operation} onClose={closeModal} /> : null}
             </div>
         </div>
     )

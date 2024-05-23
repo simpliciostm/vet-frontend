@@ -118,13 +118,13 @@ export const Perfil = () => {
                 <div className="container-perfil">
                     <form action="">
                         <div className="field-perfil">
-                            <TextField onChange={(e) => setName(e.target.value)} value={name} type='text' variant='outlined' label='nome' color='success' ></TextField>
+                            <TextField focused={false} onChange={(e) => setName(e.target.value)} value={name} type='text' variant='outlined' label='nome' color='success' ></TextField>
                         </div>
                         <div className="field-perfil">
-                            <TextField onChange={(e) => setEmail(e.target.value)} value={email} type='email' variant='outlined' label='email' color='success' ></TextField>
+                            <TextField focused={false} onChange={(e) => setEmail(e.target.value)} value={email} type='email' variant='outlined' label='email' color='success' ></TextField>
                         </div>
                         <div id='field-password' className="field-perfil">
-                            <TextField onChange={(e) => setPassword(e.target.value)} value={password} className='password-box' color='success' id="outlined-basic" label="Password" variant="outlined" type={showPassword ? "password" : "text"} size='medium' />
+                            <TextField focused={false} onChange={(e) => setPassword(e.target.value)} value={password} className='password-box' color='success' id="outlined-basic" label="Password" variant="outlined" type={showPassword ? "password" : "text"} size='medium' />
                             {showPassword ? (
                                 <i onClick={() => setShowPassword(false)} id='eye' className="bi bi-eye-fill"></i>
                             ) : (
@@ -133,7 +133,7 @@ export const Perfil = () => {
                         </div>
                         <div className="field-perfil">
                             <FormControl fullWidth>
-                                <InputLabel color='success' id="demo-simple-select-label">Permissão</InputLabel>
+                                <InputLabel focused={false} color='success' id="demo-simple-select-label">Permissão</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -141,7 +141,6 @@ export const Perfil = () => {
                                     label="Permissão"
                                     onChange={(e) => { changePermissionUser(e.target.value) }}
                                     style={{ width: '160px', height: '55px' }}
-                                    color='success'
                                 >
                                     {permissions.length >= 1 ? permissions.map((per: any) => (
                                         <MenuItem key={per._id} value={per._id}>{per.name_permission}</MenuItem>
