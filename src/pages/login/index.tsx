@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './style.css'
 import api from '../../api';
-import { ShowAlert } from '../../components/ShowAlertComponent';
+import { ShowAlert } from '../../components/showAlertComponent';
 import { setStorage } from '../../services/localStorage';
 import './style.css'
 import { Button, CircularProgress, TextField } from '@mui/material';
@@ -13,7 +13,6 @@ export const Login = () => {
     const [alert, setAlert] = useState(false);
     const [status, setStatus] = useState('');
     const [msg, setMsg] = useState('');
-    const [showPassword, setShowPassword] = useState(true);
     const [inputErrorEmail, setInputErrorEmail] = useState(false);
     const [inputErrorPassword, setInputErrorPassword] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -31,14 +30,13 @@ export const Login = () => {
 
         const isValidateErrors = validateErrors();
 
-        if (!isValidateErrors) {
+        if (isValidateErrors) {
             const response = await api.post('/login', {
                 email, password
             });
 
             if (response.data.status === 0) {
                 timerError();
-                setLoading(true);
                 setAlert(true);
                 setStatus('error');
                 setMsg(response.data.msg);
@@ -65,9 +63,8 @@ export const Login = () => {
 
     const timerError = () => {
         setTimeout(() => {
-            setLoading(false);
             setAlert(false);
-        }, 900)
+        }, 3000)
     }
 
     const validateErrors = (): boolean => {
@@ -86,18 +83,11 @@ export const Login = () => {
                 </div>
                 <form>
                     <div className="box-input">
-                        <TextField error={inputErrorEmail} focused={inputErrorEmail} className='text-field' onChange={(e) => getEmail(e.target.value)} id="outlined-basic" label="Email" variant="outlined" type='email' size='small' />
-                        <div className='fields'>
-                            <TextField error={inputErrorPassword} focused={inputErrorPassword} className='text-field' onChange={(e) => getPassword(e.target.value)} id="outlined-basic" label="Password" variant="outlined" type={showPassword ? "password" : "text"} size='small' />
-                            {showPassword ? (
-                                <i onClick={() => setShowPassword(false)} id='eye' className="bi bi-eye-fill"></i>
-                            ) : (
-                                <i onClick={() => setShowPassword(true)} id='eye' className="bi bi-eye-slash-fill"></i>
-                            )}
-                        </div>
+                        <TextField error={inputErrorEmail} focused={inputErrorEmail} className='text-field' onChange={(e) => getEmail(e.target.value)} label="Email" variant="outlined" type='email' size='small' />
+                        <TextField error={inputErrorPassword} focused={inputErrorPassword} className='text-field' onChange={(e) => getPassword(e.target.value)} label="Password" variant="outlined" size='small' />
                     </div>
                     <div className='button-fields'>
-                        <Button className='button' onClick={(e) => login(e)} sx={{ width: '200px' }} variant='contained' >{loading ? <CircularProgress color='secondary' size={28} /> : 'Entrar'}</Button>
+                        <Button className='button' onClick={(e) => login(e)} fullWidth variant='contained' >{loading ? <CircularProgress color='secondary' size={28} /> : 'Entrar'}</Button>
                     </div>
                 </form>
             </div>

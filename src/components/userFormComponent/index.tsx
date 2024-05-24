@@ -3,7 +3,7 @@ import './style.css';
 import TextField from '@mui/material/TextField';
 import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import api from '../../api';
-import { ShowAlert } from '../ShowAlertComponent';
+import { ShowAlert } from '../showAlertComponent';
 import CircularProgress from '@mui/material/CircularProgress';
 interface props {
     operation: string;
@@ -173,15 +173,13 @@ export const UserFormComponent = (props: props) => {
                 <div className="field-input">
                     <TextField error={validateEmailField} onChange={(e) => setEmail(e.target.value)} label='Email' type='email' required size='small' value={email} disabled={props.operation === 'view' ? true : false} />
                 </div>
-                <div id='field-input-password' className="field-input">
-                    <TextField error={validatePasswordField} value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" label="Password" variant="outlined" type="password" size='small' required disabled={props.operation === 'view' ? true : false} />
+                <div className="field-input">
+                    <TextField error={validatePasswordField} value={password} onChange={(e) => setPassword(e.target.value)} label="Password" variant="outlined" type="password" size='small' required disabled={props.operation === 'view' ? true : false} />
                 </div>
                 <div className="field-input">
                     <FormControl>
-                        <InputLabel error={validatePermissionField} required id="demo-simple-select-label">Permissão</InputLabel>
+                        <InputLabel error={validatePermissionField} required >Permissão</InputLabel>
                         <Select
-                            labelId="demo-simple-select-label"
-                            id="demo-simple-select"
                             value={name_permission}
                             label="Permissão"
                             onChange={(e) => { changePermissionUser(e.target.value) }}

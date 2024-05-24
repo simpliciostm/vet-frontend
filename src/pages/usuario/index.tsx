@@ -33,7 +33,6 @@ export const Usuarios = () => {
     const [msg, setMsg] = useState('');
 
     useEffect(() => {
-        console.log('aqui')
         getUsers(filterUser, currentPage);
         const pagesNumbers = Math.ceil(totalUsers / 5);
         if (pagesNumbers - 1 === totalPageLastClick) setDisableButtonNext(true);
@@ -128,8 +127,8 @@ export const Usuarios = () => {
                     <div className="box-filter-users">
                         <div className='fields-users'>
                             <div className="fields-filter">
-                                <TextField value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} style={{ marginLeft: 20 }} id="outlined-basic" label="Nome" variant="outlined" size='small' />
-                                <TextField value={emailFilter} onChange={(e) => setEmailFilter(e.target.value)} id="outlined-basic" label="Email" variant="outlined" size='small' />
+                                <TextField value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} style={{ marginLeft: 20 }} label="Nome" variant="outlined" size='small' />
+                                <TextField value={emailFilter} onChange={(e) => setEmailFilter(e.target.value)} label="Email" variant="outlined" size='small' />
                             </div>
                             <div className="search-button-users">
                                 <Button size='small' onClick={(e) => applyFilter(e)} className='button-filter-users' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>
