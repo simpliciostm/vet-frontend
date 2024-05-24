@@ -1,8 +1,5 @@
-import React from 'react';
-
 import { Navigate } from 'react-router-dom';
-import { clearStorage, getStorage } from '../services/localStorage';
-import api from '../api';
+import { getStorage } from '../services/localStorage';
 
 export const PrivateRoutes = ({ children }: any) => {
     const token = getStorage('token');
@@ -11,6 +8,6 @@ export const PrivateRoutes = ({ children }: any) => {
     return token && auth ? children : <Navigate to='/login' />
 }
 
-export const OnlyAdminRoutes = ( { children }: any) => {
-    return <Navigate to='/dashboard/home' /> 
+export const OnlyAdminRoutes = ({ children }: any) => {
+    return <Navigate to='/dashboard/home' />
 }

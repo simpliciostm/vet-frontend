@@ -132,11 +132,11 @@ export const Register = () => {
                 <div className="box-filter">
                     <div className='fields'>
                         <div className="fields-filter">
-                            <TextField color='success' style={{ marginLeft: 20 }} id="standard-basic" label="Nome" variant="standard" size='small' />
-                            <TextField color='success' id="standard-basic" label="Espécie" variant="standard" size='small' />
-                            <TextField color='success' id="standard-basic" label="CPF" variant="standard" size='small' />
-                            <TextField color='success' id="standard-basic" label="Microchip" variant="standard" size='small' />
-                            <TextField color='success' id="standard-basic" label="Tutor" variant="standard" size='small' />
+                            <TextField style={{ marginLeft: 20 }} id="standard-basic" label="Nome" variant="standard" size='small' />
+                            <TextField id="standard-basic" label="Espécie" variant="standard" size='small' />
+                            <TextField id="standard-basic" label="CPF" variant="standard" size='small' />
+                            <TextField id="standard-basic" label="Microchip" variant="standard" size='small' />
+                            <TextField id="standard-basic" label="Tutor" variant="standard" size='small' />
                         </div>
                         <div className="search-button">
                             <Button className='button' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>

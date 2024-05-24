@@ -26,19 +26,19 @@ export const Usuarios = () => {
     const [nameFilter, setNameFilter] = useState('');
     const [currentPage, setCurrentPagination] = useState(0);
     const [totalUsers, setTotalUsers] = useState(0);
-    const [filterUser, setFilterUser] = useState<filterProps>({ name: '', email: '' });
+    const [filterUser, setFilterUser] = useState(Object);
     const [totalPageLastClick, setTotalPageLastClick] = useState(0);
     const [disableButtonNext, setDisableButtonNext] = useState(false);
     const [disableButtonBack, setDisableButtonBack] = useState(false);
     const [msg, setMsg] = useState('');
 
     useEffect(() => {
+        console.log('aqui')
         getUsers(filterUser, currentPage);
         const pagesNumbers = Math.ceil(totalUsers / 5);
         if (pagesNumbers - 1 === totalPageLastClick) setDisableButtonNext(true);
         if (totalPageLastClick === 0) setDisableButtonBack(true);
-
-    }, [users, filterUser, totalPageLastClick, totalUsers, currentPage]);
+    }, [filterUser, currentPage, totalPageLastClick, totalUsers]);
 
     const getUsers = async (filter: filterProps, currentPage: number) => {
         try {
@@ -128,8 +128,8 @@ export const Usuarios = () => {
                     <div className="box-filter-users">
                         <div className='fields-users'>
                             <div className="fields-filter">
-                                <TextField focused={false} value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} color='primary' style={{ marginLeft: 20 }} id="outlined-basic" label="Nome" variant="outlined" size='small' />
-                                <TextField focused={false} value={emailFilter} onChange={(e) => setEmailFilter(e.target.value)} color='primary' id="outlined-basic" label="Email" variant="outlined" size='small' />
+                                <TextField value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} style={{ marginLeft: 20 }} id="outlined-basic" label="Nome" variant="outlined" size='small' />
+                                <TextField value={emailFilter} onChange={(e) => setEmailFilter(e.target.value)} id="outlined-basic" label="Email" variant="outlined" size='small' />
                             </div>
                             <div className="search-button-users">
                                 <Button size='small' onClick={(e) => applyFilter(e)} className='button-filter-users' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>

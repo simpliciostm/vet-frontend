@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 import api from '../../api';
 import { ShowAlert } from '../ShowAlertComponent';
-
+import CircularProgress from '@mui/material/CircularProgress';
 interface props {
     operation: string;
     id?: string;
@@ -24,14 +24,13 @@ export const UserFormComponent = (props: props) => {
     const [password, setPassword] = useState('');
     const [permissions, setPermissions] = useState([]);
     const [name_permission, setNamePermission] = useState('');
-    const [closeModal, setCloseModal] = useState(false);
     const [statusPromise, setStatusPromise] = useState(true);
     const [msg, setMsg] = useState('');
     const [statusAlert, setStatusAlert] = useState('');
-    const [validateNameField, setValidateNameField] = useState(false);
     const [validateEmailField, setValidateEmailField] = useState(false);
     const [validatePasswordField, setValidatePasswordField] = useState(false);
     const [validatePermissionField, setValidatePermissiondField] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
 
@@ -79,10 +78,6 @@ export const UserFormComponent = (props: props) => {
         }
     }
 
-    const close = (e: any) => {
-        !closeModal ? setCloseModal(true) : setCloseModal(false);
-    }
-
     const registerOurUpdate = async (e: any, operation: string) => {
         try {
             e.preventDefault();
@@ -111,12 +106,14 @@ export const UserFormComponent = (props: props) => {
                 if (result.data) {
                     switch (result.data.status) {
                         case 1:
+                            setLoading(true);
                             setStatusPromise(true);
                             setMsg(result.data.msg);
                             setStatusAlert('success');
                             timerUpdate();
                             break;
                         case 0:
+                            setLoading(true);
                             setStatusPromise(true);
                             setMsg(result.data.msg);
                             setStatusAlert('error');
@@ -132,7 +129,6 @@ export const UserFormComponent = (props: props) => {
     }
 
     const validateErrors = (): boolean => {
-        name ? setValidateNameField(false) : setValidateNameField(true);
         email ? setValidateEmailField(false) : setValidateEmailField(true);
         password ? setValidatePasswordField(false) : setValidatePasswordField(true);
         name_permission ? setValidatePermissiondField(false) : setValidatePermissiondField(true);
@@ -149,9 +145,11 @@ export const UserFormComponent = (props: props) => {
 
     const timerUpdate = () => {
         setTimeout(() => {
+            setLoading(false);
             setStatusPromise(false);
-            setCloseModal(true);
-        }, 1200)
+            window.location.href = '/dashboard/admin/users';
+            props.onClose();
+        }, 1400)
     }
 
     return (
@@ -170,17 +168,17 @@ export const UserFormComponent = (props: props) => {
                     </Typography>
                 </div>
                 <div className="field-input">
-                    <TextField error={validateNameField} focused={false} onChange={(e) => setName(e.target.value)} label='Nome' type='text' size='small' value={name} disabled={props.operation === 'view' ? true : false} />
+                    <TextField onChange={(e) => setName(e.target.value)} label='Nome' type='text' size='small' value={name} disabled={props.operation === 'view' ? true : false} />
                 </div>
                 <div className="field-input">
-                    <TextField error={validateEmailField} focused={false} onChange={(e) => setEmail(e.target.value)} label='Email' type='email' required size='small' value={email} disabled={props.operation === 'view' ? true : false} />
+                    <TextField error={validateEmailField} onChange={(e) => setEmail(e.target.value)} label='Email' type='email' required size='small' value={email} disabled={props.operation === 'view' ? true : false} />
                 </div>
                 <div id='field-input-password' className="field-input">
-                    <TextField error={validatePasswordField} focused={false} value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" label="Password" variant="outlined" type="password" size='small' required disabled={props.operation === 'view' ? true : false} />
+                    <TextField error={validatePasswordField} value={password} onChange={(e) => setPassword(e.target.value)} id="outlined-basic" label="Password" variant="outlined" type="password" size='small' required disabled={props.operation === 'view' ? true : false} />
                 </div>
                 <div className="field-input">
                     <FormControl>
-                        <InputLabel error={validatePermissionField} focused={false} required color='primary' id="demo-simple-select-label">Permissão</InputLabel>
+                        <InputLabel error={validatePermissionField} required id="demo-simple-select-label">Permissão</InputLabel>
                         <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
@@ -204,7 +202,7 @@ export const UserFormComponent = (props: props) => {
                 {props.operation === 'register' || props.operation === 'update' ? (
                     <div className="button-field">
                         <Button onClick={props.onClose} className='button-cancel' sx={{ width: '150px' }} variant="contained">Cancelar</Button>
-                        <Button onClick={(e) => registerOurUpdate(e, props.operation)} className='button-save' sx={{ width: '100px' }} variant="contained">Salvar</Button>
+                        <Button onClick={(e) => registerOurUpdate(e, props.operation)} className='button-save' sx={{ width: '100px' }} variant="contained">{loading ? <CircularProgress color='secondary' size={28} /> : 'Salvar'}</Button>
                     </div>
                 ) : (
                     <div className="button-field">

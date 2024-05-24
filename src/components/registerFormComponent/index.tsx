@@ -20,11 +20,11 @@ export const RegisterFormCompnent = () => {
                 </div>
                 <form>
                     <div className="field">
-                        <TextField color='success' style={{ width: '400px' }} variant="outlined" size='small' label='Espécie' />
+                        <TextField style={{ width: '400px' }} variant="outlined" size='small' label='Espécie' />
                     </div>
                     <div className="field">
                         <FormControl fullWidth>
-                            <InputLabel color='success' id="demo-simple-select-label">Sexo</InputLabel>
+                            <InputLabel id="demo-simple-select-label">Sexo</InputLabel>
                             <Select
                                 labelId="demo-simple-select-label"
                                 id="demo-simple-select"
@@ -32,7 +32,6 @@ export const RegisterFormCompnent = () => {
                                 label="Sexo"
                                 onChange={() => { }}
                                 style={{ width: '400px', height: '40px' }}
-                                color='success'
                             >
                                 <MenuItem value={10}>M</MenuItem>
                                 <MenuItem value={20}>F</MenuItem>
@@ -40,17 +39,17 @@ export const RegisterFormCompnent = () => {
                         </FormControl>
                     </div>
                     <div className="field">
-                        <TextField style={{ width: '400px' }} color='success' variant="outlined" size='small' label='Nome' />
+                        <TextField style={{ width: '400px' }} variant="outlined" size='small' label='Nome' />
                     </div>
                     <div className="field">
-                        <TextField style={{ width: '400px' }} color='success' variant="outlined" size='small' label='Cor' />
+                        <TextField style={{ width: '400px' }} variant="outlined" size='small' label='Cor' />
                     </div>
                     <div className="field">
                         <FormControl fullWidth>
-                            <InputLabel color='success' id="demo-simple-select-label">Peso</InputLabel>
+                            <InputLabel id="demo-simple-select-label">Peso</InputLabel>
                             <OutlinedInput
                                 sx={{ width: '400px' }}
-                                color='success'
+
                                 id="outlined-adornment-weight"
                                 label='Peso'
                                 endAdornment={<InputAdornment position="end">kg</InputAdornment>}
@@ -63,15 +62,15 @@ export const RegisterFormCompnent = () => {
                         </FormControl>
                     </div>
                     <div className="field">
-                        <TextField style={{ width: '400px' }} color='success' variant="outlined" size='small' label='MicroChip' />
+                        <TextField style={{ width: '400px' }} variant="outlined" size='small' label='MicroChip' />
                     </div>
                     <div className="field">
-                        <TextField style={{ width: '400px' }} color='success' variant="outlined" size='small' label='Intercorrência' />
+                        <TextField style={{ width: '400px' }} variant="outlined" size='small' label='Intercorrência' />
                     </div>
                     <div className="field">
                         <TextField
-                            style={{ width: '400px' }}                            
-                             size='small'
+                            style={{ width: '400px' }}
+                            size='small'
                             id="date"
                             label="Data"
                             type="date"
@@ -83,22 +82,22 @@ export const RegisterFormCompnent = () => {
                         />
                     </div>
                     <div className="field">
-                        <TextField style={{ width: '400px' }} sx={{ width: '220px' }} color='success' variant="outlined" size='small' label='Nome Tutor' />
+                        <TextField style={{ width: '400px' }} sx={{ width: '220px' }} variant="outlined" size='small' label='Nome Tutor' />
                     </div>
                     <div className="field">
-                        <TextField style={{ width: '400px' }} sx={{ width: '220px' }} color='success' variant="outlined" size='small' label='CPF' />
+                        <TextField style={{ width: '400px' }} sx={{ width: '220px' }} variant="outlined" size='small' label='CPF' />
                     </div>
                     <div className="field">
-                        <TextField style={{ width: '400px' }} sx={{ width: '220px' }} color='success' variant="outlined" size='small' label='Telefone' />
+                        <TextField style={{ width: '400px' }} sx={{ width: '220px' }} variant="outlined" size='small' label='Telefone' />
                     </div>
                     <div className="field">
-                        <TextField style={{ width: '400px' }} sx={{ width: '220px' }} color='success' variant="outlined" size='small' label='Cidade' />
+                        <TextField style={{ width: '400px' }} sx={{ width: '220px' }} variant="outlined" size='small' label='Cidade' />
                     </div>
                     <div className="field">
-                        <TextField style={{ width: '400px' }} sx={{ width: '260px' }} color='success' variant="outlined" size='small' label='Endereço' />
+                        <TextField style={{ width: '400px' }} sx={{ width: '260px' }} variant="outlined" size='small' label='Endereço' />
                     </div>
                     <div className="field">
-                        <TextField style={{ width: '400px' }} sx={{ width: '250px' }} color='success' variant="outlined" size='small' label='Bairro' />
+                        <TextField style={{ width: '400px' }} sx={{ width: '250px' }} variant="outlined" size='small' label='Bairro' />
                     </div>
                 </form>
                 <div className="button-field">
