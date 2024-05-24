@@ -27,9 +27,6 @@ export const UserFormComponent = (props: props) => {
     const [statusPromise, setStatusPromise] = useState(true);
     const [msg, setMsg] = useState('');
     const [statusAlert, setStatusAlert] = useState('');
-    const [validateEmailField, setValidateEmailField] = useState(false);
-    const [validatePasswordField, setValidatePasswordField] = useState(false);
-    const [validatePermissionField, setValidatePermissiondField] = useState(false);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -81,60 +78,49 @@ export const UserFormComponent = (props: props) => {
     const registerOurUpdate = async (e: any, operation: string) => {
         try {
             e.preventDefault();
-            const isValidateErrors = validateErrors();
             let result: any;
 
-            if (isValidateErrors) {
-                if (operation === 'register') {
-                    result = await api.post('/userInsert', {
-                        name: name,
-                        email: email,
-                        password: password,
-                        permissions: name_permission
-                    });
+            if (operation === 'register') {
+                result = await api.post('/userInsert', {
+                    name: name,
+                    email: email,
+                    password: password,
+                    permissions: name_permission
+                });
+            }
+
+            if (operation === 'update') {
+                result = await api.put(`/userUpdate/${props.id}`, {
+                    name: name,
+                    email: email,
+                    password: password,
+                    permissions: name_permission
+                });
+            }
+
+            if (result.data) {
+                switch (result.data.status) {
+                    case 1:
+                        setLoading(true);
+                        setStatusPromise(true);
+                        setMsg(result.data.msg);
+                        setStatusAlert('success');
+                        timerUpdate();
+                        break;
+                    case 0:
+                        setLoading(true);
+                        setStatusPromise(true);
+                        setMsg(result.data.msg);
+                        setStatusAlert('error');
+                        timer();
+                        break;
                 }
 
-                if (operation === 'update') {
-                    result = await api.put(`/userUpdate/${props.id}`, {
-                        name: name,
-                        email: email,
-                        password: password,
-                        permissions: name_permission
-                    });
-                }
-
-                if (result.data) {
-                    switch (result.data.status) {
-                        case 1:
-                            setLoading(true);
-                            setStatusPromise(true);
-                            setMsg(result.data.msg);
-                            setStatusAlert('success');
-                            timerUpdate();
-                            break;
-                        case 0:
-                            setLoading(true);
-                            setStatusPromise(true);
-                            setMsg(result.data.msg);
-                            setStatusAlert('error');
-                            timer();
-                            break;
-                    }
-                }
             }
 
         } catch (err) {
             console.log(err);
         }
-    }
-
-    const validateErrors = (): boolean => {
-        email ? setValidateEmailField(false) : setValidateEmailField(true);
-        password ? setValidatePasswordField(false) : setValidatePasswordField(true);
-        name_permission ? setValidatePermissiondField(false) : setValidatePermissiondField(true);
-
-        if (name || email || password || name_permission) return true
-        else return false
     }
 
     const timer = () => {
@@ -154,7 +140,7 @@ export const UserFormComponent = (props: props) => {
 
     return (
         <div className='container-user-form'>
-            <form className='modal-user-form' action="">
+            <form className='modal-user-form' action="" onSubmit={(e) => registerOurUpdate(e, props.operation)}>
                 <div className="title-user-form">
                     <Typography component={'span'} fontSize={22} fontWeight={'bold'} color={'#5b1c30'} >
                         {props.operation === 'register' ? "Formulario de Usuário" : null}
@@ -171,14 +157,14 @@ export const UserFormComponent = (props: props) => {
                     <TextField onChange={(e) => setName(e.target.value)} label='Nome' type='text' size='small' value={name} disabled={props.operation === 'view' ? true : false} />
                 </div>
                 <div className="field-input">
-                    <TextField error={validateEmailField} onChange={(e) => setEmail(e.target.value)} label='Email' type='email' required size='small' value={email} disabled={props.operation === 'view' ? true : false} />
+                    <TextField  onChange={(e) => setEmail(e.target.value)} label='Email' type='email' required={true} size='small' value={email} disabled={props.operation === 'view' ? true : false} />
                 </div>
                 <div className="field-input">
-                    <TextField error={validatePasswordField} value={password} onChange={(e) => setPassword(e.target.value)} label="Password" variant="outlined" type="password" size='small' required disabled={props.operation === 'view' ? true : false} />
+                    <TextField  value={password} onChange={(e) => setPassword(e.target.value)} label="Password" variant="outlined" type="password" size='small' required disabled={props.operation === 'view' ? true : false} />
                 </div>
                 <div className="field-input">
                     <FormControl>
-                        <InputLabel error={validatePermissionField} required >Permissão</InputLabel>
+                        <InputLabel required >Permissão</InputLabel>
                         <Select
                             value={name_permission}
                             label="Permissão"
@@ -188,7 +174,6 @@ export const UserFormComponent = (props: props) => {
                             defaultValue=''
                             required
                             disabled={props.operation === 'view' ? true : false}
-                            error={validatePermissionField}
                         >
                             {permissions.length >= 1 ? permissions.map((per: any) => (
                                 <MenuItem key={per._id} value={per._id}>{per.name_permission}</MenuItem>
@@ -200,7 +185,7 @@ export const UserFormComponent = (props: props) => {
                 {props.operation === 'register' || props.operation === 'update' ? (
                     <div className="button-field">
                         <Button onClick={props.onClose} className='button-cancel' sx={{ width: '150px' }} variant="contained">Cancelar</Button>
-                        <Button onClick={(e) => registerOurUpdate(e, props.operation)} className='button-save' sx={{ width: '100px' }} variant="contained">{loading ? <CircularProgress color='secondary' size={28} /> : 'Salvar'}</Button>
+                        <Button type='submit' className='button-save' sx={{ width: '100px' }} variant="contained">{loading ? <CircularProgress color='secondary' size={28} /> : 'Salvar'}</Button>
                     </div>
                 ) : (
                     <div className="button-field">
