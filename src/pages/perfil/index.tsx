@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import api from '../../api';
 import { ShowAlert } from '../../components/ShowAlertComponent';
-import { getStorage, setStorage } from '../../services/localStorage';
+import { getStorage } from '../../services/localStorage';
 
 export const Perfil = () => {
     const [idUser, setIdUser] = useState('');
@@ -118,13 +118,13 @@ export const Perfil = () => {
                 <div className="container-perfil">
                     <form action="">
                         <div className="field-perfil">
-                            <TextField focused={false} onChange={(e) => setName(e.target.value)} value={name} type='text' variant='outlined' label='nome' color='success' ></TextField>
+                            <TextField onChange={(e) => setName(e.target.value)} value={name} type='text' variant='outlined' label='nome' ></TextField>
                         </div>
                         <div className="field-perfil">
-                            <TextField focused={false} onChange={(e) => setEmail(e.target.value)} value={email} type='email' variant='outlined' label='email' color='success' ></TextField>
+                            <TextField onChange={(e) => setEmail(e.target.value)} value={email} type='email' variant='outlined' label='email' ></TextField>
                         </div>
                         <div id='field-password' className="field-perfil">
-                            <TextField focused={false} onChange={(e) => setPassword(e.target.value)} value={password} className='password-box' color='success' id="outlined-basic" label="Password" variant="outlined" type={showPassword ? "password" : "text"} size='medium' />
+                            <TextField onChange={(e) => setPassword(e.target.value)} value={password} className='password-box' id="outlined-basic" label="Password" variant="outlined" type={showPassword ? "password" : "text"} size='medium' />
                             {showPassword ? (
                                 <i onClick={() => setShowPassword(false)} id='eye' className="bi bi-eye-fill"></i>
                             ) : (
@@ -133,7 +133,7 @@ export const Perfil = () => {
                         </div>
                         <div className="field-perfil">
                             <FormControl fullWidth>
-                                <InputLabel focused={false} color='success' id="demo-simple-select-label">Permissão</InputLabel>
+                                <InputLabel id="demo-simple-select-label">Permissão</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"

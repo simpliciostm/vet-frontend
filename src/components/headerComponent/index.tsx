@@ -84,6 +84,14 @@ export const Header = () => {
                             <LogoutIcon fontSize={'small'} /><Typography fontFamily={'sans-serif'} fontSize={14} fontWeight={700}>Sair</Typography>
                         </li>
                     </ul>
+                    <div className="version">
+                        <div className="background-version" style={{ backgroundColor: 'green' }} >
+                            <Typography fontSize={12} fontFamily={'sans-serif'} fontWeight={'bold'} component={'span'} >Dev</Typography>
+                        </div>
+                        <div className="number-version">
+                            <Typography fontSize={12} fontFamily={'sans-serif'} fontWeight={'bold'} component={'span'} >1.0</Typography>
+                        </div>
+                    </div>
                 </nav>
             </div>
 
@@ -116,6 +124,14 @@ export const Header = () => {
                                     <LogoutIcon fontSize={'small'} /><Typography fontFamily={'sans-serif'} fontSize={14} fontWeight={700}></Typography>
                                 </li>
                             </ul>
+                            <div className="version">
+                                <div className="background-version" style={{ backgroundColor: '#54eb61' }} >
+                                    <Typography fontSize={12} fontFamily={'sans-serif'} fontWeight={'bold'} component={'span'} >Dev</Typography>
+                                </div>
+                                <div className="number-version">
+                                    <Typography fontSize={12} fontFamily={'sans-serif'} fontWeight={'bold'} component={'span'} >1.0</Typography>
+                                </div>
+                            </div>
                         </nav>
                     </div>
                 ) : null

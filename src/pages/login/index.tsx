@@ -4,7 +4,7 @@ import api from '../../api';
 import { ShowAlert } from '../../components/ShowAlertComponent';
 import { setStorage } from '../../services/localStorage';
 import './style.css'
-import { Button, TextField } from '@mui/material';
+import { Button, CircularProgress, TextField } from '@mui/material';
 import img from '../../assets/images/logo.jpeg'
 
 export const Login = () => {
@@ -16,6 +16,7 @@ export const Login = () => {
     const [showPassword, setShowPassword] = useState(true);
     const [inputErrorEmail, setInputErrorEmail] = useState(false);
     const [inputErrorPassword, setInputErrorPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const getPassword = (password: string) => {
         setPassword(password);
@@ -36,27 +37,37 @@ export const Login = () => {
             });
 
             if (response.data.status === 0) {
+                timerError();
+                setLoading(true);
                 setAlert(true);
                 setStatus('error');
                 setMsg(response.data.msg);
-                timer();
             } else if (response.data.status === 1) {
+                setLoading(true);
                 setAlert(true);
                 setStatus('success');
                 setMsg(response.data.msg);
-                timer();
+                timerSuccess();
                 setStorage('token', response.data.token);
                 setStorage('id', response.data.idUser);
                 setStorage('auth', response.data.auth);
-                window.location.href = '/dashboard/home';
             }
         }
     }
 
-    const timer = () => {
+    const timerSuccess = () => {
         setTimeout(() => {
-            setAlert(false)
+            setLoading(false);
+            setAlert(false);
+            window.location.href = '/dashboard/home';
         }, 3000)
+    }
+
+    const timerError = () => {
+        setTimeout(() => {
+            setLoading(false);
+            setAlert(false);
+        }, 900)
     }
 
     const validateErrors = (): boolean => {
@@ -86,7 +97,7 @@ export const Login = () => {
                         </div>
                     </div>
                     <div className='button-fields'>
-                        <Button className='button' onClick={(e) => login(e)} sx={{ width: '200px' }} variant='contained' >Entrar</Button>
+                        <Button className='button' onClick={(e) => login(e)} sx={{ width: '200px' }} variant='contained' >{loading ? <CircularProgress color='secondary' size={28} /> : 'Entrar'}</Button>
                     </div>
                 </form>
             </div>

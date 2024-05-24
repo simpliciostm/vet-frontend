@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './style.css';
-import { Button, Typography } from '@mui/material';
+import { Button, CircularProgress, Typography } from '@mui/material';
 import api from '../../api';
 import { ShowAlert } from '../ShowAlertComponent';
 
@@ -11,10 +11,10 @@ interface confirmComponentProps {
 }
 
 export const DeleteConfirmComponent = (props: confirmComponentProps) => {
-    const [closeModal, setCloseModal] = useState(false);
     const [statusPromise, setStatusPromise] = useState(true);
     const [msg, setMsg] = useState('');
     const [statusAlert, setStatusAlert] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const deleteRegister = async () => {
         const { data } = await api.delete(`/userDelete/${props.id}`);
@@ -22,6 +22,7 @@ export const DeleteConfirmComponent = (props: confirmComponentProps) => {
         if (data) {
             switch (data.status) {
                 case 1:
+                    setLoading(true);
                     setStatusPromise(true);
                     setMsg(data.msg);
                     setStatusAlert('success');
@@ -38,8 +39,10 @@ export const DeleteConfirmComponent = (props: confirmComponentProps) => {
 
     const timer = () => {
         setTimeout(() => {
+            setLoading(false);
             setStatusPromise(false);
-            setCloseModal(true);
+            window.location.href = '/dashboard/admin/users';
+            props.onClose();
         }, 1200)
     }
 
@@ -54,7 +57,7 @@ export const DeleteConfirmComponent = (props: confirmComponentProps) => {
                 </div>
                 <div className="buttons-delete">
                     <Button onClick={props.onClose} size='medium' color='error' variant='outlined' >Cancelar</Button>
-                    <Button onClick={() => deleteRegister()} size='medium' color='success' variant='outlined' >Sim</Button>
+                    <Button onClick={() => deleteRegister()} size='medium' color='success' variant='outlined' >{loading ? <CircularProgress color='success' size={28} /> : 'Sim'}</Button>
                 </div>
             </div>
             {statusPromise ? <ShowAlert msg={msg} status={statusAlert} /> : null}

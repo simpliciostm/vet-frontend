@@ -45,7 +45,7 @@ export const Permission = () => {
                 </div>
                 {permissions.map((row: any) => (
                     <div className='field-permissions'>
-                        <TextField label='Tipo de usuário' color='success' size='small' value={row.name_permission} />
+                        <TextField label='Tipo de usuário' size='small' value={row.name_permission} />
                         <Autocomplete
                             size='small'
                             multiple
@@ -59,7 +59,6 @@ export const Permission = () => {
                                     {...params}
                                     variant="outlined"
                                     label="Tipos de Regras"
-                                    color='success'
                                 />
                             )}
                         />
