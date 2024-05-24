@@ -6,14 +6,14 @@
     justify-content: center;
     align-items: center;
     position: relative;
+    overflow: hidden;
 }
 
 .modal {
     width: 370px;
-    height: 500px;
-    min-height: 350px;
+    height: 460px;
     background-color: white;
-    border-radius: 7px;
+    border-radius: 3px;
     box-shadow: 2px 3px 3px 3px rgba(0, 0, 0, 0.1);
     animation: animaModal 0.3s forwards;
     padding: 40px;
@@ -31,6 +31,10 @@
 
 .modal form .box-input {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130px;
+    display: flex;
     gap: 15px;
     flex-direction: column;
 }
@@ -38,6 +42,7 @@
 .modal form .box-input .text-field {
     border-color: red;
     color: red;
+    position: relative;
 }
 
 .modal .box-img {
@@ -47,10 +52,21 @@
     align-items: center;
     font-size: 24px;
     font-family: sans-serif;
+    position: relative;
 }
 
 .modal .box-img img {
     width: 150px;
+}
+
+.modal .box-img::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .modal .box-img .title {
@@ -65,20 +81,12 @@
     position: relative;
 }
 
-.modal form .fields #eye {
-    position: absolute;
-    right: 35px;
-    font-size: 14px;
-    cursor: pointer;
-    color: rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
-}
-
-.modal form .fields #eye:hover {
-    color: rgba(0, 0, 0, 0.8);
+.modal form .button-fields {
+    width: 100%;
 }
 
 .modal form .button-fields button {
+    border-radius: 2px;
     background-color: var(--default-primary-color);
 }
 

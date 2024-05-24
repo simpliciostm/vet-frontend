@@ -5,7 +5,7 @@ import './style.css'
 import { Link } from 'react-router-dom';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import api from '../../api';
-import { ShowAlert } from '../../components/ShowAlertComponent';
+import { ShowAlert } from '../../components/showAlertComponent';
 import { getStorage } from '../../services/localStorage';
 
 export const Perfil = () => {
@@ -124,7 +124,7 @@ export const Perfil = () => {
                             <TextField onChange={(e) => setEmail(e.target.value)} value={email} type='email' variant='outlined' label='email' ></TextField>
                         </div>
                         <div id='field-password' className="field-perfil">
-                            <TextField onChange={(e) => setPassword(e.target.value)} value={password} className='password-box' id="outlined-basic" label="Password" variant="outlined" type={showPassword ? "password" : "text"} size='medium' />
+                            <TextField onChange={(e) => setPassword(e.target.value)} value={password} className='password-box' label="Password" variant="outlined" type={showPassword ? "password" : "text"} size='medium' />
                             {showPassword ? (
                                 <i onClick={() => setShowPassword(false)} id='eye' className="bi bi-eye-fill"></i>
                             ) : (
