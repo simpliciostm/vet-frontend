@@ -1,0 +1,65 @@
+.container-permission-form {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-permission-form .modal-permission-form {
+    width: 600px;
+    height: 270px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 7px;
+    overflow-y: auto;
+    gap: 20px;
+    animation: animaModal 0.3s forwards;
+}
+
+.container-permission-form .modal-permission-form .box-fields-permissions {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container-permission-form .modal-permission-form .box-buttons-permissions {
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.container-permission-form .modal-permission-form .box-buttons-permissions .button-cancel {
+    background-color: white;
+    color: var(--default-primary-color);
+    transition: all 0.3s ease;
+}
+
+.container-permission-form .modal-permission-form .box-buttons-permissions .button-cancel:hover {
+    background-color: var(--default-primary-color);
+    color: white;
+}
+
+.container-permission-form .modal-permission-form .box-buttons-permissions .button-save {
+    background-color: var(--default-primary-color);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.container-permission-form .modal-permission-form .box-buttons-permissions .button-save:hover {
+    background-color: white;
+    color: var(--default-primary-color);
+}

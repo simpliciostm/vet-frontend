@@ -10,14 +10,14 @@ interface confirmComponentProps {
     onClose: () => void;
 }
 
-export const DeleteConfirmComponent = (props: confirmComponentProps) => {
+export const DeletePermissionConfirmComponent = (props: confirmComponentProps) => {
     const [statusPromise, setStatusPromise] = useState(true);
     const [msg, setMsg] = useState('');
     const [statusAlert, setStatusAlert] = useState('');
     const [loading, setLoading] = useState(false);
 
     const deleteRegister = async () => {
-        const { data } = await api.delete(`/userDelete/${props.id}`);
+        const { data } = await api.delete(`/permissionDelete/${props.id}`);
 
         if (data) {
             switch (data.status) {
@@ -41,7 +41,7 @@ export const DeleteConfirmComponent = (props: confirmComponentProps) => {
         setTimeout(() => {
             setLoading(false);
             setStatusPromise(false);
-            window.location.href = '/dashboard/admin/users';
+            window.location.href = '/dashboard/admin/permission';
             props.onClose();
         }, 1200)
     }

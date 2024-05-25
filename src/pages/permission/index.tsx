@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/headerComponent';
 import { Link } from 'react-router-dom';
-import { Autocomplete, TextField, Typography } from '@mui/material';
+import { Button, TextField, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import api from '../../api';
 import './style.css';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { PermissionFormComponent } from '../../components/permissionFormComponent';
+import { DeletePermissionConfirmComponent } from '../../components/deletePermissionConfirmComponent';
 
 export const Permission = () => {
     const [permissions, setPermissions] = useState([]);
+    const [closeModal, setCloseModal] = useState(false);
+    const [idPermission, setIdPermission] = useState('');
+    const [deleteConfirm, setDeleteConfirm] = useState(false);
 
     useEffect(() => {
         const getPermissions = async () => {
@@ -16,18 +22,17 @@ export const Permission = () => {
                 setPermissions(response.data.data)
             }
         }
+
         getPermissions();
-    })
+    }, []);
 
-    const top100Films = [
-        { type: 'Editar', code: 1 },
-        { type: 'Inserir', code: 2 },
-        { type: 'Deletar', code: 3 },
-        { type: 'Vizualizar', code: 4 }
-      ];
+    const onCloseClick = () => setCloseModal(false);
 
-    const getPer = (e: any) => {
-        // console.log(e)
+    const closeDeletePermision = () => setDeleteConfirm(false);
+
+    const openDeleteConfirm = (id: string) => {
+        setIdPermission(id);
+        setDeleteConfirm(true);
     }
 
     return (
@@ -41,30 +46,31 @@ export const Permission = () => {
                 </div>
                 <div className="box-title">
                     <Typography className='title' component='span' fontSize={25} >Registro de Permissões</Typography>
-                    <Typography className='title' component='span' fontSize={15} >Aqui você pode <Typography component='span' color='green'>consultar</Typography> e <Typography component='span' color='green'>editar</Typography> as permissões do sistema</Typography>
+                    <Typography className='title' component='span' fontSize={15} >Aqui você pode <Typography component='span' color='#751b1b'>consultar</Typography> e <Typography component='span' color='#751b1b'>adicionar</Typography> permissões de usuários</Typography>
                 </div>
-                {permissions.map((row: any) => (
-                    <div className='field-permissions'>
-                        <TextField label='Tipo de usuário' size='small' value={row.name_permission} />
-                        <Autocomplete
-                            size='small'
-                            multiple
-                            id="tags-standard"
-                            options={top100Films}
-                            getOptionLabel={(option) => option.type}
-                            defaultValue={[top100Films[0]]}
-                            onChange={(e) => getPer(e.target)}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    variant="outlined"
-                                    label="Tipos de Regras"
-                                />
-                            )}
-                        />
-                    </div>
-                ))}
+                {
+                    permissions.map((permissions: any) => (
+                        <form key={permissions._id}>
+                            <div className="box-permissions">
+                                <TextField label='Tipo de Permissão' size='small' aria-readonly value={permissions.name_permission} />
+                                {
+                                    permissions.permissions.map((roles: any) => (
+                                        <TextField sx={{ width: '100px' }} key={roles._id} label='Regra' size='small' aria-readonly value={roles.name_role} />
+                                    ))
+                                }
+                            </div>
+                            <div className="buttons-permissions">
+                                <Button size='small' onClick={() => openDeleteConfirm(permissions._id)} ><DeleteIcon fontSize='small' htmlColor='#ff6360' /></Button>
+                            </div>
+                        </form>
+                    ))
+                }
+                <div className="button-add-permission">
+                    <Button onClick={() => setCloseModal(true)} >Adicionar nova permissão</Button>
+                </div>
             </div>
+            {deleteConfirm ? <DeletePermissionConfirmComponent msg='Tem certeza que deseja deletar essa permissão ?' id={idPermission} onClose={closeDeletePermision} /> : null}
+            {closeModal ? <PermissionFormComponent onClose={onCloseClick} /> : null}
         </div>
     )
 }
