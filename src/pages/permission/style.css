@@ -98,3 +98,18 @@
 .home-box .box-filter .filter {
     color: rgba(0, 0, 0, 0.8);
 }
+
+.home-box form {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+}
+
+.home-box form .box-permissions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}

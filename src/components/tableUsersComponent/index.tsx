@@ -9,7 +9,7 @@ import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { DeleteConfirmComponent } from '../deleteConfirmComponent';
+import { DeleteUserConfirmComponent } from '../deleteUserConfirmComponent';
 import { UserFormComponent } from '../userFormComponent';
 
 interface props {
@@ -112,7 +112,7 @@ export const TableUsersComponent = ({ data, columns }: props) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            {deleteConfirm ? <DeleteConfirmComponent msg='Tem certeza que deseja deletar esse usuário ?' id={idUser} onClose={closeModalConfirmDelete} /> : null}
+            {deleteConfirm ? <DeleteUserConfirmComponent msg='Tem certeza que deseja deletar esse usuário ?' id={idUser} onClose={closeModalConfirmDelete} /> : null}
             {openModalUpdate ? <UserFormComponent operation='update' id={idUser} name={user.name} email={user.email} password={user.password} permission={user.permissions} onClose={closeModalUpdate} /> : null}
             {openModalView ? <UserFormComponent operation='view' id={idUser} onClose={closeModalView} /> : null}
         </div>

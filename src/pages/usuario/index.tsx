@@ -64,7 +64,7 @@ export const Usuarios = () => {
     }
 
     const openAdd = () => {
-        !showAdd ? setShowAdd(true) : setShowAdd(false);
+        setShowAdd(true);
         setOperation('register');
     }
 
@@ -118,10 +118,7 @@ export const Usuarios = () => {
                     <Typography className='title' component='span' fontSize={15} >Aqui você pode <Typography component='span' color='#751b1b'>consultar</Typography> e <Typography component='span' color='#751b1b'>adicionar</Typography> registro de usuários</Typography>
                 </div>
                 <div className="box-add">
-                    <Typography component='span' fontSize={21}>Adicionar novo registro</Typography>
-                    <div onClick={() => openAdd()} className='circle-add'>
-                        <AddIcon />
-                    </div>
+                    <Button onClick={() => openAdd()} >Adicionar novo registro</Button>
                 </div>
                 <div className='box-data'>
                     <div className="box-filter-users">
