@@ -72,8 +72,8 @@ export const Login = () => {
                         <TextField required className='text-field' value={email} onChange={(e) => getEmail(e.target.value)} label="Email" variant="outlined" type='email' size='small' />
                         <TextField className='text-field' value={password} onChange={(e) => getPassword(e.target.value)} label="Password" variant="outlined" type='password' size='small' />
                     </div>
-                    <div className='button-fields'>
-                        <Button type='submit' className='button' fullWidth variant='contained' >{loading ? <CircularProgress color='secondary' size={28} /> : 'Entrar'}</Button>
+                    <div className='button-fields-login'>
+                        <Button type='submit' fullWidth variant='contained' >{loading ? <CircularProgress color='secondary' size={28} /> : 'Entrar'}</Button>
                     </div>
                 </form>
             </div>

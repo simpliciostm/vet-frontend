@@ -52,6 +52,19 @@
     color: rgba(0, 0, 0, 0.9);
 }
 
+.container-user-form .modal-user-form .button-fields-user {
+    display: flex;
+    gap: 20px;
+    height: 85px;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-user-form .modal-user-form .button-fields-user .button-cancel {
+    background-color: white;
+    color: var(--default-primary-color);
+}
+
 @keyframes animaModal {
     0% {
         transform: translateY(-120%);
