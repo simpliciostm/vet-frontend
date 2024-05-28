@@ -1,151 +1,153 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/headerComponent';
-import { TableComponent } from '../../components/tableCastroComponent'
 import { Button, TextField, Typography } from '@mui/material';
 import './style.css'
+import api from '../../api';
 import SearchIcon from '@mui/icons-material/Search';
-import AddIcon from '@mui/icons-material/Add';
-import { RegisterFormCompnent } from '../../components/registerFormComponent';
+import ClearIcon from '@mui/icons-material/Clear';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import { TableRegisterCadsComponent } from '../../components/tableCastroComponent';
+import { RegisterFormComponent } from '../../components/registerFormComponent';
+interface filterCadsProps {
+    name_tutor: string,
+    cpf: string
+}
 
 export const Register = () => {
+    const [cads, setCads] = useState([]);
+    const [columns, setColumns] = useState([]);
     const [showAdd, setShowAdd] = useState(false);
+    const [operation, setOperation] = useState('');
+    const [cpfRegisterFilter, setCpfRegisterFilter] = useState('');
+    const [tutorRegisterCadsFilter, setTutorRegisterCadFilter] = useState('');
+    const [currentPage, setCurrentPagination] = useState(0);
+    const [totalCads, setTotalCads] = useState(0);
+    const [filterCads, setFilterCads] = useState<filterCadsProps>(Object);
+    const [totalPageLastClick, setTotalPageLastClick] = useState(0);
+    const [disableButtonNext, setDisableButtonNext] = useState(false);
+    const [disableButtonBack, setDisableButtonBack] = useState(false);
+    const [msg, setMsg] = useState('');
 
-    const openAdd = () => {
-        !showAdd ? setShowAdd(true) : setShowAdd(false);
+    useEffect(() => {
+        getCads(filterCads, currentPage);
+        const pagesNumbers = Math.ceil(totalCads / 5);
+        if (pagesNumbers - 1 === totalPageLastClick) setDisableButtonNext(true);
+        if (totalPageLastClick === 0) setDisableButtonBack(true);
+    }, [filterCads, currentPage, totalPageLastClick, totalCads]);
+
+    const getCads = async (filter: filterCadsProps, currentPage: number) => {
+        try {
+            const { data } = await api.post(`/cadsList/${currentPage}/${5}`, {
+                filter
+            });
+
+            switch (data.status) {
+                case 1:
+                    setCads(data.data);
+                    setTotalCads(data.total);
+                    setColumns(data.columns);
+                    break;
+
+                case 0:
+                    setCads([]);
+                    setMsg(data.msg);
+                    break;
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
     }
 
-    const data = [
-        {
-            id: 1,
-            type: 'Félina',
-            sexy: 'M',
-            name: 'THÉO',
-            color: 'caramelo',
-            size: '4.9 KG',
-            microChip: '5455454554545',
-            inter: '',
-            dta: '12/04/2023',
-            fieldTutor: 'Thiago Teste',
-            cpf: '454.956.475-54',
-            phone: '(14)99653-5254',
-            address: 'Rua tal',
-            country: 'Bairro tal',
-        },
-        {
-            id: 2,
-            type: 'Félina',
-            sexy: 'M',
-            name: 'THÉO',
-            color: 'caramelo',
-            size: '4.9 KG',
-            microChip: '5455454554545',
-            inter: '',
-            dta: '12/04/2023',
-            fieldTutor: 'Thiago Teste',
-            cpf: '454.956.475-54',
-            phone: '(14)99653-5254',
-            address: 'Rua tal',
-            country: 'Bairro tal',
-        },
-        {
-            id: 3,
-            type: 'Félina',
-            sexy: 'M',
-            name: 'THÉO',
-            color: 'caramelo',
-            size: '4.9 KG',
-            microChip: '5455454554545',
-            inter: '',
-            dta: '12/04/2023',
-            fieldTutor: 'Thiago Teste',
-            cpf: '454.956.475-54',
-            phone: '(14)99653-5254',
-            address: 'Rua tal',
-            country: 'Bairro tal',
-        },
-        {
-            id: 4,
-            type: 'Félina',
-            sexy: 'M',
-            name: 'THÉO',
-            color: 'caramelo',
-            size: '4.9 KG',
-            microChip: '5455454554545',
-            inter: '',
-            dta: '12/04/2023',
-            fieldTutor: 'Thiago Teste',
-            cpf: '454.956.475-54',
-            phone: '(14)99653-5254',
-            address: 'Rua tal',
-            country: 'Bairro tal',
-        },
-        {
-            id: 5,
-            type: 'Félina',
-            sexy: 'M',
-            name: 'THÉO',
-            color: 'caramelo',
-            size: '4.9 KG',
-            microChip: '5455454554545',
-            inter: '',
-            dta: '12/04/2023',
-            fieldTutor: 'Thiago Teste',
-            cpf: '454.956.475-54',
-            phone: '(14)99653-5254',
-            address: 'Rua tal',
-            country: 'Bairro tal',
-        },
-    ]
+    const openAdd = () => {
+        setShowAdd(true);
+        setOperation('register');
+    }
 
-    const columns = [
-        'Número',
-        'Espécie',
-        'Sexo',
-        'Nome',
-        'Cor',
-        'Peso',
-        'Microship',
-        'Intercorrência',
-        'Data',
-        'Nome Tutor',
-        'CPF',
-        'Telefone',
-        'Endereço',
-        'Bairro',
-        'Acões',
-    ]
+    const clearFilter = async (e: any) => {
+        e.preventDefault();
+        setFilterCads({
+            name_tutor: '',
+            cpf: ''
+        });
+        setTutorRegisterCadFilter('');
+        setCpfRegisterFilter('');
+    }
+
+    const applyFilter = async (e: any) => {
+        e.preventDefault();
+        setFilterCads({
+            name_tutor: tutorRegisterCadsFilter,
+            cpf: cpfRegisterFilter
+        });
+    }
+
+    const nextPagination = async () => {
+        setTotalPageLastClick(totalPageLastClick + 1);
+        setCurrentPagination(currentPage + 5);
+        await getCads(filterCads, currentPage);
+        setDisableButtonBack(false);
+    }
+
+    const backPagination = async () => {
+        setTotalPageLastClick(totalPageLastClick - 1);
+        setCurrentPagination(currentPage - 5);
+        await getCads(filterCads, currentPage);
+        setDisableButtonNext(false)
+    }
+
+    const closeModal = () => {
+        setShowAdd(false);
+    }
 
     return (
-        <div className='container-register'>
+        <div>
             <Header />
-            <div className='register-box'>
+            <div className='cads-box'>
                 <div className="box-title">
-                    <Typography className='title' component='span' fontSize={25} >Registros de Castrações</Typography>
-                    <Typography className='title' component='span' fontSize={15} >Aqui você pode <Typography component='span' color='#751b1b'>consultar</Typography> e <Typography component='span' color='#751b1b'>adicionar</Typography> registro de castrações</Typography>
+                    <Typography className='title' component='span' fontSize={25} >Registros de Consultas</Typography>
+                    <Typography className='title' component='span' fontSize={15} >Aqui você pode <Typography component='span' color='#751b1b'>consultar</Typography> e <Typography component='span' color='#751b1b'>adicionar</Typography> consultas</Typography>
                 </div>
                 <div className="box-add">
-                    <Typography component='span' fontSize={21}>Adicionar novo registro</Typography>
-                    <div onClick={() => openAdd()} className='circle-add'>
-                        <AddIcon />
-                    </div>
+                    <Button onClick={() => openAdd()} >Adicionar nova consulta</Button>
                 </div>
-                <div className="box-filter">
-                    <div className='fields'>
-                        <div className="fields-filter">
-                            <TextField style={{ marginLeft: 20 }} id="standard-basic" label="Nome" variant="standard" size='small' />
-                            <TextField id="standard-basic" label="Espécie" variant="standard" size='small' />
-                            <TextField id="standard-basic" label="CPF" variant="standard" size='small' />
-                            <TextField id="standard-basic" label="Microchip" variant="standard" size='small' />
-                            <TextField id="standard-basic" label="Tutor" variant="standard" size='small' />
-                        </div>
-                        <div className="search-button">
-                            <Button className='button' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>
+                <div className='box-data'>
+                    <div className="box-filter-cads">
+                        <div className='fields-cads'>
+                            <div className="fields-filter">
+                                <TextField value={tutorRegisterCadsFilter} onChange={(e) => setTutorRegisterCadFilter(e.target.value)} style={{ marginLeft: 20 }} label="Tutor" variant="outlined" size='small' />
+                                <TextField value={cpfRegisterFilter} onChange={(e) => setCpfRegisterFilter(e.target.value)} label="CPF" variant="outlined" size='small' />
+                            </div>
+                            <div className="search-button-cads">
+                                <Button size='small' onClick={(e) => applyFilter(e)} className='button-filter-cads' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>
+                                <Button size='small' onClick={(e) => clearFilter(e)} className='button-remove-filter-cads' variant="contained" ><ClearIcon fontSize='small' /></Button>
+                            </div>
                         </div>
                     </div>
+                    {
+                        cads.length >= 1 ? (
+                            <>
+                                <TableRegisterCadsComponent data={cads} columns={columns} />
+                                <div className="table-cads-pagination">
+                                    <div className="table-cads-quantity">
+                                        <Typography component={'span'} fontFamily={'sans-serif'}>Qtd: {totalCads}</Typography>
+                                    </div>
+                                    <div className="table-cads-button">
+                                        <button className={disableButtonBack ? 'button-pagination-cads-disabled' : 'button-pagination-cads'} disabled={disableButtonBack} onClick={() => backPagination()} ><KeyboardArrowLeftIcon /></button>
+                                        <button className={disableButtonNext ? 'button-pagination-cads-disabled' : 'button-pagination-cads'} disabled={disableButtonNext} onClick={() => nextPagination()}><KeyboardArrowRightIcon /></button>
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <div>
+                                <Typography>{msg}</Typography>
+                            </div>
+                        )
+                    }
                 </div>
-                <TableComponent data={data} columns={columns} />
+                {showAdd ? <RegisterFormComponent operation={operation} onClose={closeModal} /> : null}
             </div>
-            {showAdd ? <RegisterFormCompnent /> : null}
         </div>
     )
 }

@@ -183,12 +183,12 @@ export const UserFormComponent = (props: props) => {
                     </FormControl>
                 </div>
                 {props.operation === 'register' || props.operation === 'update' ? (
-                    <div className="button-field">
+                    <div className="button-fields-user">
                         <Button onClick={props.onClose} className='button-cancel' sx={{ width: '150px' }} variant="contained">Cancelar</Button>
                         <Button type='submit' className='button-save' sx={{ width: '100px' }} variant="contained">{loading ? <CircularProgress color='secondary' size={28} /> : 'Salvar'}</Button>
                     </div>
                 ) : (
-                    <div className="button-field">
+                    <div className="button-fields-user">
                         <Button onClick={props.onClose} className='button-cancel' sx={{ width: '150px' }} variant="contained">Fechar</Button>
                     </div>
                 )}

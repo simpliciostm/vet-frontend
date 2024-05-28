@@ -47,19 +47,3 @@
     color: var(--default-primary-color);
     transition: all 0.3s ease;
 }
-
-.container-permission-form .modal-permission-form .box-buttons-permissions .button-cancel:hover {
-    background-color: var(--default-primary-color);
-    color: white;
-}
-
-.container-permission-form .modal-permission-form .box-buttons-permissions .button-save {
-    background-color: var(--default-primary-color);
-    color: white;
-    transition: all 0.3s ease;
-}
-
-.container-permission-form .modal-permission-form .box-buttons-permissions .button-save:hover {
-    background-color: white;
-    color: var(--default-primary-color);
-}

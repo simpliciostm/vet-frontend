@@ -42,7 +42,7 @@ export const Permission = () => {
                 <div className="box-link">
                     <Link className='link' to="/dashboard/admin"><Typography>Painel de Admin</Typography></Link>
                     <ArrowForwardIosIcon style={{ color: 'rgba(0,0,0,0.5)' }} fontSize='small' />
-                    <Link className='link' to="/dashboard/admin/perfil"><Typography>Permissões</Typography></Link>
+                    <Link className='link' to="/dashboard/admin/permission"><Typography>Permissões</Typography></Link>
                 </div>
                 <div className="box-title">
                     <Typography className='title' component='span' fontSize={25} >Registro de Permissões</Typography>

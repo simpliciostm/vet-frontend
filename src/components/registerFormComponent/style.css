@@ -1,77 +1,90 @@
-.register {
+.container-cads-form {
     width: 100%;
     height: 100vh;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.7);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 99;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.register-modal {
-    padding: 40px;
-    width: 500px;
-    height: 700px;
-    overflow-y: scroll;
+.container-cads-form .modal-cads-form {
+    width: 1100px;
+    height: 500px;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
     border-radius: 7px;
-    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.6);
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    animation: animaFormRegister 0.3s forwards;
+    overflow-y: auto;
+    gap: 20px;
+    animation: animaModal 0.3s forwards;
 }
 
-.register-modal form {
+.container-cads-form .modal-cads-form .title-cads-form {
+    height: 100px;
     display: flex;
-    width: 100%;
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
-    gap: 30px;
+}
+
+.container-cads-form .modal-cads-form #field-input-password {
+    position: relative;
+    display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.title-register .title {
-    display: flex;
-    flex-direction: column;
+.container-cads-form .modal-cads-form #field-input-password #eye {
+    position: absolute;
+    right: 20px;
+    color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-.button-field {
-    width: 100%;
+.container-cads-form .modal-cads-form #field-input-password #eye:hover {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+.box-form-inputs-fields {
     display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     gap: 20px;
-    margin-top: 30px;
 }
 
-.button-field .button-cancel {
-    background-color: white;
-    color: var(--default-primary-color);
-    transition: all 0.3s ease;
+.box-form-inputs-fields .box-fields-cads {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.button-field .button-cancel:hover {
-    background-color: var(--default-primary-color);
-    color: white;
+.modal-cads-form .button-fields-cads {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
 }
 
-.button-field .button-save {
-    background-color: var(--default-primary-color);
-    color: white;
-    transition: all 0.3s ease;
-}
-
-.button-field .button-save:hover {
+.modal-cads-form .button-fields-cads .button-cancel {
     background-color: white;
     color: var(--default-primary-color);
 }
 
-@keyframes animaFormRegister {
+@keyframes animaModal {
     0% {
-        opacity: 0;
+        transform: translateY(-120%);
     }
 
     100% {
-        opacity: 1;
+        transform: translateY(1);
     }
 }
