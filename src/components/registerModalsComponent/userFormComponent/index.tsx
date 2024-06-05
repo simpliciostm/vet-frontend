@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './style.css';
 import TextField from '@mui/material/TextField';
 import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
-import api from '../../api';
-import { ShowAlert } from '../showAlertComponent';
+import api from '../../../api';
+import { ShowAlert } from '../../showAlertComponent';
 import CircularProgress from '@mui/material/CircularProgress';
 interface props {
     operation: string;

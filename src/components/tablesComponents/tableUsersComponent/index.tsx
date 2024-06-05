@@ -9,8 +9,8 @@ import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { DeleteUserConfirmComponent } from '../deleteUserConfirmComponent';
-import { UserFormComponent } from '../userFormComponent';
+import { DeleteUserConfirmComponent } from '../../deleteComponent/deleteUserConfirmComponent';
+import { UserFormComponent } from '../../registerModalsComponent/userFormComponent';
 
 interface props {
     data: {

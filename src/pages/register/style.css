@@ -159,6 +159,16 @@
     gap: 20px;
 }
 
+.search-button-cads .button-export-cads {
+    background-color: var(--default-primary-color);
+    transition: all 0.3s ease;
+}
+
+.search-button-cads .button-export-cads:hover {
+    background-color: white;
+    color: var(--default-primary-color);
+}
+
 .search-button-cads .button-filter-cads {
     background-color: var(--default-primary-color);
     transition: all 0.3s ease;

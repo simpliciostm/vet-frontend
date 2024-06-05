@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './style.css';
 import { Button, CircularProgress, Typography } from '@mui/material';
-import api from '../../api';
-import { ShowAlert } from '../showAlertComponent';
+import api from '../../../api';
+import { ShowAlert } from '../../showAlertComponent';
 
 interface confirmComponentProps {
     msg: string;
@@ -10,14 +10,14 @@ interface confirmComponentProps {
     onClose: () => void;
 }
 
-export const DeletePermissionConfirmComponent = (props: confirmComponentProps) => {
+export const DeleteCadsConfirmComponent = (props: confirmComponentProps) => {
     const [statusPromise, setStatusPromise] = useState(true);
     const [msg, setMsg] = useState('');
     const [statusAlert, setStatusAlert] = useState('');
     const [loading, setLoading] = useState(false);
 
     const deleteRegister = async () => {
-        const { data } = await api.delete(`/permissionDelete/${props.id}`);
+        const { data } = await api.delete(`/cadsDelete/${props.id}`);
 
         if (data) {
             switch (data.status) {
@@ -41,7 +41,7 @@ export const DeletePermissionConfirmComponent = (props: confirmComponentProps) =
         setTimeout(() => {
             setLoading(false);
             setStatusPromise(false);
-            window.location.href = '/dashboard/admin/permission';
+            window.location.href = '/dashboard/register';
             props.onClose();
         }, 1200)
     }

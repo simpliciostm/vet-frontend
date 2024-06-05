@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/headerComponent';
-import { TableUsersComponent } from '../../components/tableUsersComponent'
+import { TableUsersComponent } from '../../components/tablesComponents/tableUsersComponent'
 import { Button, TextField, Typography } from '@mui/material';
 import './style.css'
-import AddIcon from '@mui/icons-material/Add';
 import { Link } from 'react-router-dom';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import api from '../../api';
-import { UserFormComponent } from '../../components/userFormComponent';
+import { UserFormComponent } from '../../components/registerModalsComponent/userFormComponent';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';

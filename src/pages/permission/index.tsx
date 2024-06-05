@@ -6,8 +6,8 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import api from '../../api';
 import './style.css';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { PermissionFormComponent } from '../../components/permissionFormComponent';
-import { DeletePermissionConfirmComponent } from '../../components/deletePermissionConfirmComponent';
+import { PermissionFormComponent } from '../../components/registerModalsComponent/permissionFormComponent';
+import { DeletePermissionConfirmComponent } from '../../components/deleteComponent/deletePermissionConfirmComponent';
 
 export const Permission = () => {
     const [permissions, setPermissions] = useState([]);

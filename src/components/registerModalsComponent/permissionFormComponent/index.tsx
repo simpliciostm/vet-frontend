@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
 import { Autocomplete, TextField, Typography, Button, CircularProgress } from '@mui/material';
-import api from '../../api';
-import { ShowAlert } from '../showAlertComponent';
+import api from '../../../api';
+import { ShowAlert } from '../../showAlertComponent';
 
 interface PermissionsProps {
     onClose: () => void
