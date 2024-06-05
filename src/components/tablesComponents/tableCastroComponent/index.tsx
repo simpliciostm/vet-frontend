@@ -9,8 +9,9 @@ import Paper from '@mui/material/Paper';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-import { DeleteCadsConfirmComponent } from '../deleteCadsConfirmComponent';
-import { RegisterFormComponent } from '../registerFormComponent';
+import { DeleteCadsConfirmComponent } from '../../deleteComponent/deleteCadsConfirmComponent';
+import { RegisterFormComponent } from '../../registerModalsComponent/registerFormComponent';
+import moment from 'moment';
 
 interface props {
     data: {
@@ -22,13 +23,15 @@ interface props {
         size: string,
         chip: string,
         intercorrencia: string,
-        date: string,
+        createdAt: Date,
+        updatedAt: Date,
         name_tutor: string,
         cpf: string,
         phone: string,
         city: string,
         address: string,
-        district: string
+        district: string,
+        nis: string
     }[];
     columns: string[];
 }
@@ -42,13 +45,15 @@ interface cads {
     size: string,
     chip: string,
     intercorrencia: string,
-    date: string,
+    createdAt: Date,
+    updatedAt: Date,
     name_tutor: string,
     cpf: string,
     phone: string,
     city: string,
     address: string,
-    district: string
+    district: string,
+    nis: string
 }
 
 export const TableRegisterCadsComponent = ({ data, columns }: props) => {
@@ -90,13 +95,13 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
     }
 
     return (
-        <div style={{ width: '100%' }}>
+        <div>
             <TableContainer sx={{ border: '1px solid #751b1b', padding: '10px' }} component={Paper} >
-                <Table sx={{ maxWidth: '100%', padding: '7px', overflowX: 'auto' }} aria-label="simple table">
+                <Table sx={{ padding: '7px', overflowX: 'auto' }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
                             {columns.map((col: string) => (
-                                <TableCell style={{ color: '#751b1b', fontWeight: 'bold', textTransform: 'uppercase' }} key={col} align='left'>{col}</TableCell>
+                                <TableCell style={{ color: '#751b1b', fontWeight: 'bold', textTransform: 'uppercase' }} key={col} align='center'>{col}</TableCell>
                             ))}
                         </TableRow>
                     </TableHead>
@@ -107,20 +112,22 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
                                 sx={{ border: 0 }}
                                 hover
                             >
-                                <TableCell >{row.species}</TableCell>
-                                <TableCell >{row.sexy}</TableCell>
-                                <TableCell >{row.name}</TableCell>
-                                <TableCell >{row.color}</TableCell>
-                                <TableCell >{row.size}</TableCell>
-                                <TableCell >{row.chip}</TableCell>
-                                <TableCell >{row.intercorrencia}</TableCell>
-                                <TableCell >{row.date}</TableCell>
-                                <TableCell >{row.name_tutor}</TableCell>
-                                <TableCell >{row.cpf}</TableCell>
-                                <TableCell >{row.phone}</TableCell>
-                                <TableCell >{row.city}</TableCell>
-                                <TableCell >{row.address}</TableCell>
-                                <TableCell >{row.district}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.species}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }} >{row.sexy}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.name}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.color}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }} >{row.size + 'kg'}</TableCell>
+                                <TableCell sx={{ minWidth: "120px", textAlign: 'center' }} >{row.chip}</TableCell>
+                                <TableCell sx={{ minWidth: "180px", textAlign: 'center' }} >{row.nis}</TableCell>
+                                <TableCell sx={{ minWidth: "800px", textAlign: 'center' }} >{row.intercorrencia}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }} >{moment(row.createdAt).format("DD/MM/YYYY")}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }} >{moment(row.updatedAt).format("DD/MM/YYYY")}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.name_tutor}</TableCell>
+                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.cpf}</TableCell>
+                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.phone}</TableCell>
+                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.city}</TableCell>
+                                <TableCell sx={{ minWidth: "180px", textAlign: 'center' }} >{row.address}</TableCell>
+                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.district}</TableCell>
                                 <TableCell>
                                     <div id='buttons' style={{ display: 'flex', gap: '7px' }}>
                                         <button style={{ background: 'white', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openDeleteConfirm(e, row._id)}><DeleteIcon style={{ cursor: 'pointer' }} htmlColor='#ff6360' fontSize='small' /></button>
@@ -151,6 +158,7 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
                 sexy={user.sexy}
                 size={user.size}
                 species={user.species}
+                nis={user.nis}
                 onClose={closeModalUpdate} /> : null}
             {openModalView ? <RegisterFormComponent operation='view' id={idCads} onClose={closeModalView} /> : null}
         </div>

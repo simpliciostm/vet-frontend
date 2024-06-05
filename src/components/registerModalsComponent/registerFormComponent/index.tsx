@@ -1,35 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
 import TextField from '@mui/material/TextField';
-import { Button, FormControl, InputLabel, Typography } from '@mui/material';
-import api from '../../api';
-import { ShowAlert } from '../showAlertComponent';
+import { Button, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
+import api from '../../../api';
+import { ShowAlert } from '../../showAlertComponent';
 import CircularProgress from '@mui/material/CircularProgress';
-import { IMaskInput } from 'react-imask';
-import Input from '@mui/material/Input';
+import InputMask from 'react-input-mask';
+
 interface props {
-    id?: string,
-    species?: string,
-    sexy?: string,
-    name?: string,
-    color?: string,
-    size?: string,
-    chip?: string,
-    intercorrencia?: string,
-    date?: string,
-    name_tutor?: string,
-    cpf?: string,
-    phone?: string,
-    city?: string,
-    address?: string,
-    district?: string
+    id?: string;
+    species?: string;
+    sexy?: string;
+    name?: string;
+    color?: string;
+    size?: string;
+    chip?: string;
+    intercorrencia?: string;
+    date?: Date;
+    name_tutor?: string;
+    cpf?: string;
+    phone?: string;
+    city?: string;
+    address?: string;
+    district?: string;
+    nis?: string;
     onClose: () => void;
     operation: string;
-}
-
-interface CustomProps {
-    onChange: (event: { target: { name: string; value: string } }) => void;
-    name: string;
 }
 
 export const RegisterFormComponent = (props: props) => {
@@ -41,12 +37,12 @@ export const RegisterFormComponent = (props: props) => {
     const [size, setSize] = useState('');
     const [chip, setChip] = useState('');
     const [intercorrencia, setIntercorrencia] = useState('');
-    const [date, setDate] = useState('');
     const [cpf, setCpf] = useState('');
     const [phone, setPhone] = useState('');
     const [city, setCity] = useState('');
     const [address, setAddress] = useState('');
     const [district, setDistrict] = useState('');
+    const [nis, setNis] = useState('');
     const [statusPromise, setStatusPromise] = useState(true);
     const [msg, setMsg] = useState('');
     const [statusAlert, setStatusAlert] = useState('');
@@ -67,7 +63,7 @@ export const RegisterFormComponent = (props: props) => {
         if (props.size) setSize(props.size)
         if (props.chip) setChip(props.chip)
         if (props.intercorrencia) setIntercorrencia(props.intercorrencia)
-        if (props.date) setDate(props.date)
+        if (props.nis) setNis(props.nis);
 
         const getUser = async () => {
             try {
@@ -86,7 +82,7 @@ export const RegisterFormComponent = (props: props) => {
                     setSize(data.data.size)
                     setChip(data.data.chip)
                     setIntercorrencia(data.data.intercorrencia)
-                    setDate(data.data.date)
+                    setNis(data.data.nis)
                 }
             } catch (err) {
                 console.log(err);
@@ -110,7 +106,8 @@ export const RegisterFormComponent = (props: props) => {
         props.intercorrencia,
         props.date,
         props.operation,
-        props.id
+        props.id,
+        props.nis
     ]);
 
     const registerOurUpdate = async (e: any, operation: string) => {
@@ -132,18 +129,21 @@ export const RegisterFormComponent = (props: props) => {
                 size: size,
                 chip: chip,
                 intercorrencia: intercorrencia,
-                date: date
+                nis: nis
             }
 
             if (operation === 'register') {
                 result = await api.post('/cadsInsert', data);
             }
 
+            console.log(operation)
+
             if (operation === 'update') {
-                result = await api.put(`/userUpdate/${props.id}`, data);
+                result = await api.put(`/cadsUpdate/${props.id}`, data);
             }
 
             if (result.data) {
+                console.log(result)
                 switch (result.data.status) {
                     case 1:
                         setLoading(true);
@@ -183,42 +183,6 @@ export const RegisterFormComponent = (props: props) => {
         }, 1400)
     }
 
-    const TextMaskCustomPhone = React.forwardRef<HTMLInputElement, CustomProps>(
-        function TextMaskCustom(props, ref) {
-            const { onChange, ...other } = props;
-            return (
-                <IMaskInput
-                    {...other}
-                    mask="(00)00000-0000"
-                    definitions={{
-                        '#': /[1-9]/,
-                    }}
-                    inputRef={ref}
-                    onAccept={(value: any) => onChange({ target: { name: props.name, value } })}
-                    overwrite
-                />
-            );
-        },
-    );
-
-    const TextMaskCustomCpf = React.forwardRef<HTMLInputElement, CustomProps>(
-        function TextMaskCustom(props, ref) {
-            const { onChange, ...other } = props;
-            return (
-                <IMaskInput
-                    {...other}
-                    mask="000.000.000-00"
-                    definitions={{
-                        '#': /[1-9]/,
-                    }}
-                    inputRef={ref}
-                    onAccept={(value: any) => onChange({ target: { name: props.name, value } })}
-                    overwrite
-                />
-            );
-        },
-    );
-
     return (
         <div className='container-cads-form'>
             <form className='modal-cads-form' action="" onSubmit={(e: any) => registerOurUpdate(e, props.operation)}>
@@ -231,48 +195,76 @@ export const RegisterFormComponent = (props: props) => {
                     <Typography component={'span'} fontSize={16} >
                         {props.operation === 'register' ? "Preencha o formulário para adicionar um novo Registro" : null}
                         {props.operation === 'update' ? "Preencha o formulário para atualizar os dados do Registro" : null}
-                        {props.operation === 'view' ? "Aqui você pode ver os dados do Registro" : null}
+                        {props.operation === 'view' ? "Aqui você pode apenas vizualizar os dados do Registro" : null}
                     </Typography>
                 </div>
                 <div className="box-form-inputs-fields">
                     <div className="box-fields-cads">
-                        <TextField disabled={props.operation === 'view'} variant='standard' label='Espécie' size='small' sx={{ width: '130px' }} value={species} onChange={(e: any) => setSpecies(e.target.value)} />
-                        <TextField disabled={props.operation === 'view'} variant='standard' label='Sexo' size='small' sx={{ width: '130px' }} />
-                        <TextField disabled={props.operation === 'view'} variant='standard' label='Nome' size='small' sx={{ width: '130px' }} />
-                        <TextField disabled={props.operation === 'view'} variant='standard' label='Cor' size='small' sx={{ width: '130px' }} />
-                        <TextField disabled={props.operation === 'view'} variant='standard' label='Peso' size='small' sx={{ width: '130px' }} />
+                        <TextField disabled={props.operation === 'view'} variant='standard' label='Espécie' size='small' sx={{ width: '100px' }} value={species} onChange={(e: any) => setSpecies(e.target.value)} />
+                        <FormControl>
+                            <InputLabel id="demo-simple-select-label">Sexo</InputLabel>
+                            <Select
+                                disabled={props.operation === 'view'}
+                                sx={{ width: "100px" }}
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={sexy}
+                                label="Sexo"
+                                onChange={(e: any) => setSexy(e.target.value)}
+                                size='small'
+                                variant='standard'
+
+                            >
+                                <MenuItem value={"Macho"}>M</MenuItem>
+                                <MenuItem value={"Fêmea"}>F</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <TextField disabled={props.operation === 'view'} variant='standard' label='Nome' size='small' sx={{ width: '130px' }} value={name} onChange={(e: any) => setName(e.target.value)} />
+                        <TextField disabled={props.operation === 'view'} variant='standard' label='Cor' size='small' sx={{ width: '130px' }} value={color} onChange={(e: any) => setColor(e.target.value)} />
+                        <TextField disabled={props.operation === 'view'} variant='standard' label='Peso' type='number' size='small' sx={{ width: '130px' }} value={size} onChange={(e: any) => setSize(e.target.value)} />
                     </div>
                     <div className="box-fields-cads">
-                        <TextField disabled={props.operation === 'view'} variant='standard' label='Microship' size='small' sx={{ width: '180px' }} />
-                        <TextField disabled={props.operation === 'view'} variant='standard' label='Intercorrência' size='small' sx={{ width: '550px' }} />
-                        <TextField disabled={props.operation === 'view'} variant='standard' type='date' size='medium' sx={{ marginTop: '13px' }} />
+                        <TextField required inputProps={{ maxLength: 15 }} type='text' disabled={props.operation === 'view'} variant='standard' label='Microship' size='small' sx={{ width: '160px' }} value={chip} onChange={(e: any) => setChip(e.target.value)} />
+                        <TextField required disabled={props.operation === 'view'} variant='standard' label='Nis' size='small' sx={{ width: '120px' }} value={nis} onChange={(e: any) => setNis(e.target.value)} />
+                        <TextField disabled={props.operation === 'view'} variant='standard' label='Intercorrência' size='small' sx={{ width: '550px' }} value={intercorrencia} onChange={(e: any) => setIntercorrencia(e.target.value)} />
                     </div>
                     <div className="box-fields-cads">
-                        <TextField disabled={props.operation === 'view'} variant='standard' label='Nome Tutor' size='small' sx={{ width: '130px' }} />
-                        <FormControl variant='outlined' >
-                            <InputLabel htmlFor="formatted-text-mask-input">CPF</InputLabel>
-                            <Input
-                                disabled={props.operation === 'view'}
-                                size='small'
-                                name="textmask"
-                                id="formatted-text-mask-input"
-                                inputComponent={TextMaskCustomCpf as any}
-                            />
-                        </FormControl>
-                        <FormControl variant='outlined' >
-                            <InputLabel htmlFor="formatted-text-mask-input">Telefone</InputLabel>
-                            <Input
-                                disabled={props.operation === 'view'}
-                                onChange={(e) => setPhone(e.target.value)}
-                                size='small'
-                                name="textmask"
-                                id="formatted-text-mask-input"
-                                inputComponent={TextMaskCustomPhone as any}
-                            />
-                        </FormControl>
-                        <TextField disabled={props.operation === 'view'} variant='standard' label='Cidade' size='small' sx={{ width: '130px' }} />
-                        <TextField disabled={props.operation === 'view'} variant='standard' label='Endereço' size='small' sx={{ width: '130px' }} />
-                        <TextField disabled={props.operation === 'view'} variant='standard' label='Bairro' size='small' sx={{ width: '130px' }} />
+                        <TextField required disabled={props.operation === 'view'} variant='standard' label='Tutor' size='small' sx={{ width: '130px' }} value={name_tutor} onChange={(e: any) => setNameTutor(e.target.value)} />
+                        {props.operation === 'view' ? <InputMask
+                            disabled
+                            mask="999.999.999-99"
+                            maskChar=" "
+                            value={cpf}
+                            onChange={(e: any) => setCpf(e.target.value)}
+                            placeholder='CPF'
+                            style={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none', outline: 'none', fontSize: '15px', color: "rgba(0,0,0,0.4)" }} />
+                            : <InputMask
+                                mask="999.999.999-99"
+                                maskChar=" "
+                                required
+                                value={cpf}
+                                onChange={(e: any) => setCpf(e.target.value)}
+                                placeholder='CPF'
+                                style={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none', outline: 'none', fontSize: '15px', color: "rgba(0,0,0,0.9)" }} />}
+                        {props.operation === "view" ? <InputMask
+                            disabled
+                            mask="(99)99999-9999"
+                            maskChar=" "
+                            value={phone}
+                            onChange={(e: any) => setPhone(e.target.value)}
+                            placeholder='Telefone'
+                            style={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none', outline: 'none', fontSize: '15px', color: "rgba(0,0,0,0.4)" }} />
+                            : <InputMask
+                                mask="(99)99999-9999"
+                                maskChar=" "
+                                required={true}
+                                value={phone}
+                                onChange={(e: any) => setPhone(e.target.value)}
+                                placeholder='Telefone'
+                                style={{ borderTop: 'none', borderLeft: 'none', borderRight: 'none', outline: 'none', fontSize: '15px', color: "rgba(0,0,0,0.9)" }} />}
+                        <TextField required disabled={props.operation === 'view'} variant='standard' label='Cidade' size='small' sx={{ width: '130px' }} value={city} onChange={(e: any) => setCity(e.target.value)} />
+                        <TextField required disabled={props.operation === 'view'} variant='standard' label='Endereço' size='small' sx={{ width: '130px' }} value={address} onChange={(e: any) => setAddress(e.target.value)} />
+                        <TextField required disabled={props.operation === 'view'} variant='standard' label='Bairro' size='small' sx={{ width: '130px' }} value={district} onChange={(e: any) => setDistrict(e.target.value)} />
                     </div>
                 </div>
                 {props.operation === 'register' || props.operation === 'update' ? (

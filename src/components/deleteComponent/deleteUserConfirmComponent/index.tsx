@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './style.css';
 import { Button, CircularProgress, Typography } from '@mui/material';
-import api from '../../api';
-import { ShowAlert } from '../showAlertComponent';
+import api from '../../../api';
+import { ShowAlert } from '../../showAlertComponent';
 
 interface confirmComponentProps {
     msg: string;
