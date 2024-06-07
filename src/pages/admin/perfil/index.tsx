@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Header } from '../../components/headerComponent';
+import { Header } from '../../../components/headerComponent';
 import { Button, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import './style.css'
 import { Link } from 'react-router-dom';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import api from '../../api';
-import { ShowAlert } from '../../components/showAlertComponent';
-import { getStorage } from '../../services/localStorage';
+import api from '../../../api';
+import { ShowAlert } from '../../../components/showAlertComponent';
+import { getStorage } from '../../../services/localStorage';
 
 export const Perfil = () => {
     const [idUser, setIdUser] = useState('');

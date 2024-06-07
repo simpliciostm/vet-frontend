@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Header } from '../../components/headerComponent';
+import { Header } from '../../../components/headerComponent';
 import { Link } from 'react-router-dom';
 import { Button, TextField, Typography } from '@mui/material';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import api from '../../api';
+import api from '../../../api';
 import './style.css';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { PermissionFormComponent } from '../../components/registerModalsComponent/permissionFormComponent';
-import { DeletePermissionConfirmComponent } from '../../components/deleteComponent/deletePermissionConfirmComponent';
+import { PermissionFormComponent } from '../../../components/registerModalsComponent/permissionFormComponent';
+import { DeletePermissionConfirmComponent } from '../../../components/deleteComponent/deletePermissionConfirmComponent';
 
 export const Permission = () => {
     const [permissions, setPermissions] = useState([]);
