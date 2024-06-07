@@ -4,10 +4,11 @@ import { Login } from '../pages/login';
 import { Home } from '../pages/home';
 import { Register } from '../pages/register';
 import { Admin } from '../pages/admin';
-import { Usuarios } from '../pages/usuario';
-import { Perfil } from '../pages/perfil';
+import { Usuarios } from '../pages/admin/usuario';
+import { Perfil } from '../pages/admin/perfil';
 import { PrivateRoutes } from '../routes/privateRoutes';
-import { Permission } from '../pages/permission';
+import { Permission } from '../pages/admin/permission';
+import { City } from '../pages/admin/city';
 
 export const Routers = () => {
     return (
@@ -24,18 +25,11 @@ export const Routers = () => {
                         <Register />
                     </PrivateRoutes>
                 } />
-                <Router.Route path='/dashboard/admin' element={
-                    <Admin />
-                } />
-                <Router.Route path='/dashboard/admin/users' element={
-                    <Usuarios />
-                } />
-                <Router.Route path='/dashboard/admin/perfil' element={
-                    <Perfil />
-                } />
-                <Router.Route path='/dashboard/admin/permission' element={
-                    <Permission />
-                } />
+                <Router.Route path='/dashboard/admin' element={<Admin />} />
+                <Router.Route path='/dashboard/admin/users' element={<Usuarios />} />
+                <Router.Route path='/dashboard/admin/perfil' element={<Perfil />} />
+                <Router.Route path='/dashboard/admin/permission' element={<Permission />} />
+                <Router.Route path='/dashboard/admin/city' element={<City />} />
                 <Router.Route path='*' element={<Login />} />
             </Router.Routes>
         </Router.BrowserRouter>

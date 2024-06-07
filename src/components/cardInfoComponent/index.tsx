@@ -1,16 +1,20 @@
-import React, { InputHTMLAttributes } from 'react';
+import React, { ReactElement } from 'react';
 import './style.css';
 import { Typography } from '@mui/material';
 
 interface PropsComponent {
-    title: string
+    title: string;
+    total: number;
+    icon: ReactElement;
 }
 
-export const CardInfoComponent: React.FC<PropsComponent> = (props) => {
+export const CardInfoComponent = (props: PropsComponent) => {
     return (
-        <div className='box'>
-            <div className='total'><Typography component={'span'} fontSize={11}>{props.title}</Typography></div>
-        </div>
+        <div className='card'>
 
+            <Typography component='span'>{props.icon}</Typography>
+            <Typography component='span'>{props.title}</Typography>
+            <Typography component='span' fontWeight={'bold'} fontSize={21} >{props.total}</Typography>
+        </div>
     )
 }
