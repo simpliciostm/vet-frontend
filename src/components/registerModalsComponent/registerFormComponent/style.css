@@ -12,9 +12,8 @@
 }
 
 .container-cads-form .modal-cads-form {
-    width: 1100px;
-    height: 500px;
-    background-color: white;
+    width: 1400px;
+    background-color: #f5f4f4;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -27,8 +26,9 @@
 
 .container-cads-form .modal-cads-form .title-cads-form {
     height: 100px;
+    width: 100%;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     flex-direction: column;
 }
@@ -60,10 +60,47 @@
     gap: 20px;
 }
 
+.box-form-inputs-fields .box-fields-table {
+    width: 100%;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 1px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.box-form-inputs-fields .box-fields-table .title-box-table {
+    background-color: var(--default-secondary-color);
+    height: 45px;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    border-radius: 1px;
+}
+
+.box-form-inputs-fields .box-fields-table .fields-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
 .box-form-inputs-fields .box-fields-cads {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     flex-wrap: wrap;
+}
+
+.box-form-inputs-fields .box-fields-table .search-cep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
 
 .modal-cads-form .button-fields-cads {

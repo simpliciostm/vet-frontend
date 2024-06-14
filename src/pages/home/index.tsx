@@ -6,18 +6,41 @@ import { CardInfoComponent } from '../../components/cardInfoComponent';
 import PetsIcon from '@mui/icons-material/Pets';
 import { PiDog } from "react-icons/pi";
 import api from '../../api';
-import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { FaUsers } from "react-icons/fa";
+import moment from 'moment';
 
 export const Home = () => {
     const [totalRegisters, setTotalRegisters] = useState(0);
     const [portSmall, setPortSmall] = useState(0);
     const [portMedium, setPortMedium] = useState(0);
     const [portLarge, setPortLarge] = useState(0);
+    const [city, setCity] = useState([]);
+    const [registerDate, setRegisterDate] = useState([]);
 
     useEffect(() => {
-        const getInfo = async () => {
+
+        const getInfoCitys = async () => {
             try {
-                const { data } = await api('/cadsInfos');
+                const { data } = await api.post(`/cityInfos`);
+                if (data && data.status === 1) setCity(data.infoCitys)
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        const getInfoDates = async () => {
+            try {
+                const { data } = await api.post(`/registerDateInfos`);
+                if (data && data.status === 1) setRegisterDate(data.infoDate)
+            } catch (err) {
+                console.log(err);
+            }
+        }
+
+        const getInfoCads = async () => {
+            try {
+                const { data } = await api.post('/cadsInfos');
                 if (data && data.status === 1) {
                     setTotalRegisters(data.totalRegister);
                     setPortSmall(data.portSmall)
@@ -28,39 +51,11 @@ export const Home = () => {
                 console.log(err);
             }
         }
-        getInfo();
-    }, []);
 
-    const data = [
-        {
-            name: 'Bauru',
-            uv: 4000,
-        },
-        {
-            name: 'Page B',
-            uv: 3000,
-        },
-        {
-            name: 'Page C',
-            uv: 2000,
-        },
-        {
-            name: 'Page D',
-            uv: 2780,
-        },
-        {
-            name: 'Page E',
-            uv: 1890,
-        },
-        {
-            name: 'Page F',
-            uv: 2390
-        },
-        {
-            name: 'Page G',
-            uv: 3490,
-        },
-    ];
+        getInfoCitys();
+        getInfoDates();
+        getInfoCads();
+    }, []);
 
     return (
         <div>
@@ -77,29 +72,45 @@ export const Home = () => {
                         <CardInfoComponent icon={<PiDog fontSize={45} />} title='Porte Grande' total={portLarge} />
                     </div>
                 </div>
-                <div className='container-chart'>
+                <div className='container-chart-city'>
                     <div className='title-chart'>
-                    <Typography component={'span'} fontSize={21} >Índice por Cidade</Typography>
+                        <Typography component={'span'} fontSize={21} >Índice por Cidade</Typography>
                     </div>
-                    <ResponsiveContainer height={250} >
+                    <ResponsiveContainer height={150} width={"100%"} >
                         <BarChart
-                            width={300}
-                            height={300}
-                            data={data}
-                            margin={{
-                                top: 5,
-                                right: 30,
-                                left: 20,
-                                bottom: 5,
-                            }}
+                            data={city}
                         >
                             <CartesianGrid />
-                            <XAxis dataKey="name" />
-                            <YAxis />
+                            <XAxis dataKey="city" />
+                            <YAxis allowDecimals={false} />
                             <Tooltip />
-                            <Bar width={2} radius={7} dataKey="uv" fill="#751b1b" />
+                            <Bar width={2} radius={7} dataKey="total" fill="#751b1b" />
                         </BarChart>
                     </ResponsiveContainer>
+                </div>
+                <div className='container-chart-date'>
+                    <div className='title-chart'>
+                        <Typography component={'span'} fontSize={21} >Índice por Mês</Typography>
+                    </div>
+                    <ResponsiveContainer height={150} width={"100%"} >
+                        <BarChart
+                            data={registerDate}
+                        >
+                            <CartesianGrid />
+                            <XAxis dataKey="date" />
+                            <YAxis allowDecimals={false} />
+                            <Tooltip />
+                            <Bar width={2} radius={7} dataKey="total" fill="#751b1b" />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
+                <div className="container-dashboard">
+                    <div className="box-cards">
+                        <CardInfoComponent icon={<FaUsers fontSize={35} />} title='Castrados' total={totalRegisters} textIcon='CPF' />
+                        <CardInfoComponent icon={<FaUsers fontSize={35} />} title='Agendamentos' total={portSmall} textIcon='CPF' />
+                        <CardInfoComponent icon={<FaUsers fontSize={35} />} title='Ausentes' total={portMedium} textIcon='CPF' />
+                        <CardInfoComponent icon={<FaUsers fontSize={35} />} title='Banco de Dados' total={portLarge} textIcon='CPF' />
+                    </div>
                 </div>
             </div>
         </div>

@@ -81,7 +81,7 @@ export const TableUsersComponent = ({ data, columns }: props) => {
 
     return (
         <div style={{ width: '100%' }}>
-            <TableContainer sx={{ border: '1px solid #751b1b', padding: '10px' }} component={Paper}>
+            <TableContainer className='table' sx={{ border: '1px solid #751b1b', padding: '10px' }} component={Paper}>
                 <Table sx={{ width: '100%', padding: '7px' }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -97,16 +97,16 @@ export const TableUsersComponent = ({ data, columns }: props) => {
                                 sx={{ border: 0 }}
                                 hover
                             >
+                                <TableCell>
+                                    <div id='buttons' style={{ display: 'flex', gap: '7px' }}>
+                                        <button style={{ background: 'transparent', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openDeleteConfirm(e, row._id)}><DeleteIcon style={{ cursor: 'pointer', fontSize: 15 }} htmlColor='#ff6360' fontSize='small' /></button>
+                                        <button style={{ background: 'transparent', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openUpdateUser(e, row, row._id)}><EditIcon style={{ cursor: 'pointer', fontSize: 15 }} htmlColor='#6067ff' fontSize='small' /></button>
+                                        <button style={{ background: 'transparent', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openViewUser(e, row._id)} ><VisibilityIcon style={{ cursor: 'pointer', fontSize: 15 }} htmlColor='#ffae60' fontSize='small' /></button>
+                                    </div>
+                                </TableCell>
                                 <TableCell sx={{ width: '500px' }} >{row.name}</TableCell>
                                 <TableCell sx={{ width: '500px' }}>{row.email}</TableCell>
                                 <TableCell sx={{ width: '500px' }}>{row.permissions.name_permission}</TableCell>
-                                <TableCell>
-                                    <div id='buttons' style={{ display: 'flex', gap: '7px' }}>
-                                        <button style={{ background: 'white', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openDeleteConfirm(e, row._id)}><DeleteIcon style={{ cursor: 'pointer' }} htmlColor='#ff6360' fontSize='small' /></button>
-                                        <button style={{ background: 'white', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openUpdateUser(e, row, row._id)}><EditIcon style={{ cursor: 'pointer' }} htmlColor='#6067ff' fontSize='small' /></button>
-                                        <button style={{ background: 'white', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openViewUser(e, row._id)} ><VisibilityIcon style={{ cursor: 'pointer' }} htmlColor='#ffae60' fontSize='small' /></button>
-                                    </div>
-                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

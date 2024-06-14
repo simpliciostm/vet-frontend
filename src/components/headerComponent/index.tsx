@@ -13,11 +13,14 @@ import api from '../../api';
 import { getStorage } from '../../services/localStorage';
 import img from '../../assets/images/logo.jpeg';
 import MenuIcon from '@mui/icons-material/Menu';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 export const Header = () => {
     const [name, setName] = useState('');
     const [permission, setPermission] = useState('');
     const [showMenuMobile, setShowMenuMobile] = useState(false);
+    const [showDropDown, setShowDropDown] = useState(false);
 
     useEffect(() => {
         const loadUserInfo = async () => {
@@ -44,19 +47,37 @@ export const Header = () => {
         showMenuMobile ? setShowMenuMobile(false) : setShowMenuMobile(true);
     }
 
+    const toggleShowDropDown = () => {
+        showDropDown ? setShowDropDown(false) : setShowDropDown(true);
+    }
+
     return (
         <Box>
             <AppBar className='app-bar' position="static" color='inherit'>
                 <Toolbar className='nav-bar'>
-                    <div className='logo'>
+                    <div className='box-logo'>
                         <img src={img} alt="logo" />
-                        a
                     </div>
                     <div className="user">
-                        <Typography component={'span'} fontWeight={'bold'} >{name}</Typography>
-                        <div className="circle-user">
-                            <Typography component={'span'} fontSize={18} fontWeight={'bold'} >{name[0]}</Typography>
+                        <div className="user-drop" onClick={() => toggleShowDropDown()}>
+                            <Typography component={'span'} fontWeight={'bold'} fontSize={14} >{name}</Typography>
+                            {showDropDown ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
+                            <div className="circle-user">
+                                <Typography component={'span'} fontSize={16} fontWeight={'bold'} >{name[0]}</Typography>
+                            </div>
                         </div>
+                        {
+                            showDropDown ? (
+                                <div className="user-dropdown">
+                                    <ul onClick={() => setShowDropDown(false)} >
+                                        <li onClick={() => logout()}>
+                                            <LogoutIcon style={{ fontSize: 15 }} />
+                                            <Typography fontSize={14}>Sair</Typography>
+                                        </li>
+                                    </ul>
+                                </div>
+                            ) : null
+                        }
                     </div>
                 </Toolbar>
             </AppBar>
@@ -80,16 +101,13 @@ export const Header = () => {
                                 </li>
                             </Link> : null
                         }
-                        <li onClick={() => logout()} className="logout" style={{ cursor: 'pointer' }} >
-                            <LogoutIcon fontSize={'small'} /><Typography fontFamily={'sans-serif'} fontSize={14} fontWeight={700}>Sair</Typography>
-                        </li>
                     </ul>
                     <div className="version">
                         <div className="background-version" style={{ backgroundColor: 'green' }} >
-                            <Typography fontSize={12} fontFamily={'sans-serif'} fontWeight={'bold'} component={'span'} >Dev</Typography>
+                            <Typography fontSize={11} fontFamily={'sans-serif'} fontWeight={'bold'} component={'span'} >Dev</Typography>
                         </div>
                         <div className="number-version">
-                            <Typography fontSize={12} fontFamily={'sans-serif'} fontWeight={'bold'} component={'span'} >1.0</Typography>
+                            <Typography fontSize={11} fontFamily={'sans-serif'} fontWeight={'bold'} component={'span'} >Versão 1.0 - </Typography>
                         </div>
                     </div>
                 </nav>
@@ -120,9 +138,6 @@ export const Header = () => {
                                         </li>
                                     </Link> : null
                                 }
-                                <li onClick={() => logout()} className="logout" style={{ cursor: 'pointer' }} >
-                                    <LogoutIcon fontSize={'small'} /><Typography fontFamily={'sans-serif'} fontSize={14} fontWeight={700}></Typography>
-                                </li>
                             </ul>
                             <div className="version">
                                 <div className="background-version" style={{ backgroundColor: '#54eb61' }} >

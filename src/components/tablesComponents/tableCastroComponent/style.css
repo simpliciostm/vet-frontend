@@ -1,0 +1,9 @@
+.container-table-register {
+    display: flex;
+    flex-direction: column;
+}
+
+.container-data-info {
+    height: 400px;
+    background-color: red;
+}
