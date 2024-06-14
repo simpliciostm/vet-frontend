@@ -12,6 +12,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { DeleteCadsConfirmComponent } from '../../deleteComponent/deleteCadsConfirmComponent';
 import { RegisterFormComponent } from '../../registerModalsComponent/registerFormComponent';
 import moment from 'moment';
+import './style.css';
 
 interface props {
     data: {
@@ -26,9 +27,13 @@ interface props {
         createdAt: Date,
         updatedAt: Date,
         name_tutor: string,
+        cep: string,
         cpf: string,
         phone: string,
-        city: string,
+        city: {
+            name: string,
+            code: string
+        },
         address: string,
         district: string,
         nis: string
@@ -48,9 +53,13 @@ interface cads {
     createdAt: Date,
     updatedAt: Date,
     name_tutor: string,
+    cep: string,
     cpf: string,
     phone: string,
-    city: string,
+    city: {
+        name: string,
+        code: string
+    },
     address: string,
     district: string,
     nis: string
@@ -95,8 +104,8 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
     }
 
     return (
-        <div>
-            <TableContainer sx={{ border: '1px solid #751b1b', padding: '10px' }} component={Paper} >
+        <div className='container-table-register'>
+            <TableContainer className='table' sx={{ border: '1px solid #751b1b', padding: '10px' }} component={Paper} >
                 <Table sx={{ padding: '7px', overflowX: 'auto' }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
@@ -112,6 +121,13 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
                                 sx={{ border: 0 }}
                                 hover
                             >
+                                <TableCell>
+                                    <div id='buttons' style={{ display: 'flex', gap: '7px' }}>
+                                        <button style={{ background: 'transparent', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openDeleteConfirm(e, row._id)}><DeleteIcon style={{ cursor: 'pointer', fontSize: 15 }} htmlColor='#ff6360' fontSize='small' /></button>
+                                        <button style={{ background: 'transparent', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openUpdateCads(e, row, row._id)}><EditIcon style={{ cursor: 'pointer', fontSize: 15 }} htmlColor='#6067ff' fontSize='small' /></button>
+                                        <button style={{ background: 'transparent', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openViewUser(e, row._id)} ><VisibilityIcon style={{ cursor: 'pointer', fontSize: 15 }} htmlColor='#ffae60' fontSize='small' /></button>
+                                    </div>
+                                </TableCell>
                                 <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.species}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }} >{row.sexy}</TableCell>
                                 <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.name}</TableCell>
@@ -123,18 +139,12 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
                                 <TableCell sx={{ textAlign: 'center' }} >{moment(row.createdAt).format("DD/MM/YYYY")}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }} >{moment(row.updatedAt).format("DD/MM/YYYY")}</TableCell>
                                 <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.name_tutor}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.cep}</TableCell>
                                 <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.cpf}</TableCell>
                                 <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.phone}</TableCell>
-                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.city}</TableCell>
-                                <TableCell sx={{ minWidth: "180px", textAlign: 'center' }} >{row.address}</TableCell>
-                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.district}</TableCell>
-                                <TableCell>
-                                    <div id='buttons' style={{ display: 'flex', gap: '7px' }}>
-                                        <button style={{ background: 'white', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openDeleteConfirm(e, row._id)}><DeleteIcon style={{ cursor: 'pointer' }} htmlColor='#ff6360' fontSize='small' /></button>
-                                        <button style={{ background: 'white', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openUpdateCads(e, row, row._id)}><EditIcon style={{ cursor: 'pointer' }} htmlColor='#6067ff' fontSize='small' /></button>
-                                        <button style={{ background: 'white', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openViewUser(e, row._id)} ><VisibilityIcon style={{ cursor: 'pointer' }} htmlColor='#ffae60' fontSize='small' /></button>
-                                    </div>
-                                </TableCell>
+                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.city.name}</TableCell>
+                                <TableCell sx={{ minWidth: "250px", textAlign: 'center' }} >{row.address}</TableCell>
+                                <TableCell sx={{ minWidth: "250px", textAlign: 'center' }} >{row.district}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -147,6 +157,7 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
                 name={user.name}
                 address={user.address}
                 chip={user.chip}
+                cep={user.cep}
                 city={user.city}
                 color={user.color}
                 cpf={user.cpf}

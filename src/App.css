@@ -5,5 +5,16 @@
   --default-primary-color: #751b1b;
   --default-secondary-color: #5b1c30;
   --white-color: #ffff;
-  --TextField-brandBorderColor: #ffff; 
+  --TextField-brandBorderColor: #ececec;
+  background-color: #f5f4f4;
+}
+
+.table::-webkit-scrollbar {
+  background-color: rgba(0, 0, 0, 0.1);
+  height: 7px;
+}
+
+.table::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
 }

@@ -18,7 +18,6 @@ export const Admin = () => {
                     </div>
                     <ul>
                         <Link className='link' to='/dashboard/admin/users'><li>  <Typography component={'span'} fontSize={14}>Usuários</Typography></li></Link>
-                        <Link className='link' to='/dashboard/admin/city'><li>  <Typography component={'span'} fontSize={14}>Cidades</Typography></li></Link>
                     </ul>
                 </div>
                 <div className="box-title-link">

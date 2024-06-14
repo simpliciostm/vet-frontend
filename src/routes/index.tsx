@@ -8,7 +8,6 @@ import { Usuarios } from '../pages/admin/usuario';
 import { Perfil } from '../pages/admin/perfil';
 import { PrivateRoutes } from '../routes/privateRoutes';
 import { Permission } from '../pages/admin/permission';
-import { City } from '../pages/admin/city';
 
 export const Routers = () => {
     return (
@@ -29,7 +28,6 @@ export const Routers = () => {
                 <Router.Route path='/dashboard/admin/users' element={<Usuarios />} />
                 <Router.Route path='/dashboard/admin/perfil' element={<Perfil />} />
                 <Router.Route path='/dashboard/admin/permission' element={<Permission />} />
-                <Router.Route path='/dashboard/admin/city' element={<City />} />
                 <Router.Route path='*' element={<Login />} />
             </Router.Routes>
         </Router.BrowserRouter>

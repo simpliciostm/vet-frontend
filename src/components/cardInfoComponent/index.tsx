@@ -6,13 +6,13 @@ interface PropsComponent {
     title: string;
     total: number;
     icon: ReactElement;
+    textIcon?: string;
 }
 
 export const CardInfoComponent = (props: PropsComponent) => {
     return (
         <div className='card'>
-
-            <Typography component='span'>{props.icon}</Typography>
+            <Typography style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }} component='span'>{props.icon} {props.textIcon}</Typography>
             <Typography component='span'>{props.title}</Typography>
             <Typography component='span' fontWeight={'bold'} fontSize={21} >{props.total}</Typography>
         </div>
