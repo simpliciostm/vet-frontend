@@ -3,9 +3,9 @@ import './style.css'
 import api from '../../api';
 import { ShowAlert } from '../../components/showAlertComponent';
 import { setStorage } from '../../services/localStorage';
-import './style.css'
 import { Button, CircularProgress, TextField } from '@mui/material';
-import img from '../../assets/images/logo.jpeg'
+import img from '../../assets/images/logo.jpeg';
+import imgLogin from '../../assets/images/teste.jpg';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
@@ -63,6 +63,9 @@ export const Login = () => {
 
     return (
         <div className='background-login'>
+            {/* <div className='container-img'>
+                <img src={imgLogin} />
+            </div> */}
             <div className='modal'>
                 <div className='box-img'>
                     <img src={img} alt="logo" />

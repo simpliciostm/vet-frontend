@@ -113,7 +113,7 @@ export const TableUsersComponent = ({ data, columns }: props) => {
                 </Table>
             </TableContainer>
             {deleteConfirm ? <DeleteUserConfirmComponent msg='Tem certeza que deseja deletar esse usuário ?' id={idUser} onClose={closeModalConfirmDelete} /> : null}
-            {openModalUpdate ? <UserFormComponent operation='update' id={idUser} name={user.name} email={user.email} password={user.password} permission={user.permissions} onClose={closeModalUpdate} /> : null}
+            {openModalUpdate ? <UserFormComponent operation='update' id={idUser} onClose={closeModalUpdate} /> : null}
             {openModalView ? <UserFormComponent operation='view' id={idUser} onClose={closeModalView} /> : null}
         </div>
     )

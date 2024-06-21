@@ -9,12 +9,55 @@
   background-color: #f5f4f4;
 }
 
+:root::-webkit-scrollbar {
+  background-color: rgba(0, 0, 0, 0.1);
+  width: 7px;
+}
+
+:root::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+}
+
 .table::-webkit-scrollbar {
   background-color: rgba(0, 0, 0, 0.1);
-  height: 7px;
+  height: 5px;
 }
 
 .table::-webkit-scrollbar-thumb {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 3px;
+}
+
+.input-mask-style-disabled {
+  border: none;
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.3);
+  border-radius: '5px';
+  height: '39px';
+  outline: 'none';
+  font-size: '17px';
+  width: '170px';
+  padding: '15px';
+  background-color: transparent;
+}
+
+.input-mask-style {
+  transition: all 0.1s ease;
+  border: none;
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.3);
+  border-radius: '5px';
+  height: '39px';
+  outline: 'none';
+  font-size: '17px';
+  width: '170px';
+  color: "rgba(0,0,0,0.9)";
+  padding: '15px';
+}
+
+.input-mask-style:hover {
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.9);
+}
+
+.input-mask-style:focus {
+  box-shadow: 0px 0px 0px 2px var(--default-primary-color);
 }
