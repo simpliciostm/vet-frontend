@@ -9,6 +9,21 @@
     overflow: hidden;
 }
 
+.background-login .container-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.background-login .container-img img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
 .modal {
     width: 370px;
     height: 460px;

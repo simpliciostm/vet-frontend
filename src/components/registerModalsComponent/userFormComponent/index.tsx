@@ -8,37 +8,25 @@ import CircularProgress from '@mui/material/CircularProgress';
 interface props {
     operation: string;
     id?: string;
-    name?: string;
-    email?: string;
-    password?: string;
-    permission?: {
-        _id: string;
-        name_permission: string;
-    };
     onClose: () => void;
 }
 
 export const UserFormComponent = (props: props) => {
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [permissions, setPermissions] = useState([]);
-    const [name_permission, setNamePermission] = useState('');
-    const [statusPromise, setStatusPromise] = useState(true);
-    const [msg, setMsg] = useState('');
-    const [statusAlert, setStatusAlert] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [name, setName] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [permissions, setPermissions] = useState<[]>([]);
+    const [name_permission, setNamePermission] = useState<string>('');
+    const [statusPromise, setStatusPromise] = useState<boolean>(true);
+    const [msg, setMsg] = useState<string>('');
+    const [statusAlert, setStatusAlert] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
 
-        if (props.name) setName(props.name);
-        if (props.email) setEmail(props.email);
-        if (props.password) setPassword(props.password);
-        if (props.permission) setNamePermission(props.permission._id)
-
         const getUser = async () => {
             try {
-                if (props.operation === 'view' && props.id) {
+                if (props.operation === 'view' || props.operation === 'update' && props.id) {
                     const { data } = await api.get(`/user/${props.id}`);
                     setName(data.data.name);
                     setEmail(data.data.email);
@@ -65,7 +53,7 @@ export const UserFormComponent = (props: props) => {
         getPermissions();
         getUser()
 
-    }, [props.name, props.email, props.id, props.operation, props.password, props.permission]);
+    }, [props.id, props.operation]);
 
     const changePermissionUser = async (e: any) => {
         try {
@@ -157,10 +145,10 @@ export const UserFormComponent = (props: props) => {
                     <TextField onChange={(e) => setName(e.target.value)} label='Nome' type='text' size='small' value={name} disabled={props.operation === 'view' ? true : false} />
                 </div>
                 <div className="field-input">
-                    <TextField  onChange={(e) => setEmail(e.target.value)} label='Email' type='email' required={true} size='small' value={email} disabled={props.operation === 'view' ? true : false} />
+                    <TextField onChange={(e) => setEmail(e.target.value)} label='Email' type='email' required={true} size='small' value={email} disabled={props.operation === 'view' ? true : false} />
                 </div>
                 <div className="field-input">
-                    <TextField  value={password} onChange={(e) => setPassword(e.target.value)} label="Password" variant="outlined" type="password" size='small' required disabled={props.operation === 'view' ? true : false} />
+                    <TextField value={password} onChange={(e) => setPassword(e.target.value)} label="Password" variant="outlined" type="password" size='small' required={props.operation === 'update' ? false : true} disabled={props.operation === 'view' ? true : false} />
                 </div>
                 <div className="field-input">
                     <FormControl>

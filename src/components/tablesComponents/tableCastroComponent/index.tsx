@@ -17,13 +17,17 @@ import './style.css';
 interface props {
     data: {
         _id: string,
-        species: string,
-        sexy: string,
-        name: string,
-        color: string,
-        size: string,
-        chip: string,
-        intercorrencia: string,
+        animal: {
+            species: string,
+            sexy: string,
+            name: string,
+            color: string,
+            size: string,
+            year: string,
+            chip: string,
+            intercorrencia: string,
+            nis: string
+        }
         createdAt: Date,
         updatedAt: Date,
         name_tutor: string,
@@ -36,20 +40,24 @@ interface props {
         },
         address: string,
         district: string,
-        nis: string
+        number_residence: number,
     }[];
     columns: string[];
 }
 
 interface cads {
     _id: string,
-    species: string,
-    sexy: string,
-    name: string,
-    color: string,
-    size: string,
-    chip: string,
-    intercorrencia: string,
+    animal: {
+        species: string,
+        sexy: string,
+        name: string,
+        color: string,
+        size: string,
+        year: string,
+        chip: string,
+        intercorrencia: string,
+        nis: string,
+    },
     createdAt: Date,
     updatedAt: Date,
     name_tutor: string,
@@ -62,7 +70,7 @@ interface cads {
     },
     address: string,
     district: string,
-    nis: string
+    number_residence: number,
 }
 
 export const TableRegisterCadsComponent = ({ data, columns }: props) => {
@@ -128,14 +136,15 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
                                         <button style={{ background: 'transparent', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openViewUser(e, row._id)} ><VisibilityIcon style={{ cursor: 'pointer', fontSize: 15 }} htmlColor='#ffae60' fontSize='small' /></button>
                                     </div>
                                 </TableCell>
-                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.species}</TableCell>
-                                <TableCell sx={{ textAlign: 'center' }} >{row.sexy}</TableCell>
-                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.name}</TableCell>
-                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.color}</TableCell>
-                                <TableCell sx={{ textAlign: 'center' }} >{row.size + 'kg'}</TableCell>
-                                <TableCell sx={{ minWidth: "120px", textAlign: 'center' }} >{row.chip}</TableCell>
-                                <TableCell sx={{ minWidth: "180px", textAlign: 'center' }} >{row.nis}</TableCell>
-                                <TableCell sx={{ minWidth: "800px", textAlign: 'center' }} >{row.intercorrencia}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.animal.species}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }} >{row.animal.sexy}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.animal.name}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.animal.color}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }} >{row.animal.size + 'kg'}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }} >{row.animal.year}</TableCell>
+                                <TableCell sx={{ minWidth: "120px", textAlign: 'center' }} >{row.animal.chip}</TableCell>
+                                <TableCell sx={{ minWidth: "180px", textAlign: 'center' }} >{row.animal.nis}</TableCell>
+                                <TableCell sx={{ minWidth: "800px", textAlign: 'center' }} >{row.animal.intercorrencia}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }} >{moment(row.createdAt).format("DD/MM/YYYY")}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }} >{moment(row.updatedAt).format("DD/MM/YYYY")}</TableCell>
                                 <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.name_tutor}</TableCell>
@@ -144,6 +153,7 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
                                 <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.phone}</TableCell>
                                 <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.city.name}</TableCell>
                                 <TableCell sx={{ minWidth: "250px", textAlign: 'center' }} >{row.address}</TableCell>
+                                <TableCell sx={{ minWidth: "200px", textAlign: 'center' }} >{row.number_residence}</TableCell>
                                 <TableCell sx={{ minWidth: "250px", textAlign: 'center' }} >{row.district}</TableCell>
                             </TableRow>
                         ))}
@@ -151,26 +161,7 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
                 </Table>
             </TableContainer>
             {deleteConfirm ? <DeleteCadsConfirmComponent msg='Tem certeza que deseja deletar esse registro ?' id={idCads} onClose={closeModalConfirmDelete} /> : null}
-            {openModalUpdate ? <RegisterFormComponent
-                operation='update'
-                id={idCads}
-                name={user.name}
-                address={user.address}
-                chip={user.chip}
-                cep={user.cep}
-                city={user.city}
-                color={user.color}
-                cpf={user.cpf}
-                date={user.date}
-                district={user.district}
-                intercorrencia={user.intercorrencia}
-                name_tutor={user.name_tutor}
-                phone={user.phone}
-                sexy={user.sexy}
-                size={user.size}
-                species={user.species}
-                nis={user.nis}
-                onClose={closeModalUpdate} /> : null}
+            {openModalUpdate ? <RegisterFormComponent operation='update'id={idCads} onClose={closeModalUpdate} /> : null}
             {openModalView ? <RegisterFormComponent operation='view' id={idCads} onClose={closeModalView} /> : null}
         </div>
     )

@@ -75,7 +75,6 @@ div .app-bar {
 }
 
 .nav-bar .user .user-drop {
-    width: 150px;
     height: 60px;
     display: flex;
     justify-content: center;
@@ -97,7 +96,7 @@ div .app-bar {
 .submenu {
     width: 170px;
     top: 60px;
-    height: 100%;
+    height: 100vh;
     position: fixed;
     background-color: var(--default-primary-color);
     box-shadow: 0px 5px 5px 2px rgba(0, 0, 0, 0.5);
@@ -151,31 +150,12 @@ div .app-bar {
     color: var(--default-primary-color);
 }
 
-.logout {
-    width: 50%;
-    height: 35px;
-    position: absolute;
-    bottom: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--white-color);
-    border-radius: 7px;
-    transition: all 0.3s ease;
-}
-
 .button-open-submenu-mobile {
     display: none;
 }
 
-.logout:hover {
-    color: var(--white-color);
-    background-color: var(--default-primary-color);
-}
-
 .version {
     width: 100%;
-    height: 230px;
     display: flex;
     flex-direction: row;
     flex-direction: row-reverse;
@@ -183,6 +163,7 @@ div .app-bar {
     align-items: center;
     gap: 5px;
     flex-wrap: wrap;
+    margin-top: 70px;
 }
 
 .version .background-version {

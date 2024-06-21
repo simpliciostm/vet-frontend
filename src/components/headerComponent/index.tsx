@@ -21,8 +21,11 @@ export const Header = () => {
     const [permission, setPermission] = useState('');
     const [showMenuMobile, setShowMenuMobile] = useState(false);
     const [showDropDown, setShowDropDown] = useState(false);
+    const [nameHeaderFirst, setNameHeaderFirst] = useState('');
+    const [nameHeaderSecond, setNameHeaderSecond] = useState('');
 
     useEffect(() => {
+
         const loadUserInfo = async () => {
 
             const idUser = getStorage('id');
@@ -31,6 +34,9 @@ export const Header = () => {
                 if (response.data && response.data.status === 1) {
                     setName(response.data.data.name);
                     setPermission(response.data.data.permissions.name_permission)
+                    const nameSplit = name.split(" ");
+                    if (nameSplit[0] && nameSplit[0][0]) setNameHeaderFirst(nameSplit[0][0]);
+                    if (nameSplit[1] && nameSplit[1][0]) setNameHeaderSecond(nameSplit[1][0]);
                 }
             }
         }
@@ -63,7 +69,10 @@ export const Header = () => {
                             <Typography component={'span'} fontWeight={'bold'} fontSize={14} >{name}</Typography>
                             {showDropDown ? <ArrowDropUpIcon /> : <ArrowDropDownIcon />}
                             <div className="circle-user">
-                                <Typography component={'span'} fontSize={16} fontWeight={'bold'} >{name[0]}</Typography>
+                                <Typography component={'span'} fontSize={16} fontWeight={'bold'} >
+                                    {nameHeaderFirst}
+                                    {nameHeaderSecond}
+                                </Typography>
                             </div>
                         </div>
                         {

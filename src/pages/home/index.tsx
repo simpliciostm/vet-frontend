@@ -107,9 +107,9 @@ export const Home = () => {
                 <div className="container-dashboard">
                     <div className="box-cards">
                         <CardInfoComponent icon={<FaUsers fontSize={35} />} title='Castrados' total={totalRegisters} textIcon='CPF' />
-                        <CardInfoComponent icon={<FaUsers fontSize={35} />} title='Agendamentos' total={portSmall} textIcon='CPF' />
-                        <CardInfoComponent icon={<FaUsers fontSize={35} />} title='Ausentes' total={portMedium} textIcon='CPF' />
-                        <CardInfoComponent icon={<FaUsers fontSize={35} />} title='Banco de Dados' total={portLarge} textIcon='CPF' />
+                        <CardInfoComponent icon={<FaUsers fontSize={35} />} title='Agendamentos' total={0} textIcon='CPF' />
+                        <CardInfoComponent icon={<FaUsers fontSize={35} />} title='Ausentes' total={0} textIcon='CPF' />
+                        <CardInfoComponent icon={<FaUsers fontSize={35} />} title='Banco de Dados' total={0} textIcon='CPF' />
                     </div>
                 </div>
             </div>

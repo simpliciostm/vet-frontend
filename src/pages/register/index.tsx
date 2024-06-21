@@ -119,19 +119,16 @@ export const Register = () => {
                 <div className='box-data'>
                     <form action="" onSubmit={(e: any) => applyFilter(e)}>
                         <div className="box-filter-cads">
-                            <div className='fields-cads'>
-                                <div className="fields-filter">
-                                    <TextField value={tutorRegisterCadsFilter} onChange={(e) => setTutorRegisterCadFilter(e.target.value)} style={{ marginLeft: 20 }} label="Tutor" variant="outlined" size='small' />
-                                    <TextField value={cpfRegisterFilter} onChange={(e) => setCpfRegisterFilter(e.target.value)} label="CPF" variant="outlined" size='small' />
-                                    <TextField value={cityRegisterFilter} onChange={(e) => setCityRegisterFilter(e.target.value)} label="Cidade" variant="outlined" size='small' />
-                                    <TextField value={chipRegisterFilter} onChange={(e) => setChipRegisterFilter(e.target.value)} label="MicroChip" variant="outlined" size='small' />
-                                    <TextField value={nisRegisterFilter} onChange={(e) => setNisRegisterFilter(e.target.value)} label="NIS" variant="outlined" size='small' />
-                                </div>
-                                <div className="search-button-cads">
-                                    <Button size='small' className='button-export-cads' variant='contained' endIcon={<BackupTableRoundedIcon />} >exportar</Button>
-                                    <Button type='submit' size='small' className='button-filter-cads' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>
-                                    <Button size='small' onClick={(e) => clearFilter(e)} className='button-remove-filter-cads' variant="contained" ><ClearIcon fontSize='small' /></Button>
-                                </div>
+                            <div className="fields-filter">
+                                <TextField value={tutorRegisterCadsFilter} onChange={(e) => setTutorRegisterCadFilter(e.target.value)} style={{ marginLeft: 20 }} label="Tutor" variant="outlined" size='small' />
+                                <TextField value={cpfRegisterFilter} onChange={(e) => setCpfRegisterFilter(e.target.value)} label="CPF" variant="outlined" size='small' />
+                                <TextField value={cityRegisterFilter} onChange={(e) => setCityRegisterFilter(e.target.value)} label="Cidade" variant="outlined" size='small' />
+                                <TextField value={chipRegisterFilter} onChange={(e) => setChipRegisterFilter(e.target.value)} label="MicroChip" variant="outlined" size='small' />
+                            </div>
+                            <div className="search-button-cads">
+                                <Button size='small' className='button-export-cads' variant='contained' endIcon={<BackupTableRoundedIcon />} >exportar</Button>
+                                <Button type='submit' size='small' className='button-filter-cads' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>
+                                <Button size='small' onClick={(e) => clearFilter(e)} className='button-remove-filter-cads' variant="contained" ><ClearIcon fontSize='small' /></Button>
                             </div>
                         </div>
                     </form>
