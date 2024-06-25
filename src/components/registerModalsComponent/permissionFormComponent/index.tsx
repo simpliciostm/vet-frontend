@@ -13,11 +13,6 @@ interface RolesProps {
     label: string;
 }
 
-interface PermissionProps {
-    name_permission: string;
-    permissions: string[];
-}
-
 export const PermissionFormComponent = (props: PermissionsProps) => {
     const [roles, setRoles] = useState<RolesProps[]>([]);
     const [valueOptions, setValueOptions] = useState<RolesProps[]>([]);
@@ -36,7 +31,7 @@ export const PermissionFormComponent = (props: PermissionsProps) => {
                     let rolesPush: any[] = [];
 
                     data.data.map((roles: any) => {
-                        rolesPush.push({
+                        return rolesPush.push({
                             id: roles._id,
                             label: roles.name_role
                         })

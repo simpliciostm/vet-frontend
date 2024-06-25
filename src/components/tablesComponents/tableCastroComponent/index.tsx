@@ -78,7 +78,6 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
     const [idCads, setIdCads] = useState('');
     const [openModalUpdate, setOpenModalUpdate] = useState(false);
     const [openModalView, setOpenModalView] = useState(false);
-    const [user, setUser] = useState(Object);
 
     const openDeleteConfirm = (e: any, id: string) => {
         e.preventDefault();
@@ -88,7 +87,6 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
 
     const openUpdateCads = (e: any, data: cads, id: string) => {
         e.preventDefault();
-        setUser(data)
         setIdCads(id)
         !openModalUpdate ? setOpenModalUpdate(true) : setOpenModalUpdate(false);
     }

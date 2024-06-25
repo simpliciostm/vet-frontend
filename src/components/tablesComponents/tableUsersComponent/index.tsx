@@ -46,7 +46,6 @@ export const TableUsersComponent = ({ data, columns }: props) => {
     const [idUser, setIdUser] = useState('');
     const [openModalUpdate, setOpenModalUpdate] = useState(false);
     const [openModalView, setOpenModalView] = useState(false);
-    const [user, setUser] = useState(Object);
 
     const openDeleteConfirm = (e: any, id: string) => {
         e.preventDefault();
@@ -56,7 +55,6 @@ export const TableUsersComponent = ({ data, columns }: props) => {
 
     const openUpdateUser = (e: any, data: user, id: string) => {
         e.preventDefault();
-        setUser(data)
         setIdUser(id)
         !openModalUpdate ? setOpenModalUpdate(true) : setOpenModalUpdate(false);
     }

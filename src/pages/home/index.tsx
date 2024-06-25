@@ -8,7 +8,6 @@ import { PiDog } from "react-icons/pi";
 import api from '../../api';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { FaUsers } from "react-icons/fa";
-import moment from 'moment';
 
 export const Home = () => {
     const [totalRegisters, setTotalRegisters] = useState(0);

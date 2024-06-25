@@ -29,6 +29,12 @@
   border-radius: 3px;
 }
 
+.table textarea {
+  background-color: transparent;
+  border: none;
+  outline: 0;
+}
+
 .input-mask-style-disabled {
   border: none;
   box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.3);

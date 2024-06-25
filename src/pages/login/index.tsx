@@ -63,9 +63,9 @@ export const Login = () => {
 
     return (
         <div className='background-login'>
-            {/* <div className='container-img'>
-                <img src={imgLogin} />
-            </div> */}
+            <div className='container-img'>
+                <img src={imgLogin} alt='img-login' />
+            </div>
             <div className='modal'>
                 <div className='box-img'>
                     <img src={img} alt="logo" />
