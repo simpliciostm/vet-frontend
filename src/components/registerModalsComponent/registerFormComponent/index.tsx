@@ -64,7 +64,7 @@ export const RegisterFormComponent = (props: props) => {
 
         const getUser = async () => {
             try {
-                if (props.operation === 'view' || props.operation === 'update' && props.id) {
+                if ((props.operation === 'view' || props.operation === 'update') && props.id) {
                     const { data } = await api.get(`/cads/${props.id}`);
                     setNameTutor(data.data.name_tutor);
                     setSpecies(data.data.animal.species);
@@ -82,6 +82,7 @@ export const RegisterFormComponent = (props: props) => {
                     setIntercorrencia(data.data.animal.intercorrencia);
                     setNis(data.data.animal.nis);
                     setYear(data.data.animal.year);
+                    setNumberResidence(data.data.number_residence);
                 }
             } catch (err) {
                 console.log(err);
@@ -90,7 +91,7 @@ export const RegisterFormComponent = (props: props) => {
 
         getUser();
 
-    }, []);
+    }, [props.operation, props.id]);
 
     const saveData = async (e: any, operation: string, registerCurrent: registerData[]) => {
         try {

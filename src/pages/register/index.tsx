@@ -10,28 +10,38 @@ import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { TableRegisterCadsComponent } from '../../components/tablesComponents/tableCastroComponent';
 import { RegisterFormComponent } from '../../components/registerModalsComponent/registerFormComponent';
 import BackupTableRoundedIcon from '@mui/icons-material/BackupTableRounded';
+import { ExportRegisterComponent } from '../../components/exportReportComponent/exportRegisterComponent';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker/DatePicker';
+import InputMask from 'react-input-mask';
+
 interface filterCadsProps {
     name_tutor: string,
-    cpf: string
+    cpf: string,
+    city: string
 }
 
 export const Register = () => {
     const [cads, setCads] = useState([]);
     const [columns, setColumns] = useState([]);
-    const [showAdd, setShowAdd] = useState(false);
-    const [operation, setOperation] = useState('');
-    const [cpfRegisterFilter, setCpfRegisterFilter] = useState('');
-    const [tutorRegisterCadsFilter, setTutorRegisterCadFilter] = useState('');
-    const [cityRegisterFilter, setCityRegisterFilter] = useState('');
-    const [chipRegisterFilter, setChipRegisterFilter] = useState('');
-    const [nisRegisterFilter, setNisRegisterFilter] = useState('');
-    const [currentPage, setCurrentPagination] = useState(0);
-    const [totalCads, setTotalCads] = useState(0);
+    const [showAdd, setShowAdd] = useState<boolean>(false);
+    const [operation, setOperation] = useState<string>('');
+    const [cpfRegisterFilter, setCpfRegisterFilter] = useState<string>('');
+    const [tutorRegisterCadsFilter, setTutorRegisterCadFilter] = useState<string>('');
+    const [cityRegisterFilter, setCityRegisterFilter] = useState<string>('');
+    const [chipRegisterFilter, setChipRegisterFilter] = useState<string>('');
+    const [dateStart, setDateStart] = useState<string | any>('');
+    const [dateEnd, setDateEnd] = useState<string | any>('');
+    const [currentPage, setCurrentPagination] = useState<number>(0);
+    const [totalCads, setTotalCads] = useState<number>(0);
     const [filterCads, setFilterCads] = useState<filterCadsProps>(Object);
-    const [totalPageLastClick, setTotalPageLastClick] = useState(0);
-    const [disableButtonNext, setDisableButtonNext] = useState(false);
-    const [disableButtonBack, setDisableButtonBack] = useState(false);
-    const [msg, setMsg] = useState('');
+    const [totalPageLastClick, setTotalPageLastClick] = useState<number>(0);
+    const [disableButtonNext, setDisableButtonNext] = useState<boolean>(false);
+    const [disableButtonBack, setDisableButtonBack] = useState<boolean>(false);
+    const [msg, setMsg] = useState<string>('');
+    const [closeExport, setCloseExport] = useState<boolean>(false);
 
     useEffect(() => {
         getCads(filterCads, currentPage);
@@ -43,8 +53,12 @@ export const Register = () => {
     const getCads = async (filter: filterCadsProps, currentPage: number) => {
         try {
             const { data } = await api.post(`/cadsList/${currentPage}/${5}`, {
-                filter
+                filter,
+                dateStart,
+                dateEnd
             });
+
+            console.log(data)
 
             switch (data.status) {
                 case 1:
@@ -73,17 +87,22 @@ export const Register = () => {
         e.preventDefault();
         setFilterCads({
             name_tutor: '',
-            cpf: ''
+            cpf: '',
+            city: ''
         });
         setTutorRegisterCadFilter('');
         setCpfRegisterFilter('');
+        setDateStart('');
+        setDateEnd('');
+        setCityRegisterFilter('')
     }
 
     const applyFilter = async (e: any) => {
         e.preventDefault();
         setFilterCads({
             name_tutor: tutorRegisterCadsFilter,
-            cpf: cpfRegisterFilter
+            cpf: cpfRegisterFilter,
+            city: cityRegisterFilter
         });
     }
 
@@ -105,6 +124,10 @@ export const Register = () => {
         setShowAdd(false);
     }
 
+    const closeExportModal = () => {
+        setCloseExport(false);
+    }
+
     return (
         <div>
             <Header />
@@ -120,13 +143,40 @@ export const Register = () => {
                     <form action="" onSubmit={(e: any) => applyFilter(e)}>
                         <div className="box-filter-cads">
                             <div className="fields-filter">
-                                <TextField value={tutorRegisterCadsFilter} onChange={(e) => setTutorRegisterCadFilter(e.target.value)} style={{ marginLeft: 20 }} label="Tutor" variant="outlined" size='small' />
-                                <TextField value={cpfRegisterFilter} onChange={(e) => setCpfRegisterFilter(e.target.value)} label="CPF" variant="outlined" size='small' />
-                                <TextField value={cityRegisterFilter} onChange={(e) => setCityRegisterFilter(e.target.value)} label="Cidade" variant="outlined" size='small' />
-                                <TextField value={chipRegisterFilter} onChange={(e) => setChipRegisterFilter(e.target.value)} label="MicroChip" variant="outlined" size='small' />
+                                <TextField value={tutorRegisterCadsFilter} onChange={(e) => setTutorRegisterCadFilter(e.target.value)} style={{ width: '120px', marginLeft: 20 }} label="Tutor" variant="outlined" size='small' />
+                                <InputMask
+                                    mask="999.999.999-99"
+                                    maskChar=" "
+                                    value={cpfRegisterFilter}
+                                    onChange={(e: any) => setCpfRegisterFilter(e.target.value)}
+                                    placeholder='CPF'
+                                    className='input-mask-style'
+                                    style={{ borderRadius: '5px', height: '39px', outline: 'none', fontSize: '17px', width: '150px', color: "rgba(0,0,0,0.9)", padding: '15px' }} />
+                                <TextField sx={{ width: '85px' }} value={cityRegisterFilter} onChange={(e) => setCityRegisterFilter(e.target.value)} label="Cidade" variant="outlined" size='small' />
+                                <TextField inputProps={{ maxLength: 15 }} type='text'variant='outlined' label='Microship' size='small' sx={{ width: '160px' }} value={chipRegisterFilter} onChange={(e: any) => setChipRegisterFilter(e.target.value)} />
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DemoContainer sx={{ overflow: 'hidden', height: '55px', width: '200px' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
+                                        <DatePicker
+                                            label="Data Ínicio"
+                                            value={dateStart ? dateStart : null}
+                                            slotProps={{ textField: { size: 'small' } }}
+                                            onChange={(e) => setDateStart(e)}
+                                        />
+                                    </DemoContainer>
+                                </LocalizationProvider>
+                                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                    <DemoContainer sx={{ height: '55px', width: '200px' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
+                                        <DatePicker
+                                            label="Data Final"
+                                            value={dateEnd ? dateEnd : null}
+                                            slotProps={{ textField: { size: 'small' } }}
+                                            onChange={(e) => setDateEnd(e)}
+                                        />
+                                    </DemoContainer>
+                                </LocalizationProvider>
                             </div>
                             <div className="search-button-cads">
-                                <Button size='small' className='button-export-cads' variant='contained' endIcon={<BackupTableRoundedIcon />} >exportar</Button>
+                                <Button onClick={() => setCloseExport(true)} size='small' className='button-export-cads' variant='contained' endIcon={<BackupTableRoundedIcon />} >exportar</Button>
                                 <Button type='submit' size='small' className='button-filter-cads' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>
                                 <Button size='small' onClick={(e) => clearFilter(e)} className='button-remove-filter-cads' variant="contained" ><ClearIcon fontSize='small' /></Button>
                             </div>
@@ -154,6 +204,7 @@ export const Register = () => {
                     }
                 </div>
                 {showAdd ? <RegisterFormComponent operation={operation} onClose={closeModal} /> : null}
+                {closeExport ? (<ExportRegisterComponent onClose={closeExportModal} />) : null}
             </div>
         </div>
     )

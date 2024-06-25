@@ -26,7 +26,7 @@ export const UserFormComponent = (props: props) => {
 
         const getUser = async () => {
             try {
-                if (props.operation === 'view' || props.operation === 'update' && props.id) {
+                if ((props.operation === 'view' || props.operation === 'update') && props.id) {
                     const { data } = await api.get(`/user/${props.id}`);
                     setName(data.data.name);
                     setEmail(data.data.email);
