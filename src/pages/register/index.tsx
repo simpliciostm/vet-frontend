@@ -58,8 +58,6 @@ export const Register = () => {
                 dateEnd
             });
 
-            console.log(data)
-
             switch (data.status) {
                 case 1:
                     setCads(data.data);
@@ -153,7 +151,7 @@ export const Register = () => {
                                     className='input-mask-style'
                                     style={{ borderRadius: '5px', height: '39px', outline: 'none', fontSize: '17px', width: '150px', color: "rgba(0,0,0,0.9)", padding: '15px' }} />
                                 <TextField sx={{ width: '85px' }} value={cityRegisterFilter} onChange={(e) => setCityRegisterFilter(e.target.value)} label="Cidade" variant="outlined" size='small' />
-                                <TextField inputProps={{ maxLength: 15 }} type='text'variant='outlined' label='Microship' size='small' sx={{ width: '160px' }} value={chipRegisterFilter} onChange={(e: any) => setChipRegisterFilter(e.target.value)} />
+                                <TextField inputProps={{ maxLength: 15 }} type='text' variant='outlined' label='Microship' size='small' sx={{ width: '160px' }} value={chipRegisterFilter} onChange={(e: any) => setChipRegisterFilter(e.target.value)} />
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DemoContainer sx={{ overflow: 'hidden', height: '55px', width: '200px' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
                                         <DatePicker
@@ -165,7 +163,7 @@ export const Register = () => {
                                     </DemoContainer>
                                 </LocalizationProvider>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DemoContainer sx={{ height: '55px', width: '200px' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
+                                    <DemoContainer sx={{ overflow: 'hidden', height: '55px', width: '200px' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
                                         <DatePicker
                                             label="Data Final"
                                             value={dateEnd ? dateEnd : null}

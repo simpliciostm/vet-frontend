@@ -121,18 +121,20 @@ export const Usuarios = () => {
                     <Button onClick={() => openAdd()} >Adicionar novo registro</Button>
                 </div>
                 <div className='box-data'>
-                    <div className="box-filter-users">
-                        <div className='fields-users'>
-                            <div className="fields-filter">
-                                <TextField value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} style={{ marginLeft: 20 }} label="Nome" variant="outlined" size='small' />
-                                <TextField value={emailFilter} onChange={(e) => setEmailFilter(e.target.value)} label="Email" variant="outlined" size='small' />
-                            </div>
-                            <div className="search-button-users">
-                                <Button size='small' onClick={(e) => applyFilter(e)} className='button-filter-users' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>
-                                <Button size='small' onClick={(e) => clearFilter(e)} className='button-remove-filter-users' variant="contained" ><ClearIcon fontSize='small' /></Button>
+                    <form action="" onSubmit={(e) => applyFilter(e)}>
+                        <div className="box-filter-users">
+                            <div className='fields-users'>
+                                <div className="fields-filter">
+                                    <TextField value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} style={{ marginLeft: 20 }} label="Nome" variant="outlined" size='small' />
+                                    <TextField value={emailFilter} onChange={(e) => setEmailFilter(e.target.value)} label="Email" variant="outlined" size='small' />
+                                </div>
+                                <div className="search-button-users">
+                                    <Button size='small' type='submit' className='button-filter-users' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>
+                                    <Button size='small' onClick={(e) => clearFilter(e)} className='button-remove-filter-users' variant="contained" ><ClearIcon fontSize='small' /></Button>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                     {
                         users.length >= 1 ? (
                             <>
