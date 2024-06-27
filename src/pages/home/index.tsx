@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Typography } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import { Header } from '../../components/headerComponent';
 import './style.css';
 import { CardInfoComponent } from '../../components/cardInfoComponent';
@@ -16,8 +16,10 @@ export const Home = () => {
     const [portLarge, setPortLarge] = useState(0);
     const [city, setCity] = useState([]);
     const [registerDate, setRegisterDate] = useState([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
+        timer()
 
         const getInfoCitys = async () => {
             try {
@@ -56,6 +58,12 @@ export const Home = () => {
         getInfoCads();
     }, []);
 
+    const timer = () => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
+    }
+
     return (
         <div>
             <Header />
@@ -71,38 +79,54 @@ export const Home = () => {
                         <CardInfoComponent icon={<PiDog fontSize={45} />} title='Porte Grande' total={portLarge} />
                     </div>
                 </div>
-                <div className='container-chart-city'>
-                    <div className='title-chart'>
-                        <Typography component={'span'} fontSize={21} >Índice por Cidade</Typography>
-                    </div>
-                    <ResponsiveContainer height={150} width={"100%"} >
-                        <BarChart
-                            data={city}
-                        >
-                            <CartesianGrid />
-                            <XAxis dataKey="city" />
-                            <YAxis allowDecimals={false} />
-                            <Tooltip />
-                            <Bar width={2} radius={7} dataKey="total" fill="#751b1b" />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </div>
-                <div className='container-chart-date'>
-                    <div className='title-chart'>
-                        <Typography component={'span'} fontSize={21} >Índice por Mês</Typography>
-                    </div>
-                    <ResponsiveContainer height={150} width={"100%"} >
-                        <BarChart
-                            data={registerDate}
-                        >
-                            <CartesianGrid />
-                            <XAxis dataKey="date" />
-                            <YAxis allowDecimals={false} />
-                            <Tooltip />
-                            <Bar width={2} radius={7} dataKey="total" fill="#751b1b" />
-                        </BarChart>
-                    </ResponsiveContainer>
-                </div>
+                {
+                    loading ? (
+                        <div className="container-loading-table">
+                            <CircularProgress />
+                        </div>
+                    ) : (
+                        <div className='container-chart-city'>
+                            <div className='title-chart'>
+                                <Typography component={'span'} fontSize={21} >Índice por Cidade</Typography>
+                            </div>
+                            <ResponsiveContainer height={150} width={"100%"} >
+                                <BarChart
+                                    data={city}
+                                >
+                                    <CartesianGrid />
+                                    <XAxis dataKey="city" />
+                                    <YAxis allowDecimals={false} />
+                                    <Tooltip />
+                                    <Bar width={2} radius={7} dataKey="total" fill="#751b1b" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
+                    )
+                }
+                {
+                    loading ? (
+                        <div className="container-loading-table">
+                            <CircularProgress />
+                        </div>
+                    ) : (
+                        <div className='container-chart-date'>
+                            <div className='title-chart'>
+                                <Typography component={'span'} fontSize={21} >Índice por Mês</Typography>
+                            </div>
+                            <ResponsiveContainer height={150} width={"100%"} >
+                                <BarChart
+                                    data={registerDate}
+                                >
+                                    <CartesianGrid />
+                                    <XAxis dataKey="date" />
+                                    <YAxis allowDecimals={false} />
+                                    <Tooltip />
+                                    <Bar width={2} radius={7} dataKey="total" fill="#751b1b" />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
+                    )
+                }
                 <div className="container-dashboard">
                     <div className="box-cards">
                         <CardInfoComponent icon={<FaUsers fontSize={35} />} title='Castrados' total={totalRegisters} textIcon='CPF' />

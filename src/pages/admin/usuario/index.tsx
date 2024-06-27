@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../../components/headerComponent';
 import { TableUsersComponent } from '../../../components/tablesComponents/tableUsersComponent'
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, CircularProgress, TextField, Typography } from '@mui/material';
 import './style.css'
 import { Link } from 'react-router-dom';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -13,6 +13,7 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 interface filterProps {
+    idUser: string,
     name: string,
     email: string
 }
@@ -24,15 +25,18 @@ export const Usuarios = () => {
     const [operation, setOperation] = useState('');
     const [emailFilter, setEmailFilter] = useState('');
     const [nameFilter, setNameFilter] = useState('');
+    const [idUserFilter, setIdUserFilter] = useState('');
     const [currentPage, setCurrentPagination] = useState(0);
     const [totalUsers, setTotalUsers] = useState(0);
-    const [filterUser, setFilterUser] = useState(Object);
+    const [filterUser, setFilterUser] = useState<filterProps>(Object);
     const [totalPageLastClick, setTotalPageLastClick] = useState(0);
     const [disableButtonNext, setDisableButtonNext] = useState(false);
     const [disableButtonBack, setDisableButtonBack] = useState(false);
     const [msg, setMsg] = useState('');
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
+        timer();
         getUsers(filterUser, currentPage);
         const pagesNumbers = Math.ceil(totalUsers / 5);
         if (pagesNumbers - 1 === totalPageLastClick) setDisableButtonNext(true);
@@ -47,12 +51,16 @@ export const Usuarios = () => {
 
             switch (data.status) {
                 case 1:
+                    timer();
+                    setLoading(true);
                     setUsers(data.data);
                     setTotalUsers(data.total);
                     setColumns(data.columns);
                     break;
 
                 case 0:
+                    timer();
+                    setLoading(true);
                     setUsers([]);
                     setMsg(data.msg);
                     break;
@@ -71,16 +79,19 @@ export const Usuarios = () => {
     const clearFilter = async (e: any) => {
         e.preventDefault();
         setFilterUser({
+            idUser: '',
             name: '',
             email: ''
         });
         setNameFilter('');
         setEmailFilter('');
+        setIdUserFilter('');
     }
 
     const applyFilter = async (e: any) => {
         e.preventDefault();
         setFilterUser({
+            idUser: idUserFilter,
             name: nameFilter,
             email: emailFilter
         });
@@ -104,6 +115,12 @@ export const Usuarios = () => {
         setShowAdd(false);
     }
 
+    const timer = () => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
+    }
+
     return (
         <div>
             <Header />
@@ -125,6 +142,7 @@ export const Usuarios = () => {
                         <div className="box-filter-users">
                             <div className='fields-users'>
                                 <div className="fields-filter">
+                                    <TextField value={idUserFilter} onChange={(e) => setIdUserFilter(e.target.value)} style={{ marginLeft: 20 }} label="ID" variant="outlined" size='small' />
                                     <TextField value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} style={{ marginLeft: 20 }} label="Nome" variant="outlined" size='small' />
                                     <TextField value={emailFilter} onChange={(e) => setEmailFilter(e.target.value)} label="Email" variant="outlined" size='small' />
                                 </div>
@@ -138,16 +156,27 @@ export const Usuarios = () => {
                     {
                         users.length >= 1 ? (
                             <>
-                                <TableUsersComponent data={users} columns={columns} />
-                                <div className="table-users-pagination">
-                                    <div className="table-users-quantity">
-                                        <Typography component={'span'} fontFamily={'sans-serif'}>Qtd: {totalUsers}</Typography>
-                                    </div>
-                                    <div className="table-users-button">
-                                        <button className={disableButtonBack ? 'button-pagination-user-disabled' : 'button-pagination-user'} disabled={disableButtonBack} onClick={() => backPagination()} ><KeyboardArrowLeftIcon /></button>
-                                        <button className={disableButtonNext ? 'button-pagination-user-disabled' : 'button-pagination-user'} disabled={disableButtonNext} onClick={() => nextPagination()}><KeyboardArrowRightIcon /></button>
-                                    </div>
-                                </div>
+                                {
+                                    loading ? (
+                                        <div className="container-loading-table">
+                                            <CircularProgress />
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <TableUsersComponent data={users} columns={columns} />
+                                            <div className="table-users-pagination">
+                                                <div className="table-users-quantity">
+                                                    <Typography component={'span'} fontFamily={'sans-serif'}>Qtd: {totalUsers}</Typography>
+                                                </div>
+                                                <div className="table-users-button">
+                                                    <button className={disableButtonBack ? 'button-pagination-user-disabled' : 'button-pagination-user'} disabled={disableButtonBack} onClick={() => backPagination()} ><KeyboardArrowLeftIcon /></button>
+                                                    <button className={disableButtonNext ? 'button-pagination-user-disabled' : 'button-pagination-user'} disabled={disableButtonNext} onClick={() => nextPagination()}><KeyboardArrowRightIcon /></button>
+                                                </div>
+                                            </div>
+
+                                        </>
+                                    )
+                                }
                             </>
                         ) : (
                             <div>

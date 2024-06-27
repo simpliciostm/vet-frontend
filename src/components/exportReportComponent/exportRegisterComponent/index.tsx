@@ -27,7 +27,7 @@ export const ExportRegisterComponent = ({ onClose }: exportProps) => {
 
     const submitReport = async (e: any) => {
         try {
-            e.preventDefault()
+            e.preventDefault();
 
             const filter = {
                 city: city,
@@ -38,26 +38,26 @@ export const ExportRegisterComponent = ({ onClose }: exportProps) => {
                 filter,
                 dateStart,
                 dateEnd
-            })
+            });
 
             if (data && data.status === 1 && data.data.length >= 1) {
                 setRegister(data.data)
-                setTotalRegister(data.data.length)
-                setColumns(data.columns)
-                setShowExport(true)
+                setTotalRegister(data.data.length);
+                setColumns(data.columns);
+                setShowExport(true);
             } else {
-                setMsg(data.msg)
-                setAlert(true)
-                timerError()
+                setMsg(data.msg);
+                setAlert(true);
+                timerError();
             }
 
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     }
 
     const closeShowExportModal = () => {
-        showExport ? setShowExport(false) : setShowExport(true)
+        showExport ? setShowExport(false) : setShowExport(true);
     }
 
     const exportCSV = async (e: any) => {
@@ -69,22 +69,21 @@ export const ExportRegisterComponent = ({ onClose }: exportProps) => {
                 columns,
                 responseType: 'blob'
             }).then(res => {
-                fileDownload(res.data, 'teste.csv')
+                fileDownload(res.data, 'teste.csv');
+                setShowExport(false);
             }).catch((err) => {
-                console.log(err)
+                console.log(err);
             })
 
-
-
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     }
 
     const timerError = () => {
         setTimeout(() => {
             setAlert(false);
-        }, 3000)
+        }, 3000);
     }
 
     return (
@@ -131,7 +130,7 @@ export const ExportRegisterComponent = ({ onClose }: exportProps) => {
                                 <Button className='button-save' type='submit' sx={{ width: '200px' }} variant="contained" >Ver Registros</Button>
                             </div>
                         </form>
-                        {alert ? <ShowAlert status={'error'} msg={msg} /> : null}
+
                     </div>
                 ) : (
                     <div className="modal-export-register">
@@ -143,11 +142,7 @@ export const ExportRegisterComponent = ({ onClose }: exportProps) => {
                     </div>
                 )
             }
+            {alert ? <ShowAlert status={'error'} msg={msg} /> : null}
         </div>
     )
 }
-
-function setAlert(arg0: boolean) {
-    throw new Error('Function not implemented.');
-}
-
