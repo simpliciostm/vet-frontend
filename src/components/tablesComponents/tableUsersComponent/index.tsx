@@ -15,6 +15,7 @@ import { UserFormComponent } from '../../registerModalsComponent/userFormCompone
 interface props {
     data: {
         _id: number,
+        idUser: number,
         name: string,
         email: string,
         permissions: {
@@ -30,6 +31,7 @@ interface props {
 
 interface user {
     _id: string,
+    idUser: number,
     name: string,
     email: string,
     permissions: {
@@ -84,7 +86,7 @@ export const TableUsersComponent = ({ data, columns }: props) => {
                     <TableHead>
                         <TableRow>
                             {columns.map((col: string) => (
-                                <TableCell style={{ color: '#751b1b', fontWeight: 'bold', textTransform: 'uppercase' }} key={col} align='left'>{col}</TableCell>
+                                <TableCell style={{ color: '#751b1b', fontWeight: 'bold', textTransform: 'uppercase' }} key={col} align='center'>{col}</TableCell>
                             ))}
                         </TableRow>
                     </TableHead>
@@ -102,9 +104,10 @@ export const TableUsersComponent = ({ data, columns }: props) => {
                                         <button style={{ background: 'transparent', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openViewUser(e, row._id)} ><VisibilityIcon style={{ cursor: 'pointer', fontSize: 15 }} htmlColor='#ffae60' fontSize='small' /></button>
                                     </div>
                                 </TableCell>
-                                <TableCell sx={{ width: '500px' }} >{row.name}</TableCell>
-                                <TableCell sx={{ width: '500px' }}>{row.email}</TableCell>
-                                <TableCell sx={{ width: '500px' }}>{row.permissions.name_permission}</TableCell>
+                                <TableCell sx={{ width: '50px', textAlign: 'center' }} >{row.idUser}</TableCell>
+                                <TableCell sx={{ width: '500px', textAlign: 'center'  }} >{row.name}</TableCell>
+                                <TableCell sx={{ width: '500px', textAlign: 'center'  }}>{row.email}</TableCell>
+                                <TableCell sx={{ width: '500px', textAlign: 'center'  }}>{row.permissions.name_permission}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

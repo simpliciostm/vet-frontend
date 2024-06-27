@@ -17,6 +17,7 @@ import './style.css';
 interface props {
     data: {
         _id: string,
+        idCastration: number,
         animal: {
             species: string,
             sexy: string,
@@ -47,6 +48,7 @@ interface props {
 
 interface cads {
     _id: string,
+    idCastration: number,
     animal: {
         species: string,
         sexy: string,
@@ -134,6 +136,7 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
                                         <button style={{ background: 'transparent', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openViewUser(e, row._id)} ><VisibilityIcon style={{ cursor: 'pointer', fontSize: 15 }} htmlColor='#ffae60' fontSize='small' /></button>
                                     </div>
                                 </TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.idCastration}</TableCell>
                                 <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.animal.species}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }} >{row.animal.sexy}</TableCell>
                                 <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.animal.name}</TableCell>

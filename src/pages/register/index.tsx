@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Header } from '../../components/headerComponent';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, CircularProgress, TextField, Typography } from '@mui/material';
 import './style.css'
 import api from '../../api';
 import SearchIcon from '@mui/icons-material/Search';
@@ -18,6 +18,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker/DatePicker';
 import InputMask from 'react-input-mask';
 
 interface filterCadsProps {
+    idCastration: string,
     name_tutor: string,
     cpf: string,
     city: string
@@ -32,6 +33,7 @@ export const Register = () => {
     const [tutorRegisterCadsFilter, setTutorRegisterCadFilter] = useState<string>('');
     const [cityRegisterFilter, setCityRegisterFilter] = useState<string>('');
     const [chipRegisterFilter, setChipRegisterFilter] = useState<string>('');
+    const [idCastrationFilter, setIdCastrationFilter] = useState<string>('');
     const [dateStart, setDateStart] = useState<string | any>('');
     const [dateEnd, setDateEnd] = useState<string | any>('');
     const [currentPage, setCurrentPagination] = useState<number>(0);
@@ -42,8 +44,10 @@ export const Register = () => {
     const [disableButtonBack, setDisableButtonBack] = useState<boolean>(false);
     const [msg, setMsg] = useState<string>('');
     const [closeExport, setCloseExport] = useState<boolean>(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        timer()
         getCads(filterCads, currentPage);
         const pagesNumbers = Math.ceil(totalCads / 5);
         if (pagesNumbers - 1 === totalPageLastClick) setDisableButtonNext(true);
@@ -60,12 +64,16 @@ export const Register = () => {
 
             switch (data.status) {
                 case 1:
+                    timer()
+                    setLoading(true);
                     setCads(data.data);
                     setTotalCads(data.total);
                     setColumns(data.columns);
                     break;
 
                 case 0:
+                    timer();
+                    setLoading(true);
                     setCads([]);
                     setMsg(data.msg);
                     break;
@@ -84,6 +92,7 @@ export const Register = () => {
     const clearFilter = async (e: any) => {
         e.preventDefault();
         setFilterCads({
+            idCastration: '',
             name_tutor: '',
             cpf: '',
             city: ''
@@ -92,12 +101,14 @@ export const Register = () => {
         setCpfRegisterFilter('');
         setDateStart('');
         setDateEnd('');
-        setCityRegisterFilter('')
+        setCityRegisterFilter('');
+        setIdCastrationFilter('');
     }
 
     const applyFilter = async (e: any) => {
         e.preventDefault();
         setFilterCads({
+            idCastration: idCastrationFilter,
             name_tutor: tutorRegisterCadsFilter,
             cpf: cpfRegisterFilter,
             city: cityRegisterFilter
@@ -126,6 +137,12 @@ export const Register = () => {
         setCloseExport(false);
     }
 
+    const timer = () => {
+        setTimeout(() => {
+            setLoading(false)
+        }, 1000)
+    }
+
     return (
         <div>
             <Header />
@@ -141,6 +158,7 @@ export const Register = () => {
                     <form action="" onSubmit={(e: any) => applyFilter(e)}>
                         <div className="box-filter-cads">
                             <div className="fields-filter">
+                                <TextField value={idCastrationFilter} onChange={(e) => setIdCastrationFilter(e.target.value)} style={{ width: '120px', marginLeft: 20 }} label="ID" variant="outlined" size='small' />
                                 <TextField value={tutorRegisterCadsFilter} onChange={(e) => setTutorRegisterCadFilter(e.target.value)} style={{ width: '120px', marginLeft: 20 }} label="Tutor" variant="outlined" size='small' />
                                 <InputMask
                                     mask="999.999.999-99"
@@ -183,16 +201,26 @@ export const Register = () => {
                     {
                         cads.length >= 1 ? (
                             <>
-                                <TableRegisterCadsComponent data={cads} columns={columns} />
-                                <div className="table-cads-pagination">
-                                    <div className="table-cads-quantity">
-                                        <Typography component={'span'} fontFamily={'sans-serif'}>Qtd: {totalCads}</Typography>
-                                    </div>
-                                    <div className="table-cads-button">
-                                        <button className={disableButtonBack ? 'button-pagination-cads-disabled' : 'button-pagination-cads'} disabled={disableButtonBack} onClick={() => backPagination()} ><KeyboardArrowLeftIcon /></button>
-                                        <button className={disableButtonNext ? 'button-pagination-cads-disabled' : 'button-pagination-cads'} disabled={disableButtonNext} onClick={() => nextPagination()}><KeyboardArrowRightIcon /></button>
-                                    </div>
-                                </div>
+                                {
+                                    loading ? (
+                                        <div className='container-loading-table'>
+                                            <CircularProgress />
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <TableRegisterCadsComponent data={cads} columns={columns} />
+                                            <div className="table-cads-pagination">
+                                                <div className="table-cads-quantity">
+                                                    <Typography component={'span'} fontFamily={'sans-serif'}>Qtd: {totalCads}</Typography>
+                                                </div>
+                                                <div className="table-cads-button">
+                                                    <button className={disableButtonBack ? 'button-pagination-cads-disabled' : 'button-pagination-cads'} disabled={disableButtonBack} onClick={() => backPagination()} ><KeyboardArrowLeftIcon /></button>
+                                                    <button className={disableButtonNext ? 'button-pagination-cads-disabled' : 'button-pagination-cads'} disabled={disableButtonNext} onClick={() => nextPagination()}><KeyboardArrowRightIcon /></button>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )
+                                }
                             </>
                         ) : (
                             <div>
