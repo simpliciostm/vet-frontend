@@ -9,11 +9,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 
 .container-permission-form .modal-permission-form {
-    width: 600px;
-    height: 270px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -34,8 +33,11 @@
     gap: 20px;
 }
 
+.container-permission-form .modal-permission-form .box-fields-permissions .field-permission {
+    width: 100%;
+}
+
 .container-permission-form .modal-permission-form .box-buttons-permissions {
-    height: 200px;
     display: flex;
     justify-content: center;
     align-items: center;

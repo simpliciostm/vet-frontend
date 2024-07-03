@@ -109,7 +109,7 @@ export const PermissionFormComponent = (props: PermissionsProps) => {
                     </div>
                     <div className="field-permission">
                         <Autocomplete
-                            sx={{ width: '390px' }}
+                            sx={{ width: '100%' }}
                             size='small'
                             multiple
                             options={roles}

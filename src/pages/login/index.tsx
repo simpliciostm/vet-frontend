@@ -4,8 +4,8 @@ import api from '../../api';
 import { ShowAlert } from '../../components/showAlertComponent';
 import { setStorage } from '../../services/localStorage';
 import { Button, CircularProgress, TextField } from '@mui/material';
-import img from '../../assets/images/logo.jpeg';
-import imgLogin from '../../assets/images/teste.jpg';
+import img from '../../assets/images/logo-new.png';
+import imgLogin from '../../assets/images/imageLogin.jpg';
 
 export const Login = () => {
     const [email, setEmail] = useState('');
@@ -64,7 +64,9 @@ export const Login = () => {
     return (
         <div className='background-login'>
             <div className='container-img'>
-                <img src={imgLogin} alt='img-login' />
+                <div className="background-img">
+                    <img src={imgLogin} alt='img-login' />
+                </div>
             </div>
             <div className='modal'>
                 <div className='box-img'>

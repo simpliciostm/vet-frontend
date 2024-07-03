@@ -9,6 +9,17 @@
   background-color: #f5f4f4;
 }
 
+:root .button-add {
+  background-color: var(--default-primary-color);
+  opacity: 0.9;
+  transition: all 0.3s ease;
+}
+
+:root .button-add:hover {
+  background-color: white;
+  color: var(--default-primary-color);
+}
+
 :root::-webkit-scrollbar {
   background-color: rgba(0, 0, 0, 0.1);
   width: 7px;

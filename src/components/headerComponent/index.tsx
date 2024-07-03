@@ -11,23 +11,22 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import api from '../../api';
 import { getStorage } from '../../services/localStorage';
-import img from '../../assets/images/logo.jpeg';
+import img from '../../assets/images/logo-new.png';
 import MenuIcon from '@mui/icons-material/Menu';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 
 export const Header = () => {
-    const [name, setName] = useState('');
-    const [permission, setPermission] = useState('');
-    const [showMenuMobile, setShowMenuMobile] = useState(false);
-    const [showDropDown, setShowDropDown] = useState(false);
-    const [nameHeaderFirst, setNameHeaderFirst] = useState('');
-    const [nameHeaderSecond, setNameHeaderSecond] = useState('');
+    const [name, setName] = useState<string>('');
+    const [permission, setPermission] = useState<string>('');
+    const [showMenuMobile, setShowMenuMobile] = useState<boolean>(false);
+    const [showDropDown, setShowDropDown] = useState<boolean>(false);
+    const [nameHeaderFirst, setNameHeaderFirst] = useState<string>('');
+    const [nameHeaderSecond, setNameHeaderSecond] = useState<string>('');
+    const [selectedMenu, setSelectedMenu] = useState<string>('');
 
     useEffect(() => {
-
         const loadUserInfo = async () => {
-
             const idUser = getStorage('id');
             if (idUser) {
                 const response = await api.get(`/user/${idUser}`);
@@ -40,8 +39,9 @@ export const Header = () => {
                 }
             }
         }
+
         loadUserInfo();
-    })
+    }, [name, nameHeaderFirst, nameHeaderSecond])
 
 
     const logout = () => {
@@ -93,19 +93,19 @@ export const Header = () => {
             <div className="submenu">
                 <nav>
                     <ul>
-                        <Link to="/dashboard/home">
-                            <li>
+                        <Link onClick={() => setSelectedMenu('/dashboard/home')} to="/dashboard/home">
+                            <li id={selectedMenu === '/dashboard/home' ? 'selected-menu' : ''} title='ínicio'>
                                 <HomeRoundedIcon fontSize='small' />Início
                             </li>
                         </Link>
-                        <Link to="/dashboard/register">
-                            <li>
+                        <Link onClick={() => setSelectedMenu('/dashboard/register')} to="/dashboard/register">
+                            <li id={selectedMenu === '/dashboard/register' ? 'selected-menu' : ''} title='castrações'>
                                 <FormatListBulletedIcon fontSize='small' />Castrações
                             </li>
                         </Link>
                         {
-                            permission === 'Admin' ? <Link to="/dashboard/admin">
-                                <li>
+                            permission === 'Admin' ? <Link onClick={() => setSelectedMenu('/dashboard/admin')} to="/dashboard/admin">
+                                <li id={selectedMenu === '/dashboard/admin' ? 'selected-menu' : ''} title='admin'>
                                     <PersonIcon fontSize='small' />Admin
                                 </li>
                             </Link> : null
@@ -131,18 +131,18 @@ export const Header = () => {
                         <nav>
                             <ul>
                                 <Link to="/dashboard/home">
-                                    <li>
+                                    <li title='ínicio' >
                                         <HomeRoundedIcon fontSize='small' />
                                     </li>
                                 </Link>
                                 <Link to="/dashboard/register">
-                                    <li>
+                                    <li title='castrações'>
                                         <FormatListBulletedIcon fontSize='small' />
                                     </li>
                                 </Link>
                                 {
                                     permission === 'Admin' ? <Link to="/dashboard/admin">
-                                        <li>
+                                        <li title='admin'>
                                             <PersonIcon fontSize='small' />
                                         </li>
                                     </Link> : null

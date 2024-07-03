@@ -13,7 +13,6 @@ import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 interface filterProps {
-    idUser: string,
     name: string,
     email: string
 }
@@ -25,7 +24,6 @@ export const Usuarios = () => {
     const [operation, setOperation] = useState('');
     const [emailFilter, setEmailFilter] = useState('');
     const [nameFilter, setNameFilter] = useState('');
-    const [idUserFilter, setIdUserFilter] = useState('');
     const [currentPage, setCurrentPagination] = useState(0);
     const [totalUsers, setTotalUsers] = useState(0);
     const [filterUser, setFilterUser] = useState<filterProps>(Object);
@@ -79,19 +77,16 @@ export const Usuarios = () => {
     const clearFilter = async (e: any) => {
         e.preventDefault();
         setFilterUser({
-            idUser: '',
             name: '',
             email: ''
         });
         setNameFilter('');
         setEmailFilter('');
-        setIdUserFilter('');
     }
 
     const applyFilter = async (e: any) => {
         e.preventDefault();
         setFilterUser({
-            idUser: idUserFilter,
             name: nameFilter,
             email: emailFilter
         });
@@ -135,22 +130,17 @@ export const Usuarios = () => {
                     <Typography className='title' component='span' fontSize={15} >Aqui você pode <Typography component='span' color='#751b1b'>consultar</Typography> e <Typography component='span' color='#751b1b'>adicionar</Typography> registro de usuários</Typography>
                 </div>
                 <div className="box-add">
-                    <Button onClick={() => openAdd()} >Adicionar novo registro</Button>
+                    <Button className='button-add' color='secondary' onClick={() => openAdd()} >Adicionar novo registro</Button>
                 </div>
                 <div className='box-data'>
                     <form action="" onSubmit={(e) => applyFilter(e)}>
-                        <div className="box-filter-users">
-                            <div className='fields-users'>
-                                <div className="fields-filter">
-                                    <TextField value={idUserFilter} onChange={(e) => setIdUserFilter(e.target.value)} style={{ marginLeft: 20 }} label="ID" variant="outlined" size='small' />
-                                    <TextField value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} style={{ marginLeft: 20 }} label="Nome" variant="outlined" size='small' />
-                                    <TextField value={emailFilter} onChange={(e) => setEmailFilter(e.target.value)} label="Email" variant="outlined" size='small' />
-                                </div>
-                                <div className="search-button-users">
-                                    <Button size='small' type='submit' className='button-filter-users' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>
-                                    <Button size='small' onClick={(e) => clearFilter(e)} className='button-remove-filter-users' variant="contained" ><ClearIcon fontSize='small' /></Button>
-                                </div>
-                            </div>
+                        <div className="fields-filter">
+                            <TextField value={nameFilter} onChange={(e) => setNameFilter(e.target.value)} style={{ width: "200px" }} label="Nome" variant="outlined" size='small' />
+                            <TextField value={emailFilter} onChange={(e) => setEmailFilter(e.target.value)} style={{ width: "200px" }} label="Email" variant="outlined" size='small' />
+                        </div>
+                        <div className="search-button-filter">
+                            <Button size='small' type='submit' className='button-filter-users' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>
+                            <Button size='small' onClick={(e) => clearFilter(e)} className='button-remove-filter-users' variant="contained" ><ClearIcon fontSize='small' /></Button>
                         </div>
                     </form>
                     {

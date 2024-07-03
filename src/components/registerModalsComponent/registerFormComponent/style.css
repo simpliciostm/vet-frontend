@@ -9,6 +9,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    padding: 10px;
 }
 
 .container-cads-form .modal-cads-form {
@@ -21,34 +23,15 @@
     overflow-y: auto;
     gap: 20px;
     animation: animaModal 0.3s forwards;
+    width: 80%;
 }
 
 .container-cads-form .modal-cads-form .title-cads-form {
-    height: 100px;
     width: 100%;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-}
-
-.container-cads-form .modal-cads-form #field-input-password {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container-cads-form .modal-cads-form #field-input-password #eye {
-    position: absolute;
-    right: 20px;
-    color: rgba(0, 0, 0, 0.7);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.container-cads-form .modal-cads-form #field-input-password #eye:hover {
-    color: rgba(0, 0, 0, 0.9);
 }
 
 .box-form-inputs-fields {
@@ -60,13 +43,13 @@
 }
 
 .box-form-inputs-fields .box-fields-table {
-    width: 100%;
     background-color: white;
     padding: 10px;
     box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.1);
     border-radius: 1px;
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
@@ -138,90 +121,11 @@
     gap: 20px;
     justify-content: center;
     align-items: center;
-    height: 120px;
 }
 
 .modal-cads-form .button-fields-cads .button-cancel {
     background-color: white;
     color: var(--default-primary-color);
-}
-
-.container-verify-modal {
-    position: absolute;
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.6);
-}
-
-.container-verify-modal .container-list-register {
-    width: 40%;
-    background-color: white;
-    border-radius: 2px;
-    padding: 20px;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    max-height: 450px;
-}
-
-.container-verify-modal .container-list-register::-webkit-scrollbar {
-    background-color: rgba(0, 0, 0, 0.1);
-    width: 7px;
-}
-
-.container-verify-modal .container-list-register::-webkit-scrollbar-thumb {
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 3px;
-}
-
-.container-verify-modal .container-list-register .title-container-verify {
-    left: 0;
-    top: 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.container-verify-modal .container-list-register ul {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-}
-
-.container-verify-modal .container-list-register .box-register {
-    width: 100%;
-    gap: 20px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-.container-verify-modal .container-list-register .box-register .infos-register {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.container-verify-modal .container-list-register .box-register .button-register {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.container-cads-form .loading-container {
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    left: 0;
-    top: 0;
 }
 
 @keyframes animaModal {
@@ -231,5 +135,16 @@
 
     100% {
         transform: translateY(1);
+    }
+}
+
+@media (max-width: 1200px) {
+    .container-cads-form {
+        z-index: 95;
+    }
+    .container-cads-form .modal-cads-form {
+        overflow: auto;
+        width: 97%;
+        height: 80%;
     }
 }

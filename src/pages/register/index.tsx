@@ -18,7 +18,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker/DatePicker';
 import InputMask from 'react-input-mask';
 
 interface filterCadsProps {
-    idCastration: string,
     name_tutor: string,
     cpf: string,
     city: string
@@ -33,7 +32,6 @@ export const Register = () => {
     const [tutorRegisterCadsFilter, setTutorRegisterCadFilter] = useState<string>('');
     const [cityRegisterFilter, setCityRegisterFilter] = useState<string>('');
     const [chipRegisterFilter, setChipRegisterFilter] = useState<string>('');
-    const [idCastrationFilter, setIdCastrationFilter] = useState<string>('');
     const [dateStart, setDateStart] = useState<string | any>('');
     const [dateEnd, setDateEnd] = useState<string | any>('');
     const [currentPage, setCurrentPagination] = useState<number>(0);
@@ -92,7 +90,6 @@ export const Register = () => {
     const clearFilter = async (e: any) => {
         e.preventDefault();
         setFilterCads({
-            idCastration: '',
             name_tutor: '',
             cpf: '',
             city: ''
@@ -102,16 +99,14 @@ export const Register = () => {
         setDateStart('');
         setDateEnd('');
         setCityRegisterFilter('');
-        setIdCastrationFilter('');
     }
 
     const applyFilter = async (e: any) => {
         e.preventDefault();
         setFilterCads({
-            idCastration: idCastrationFilter,
-            name_tutor: tutorRegisterCadsFilter,
-            cpf: cpfRegisterFilter,
-            city: cityRegisterFilter
+            name_tutor: tutorRegisterCadsFilter.toUpperCase(),
+            cpf: cpfRegisterFilter.toUpperCase(),
+            city: cityRegisterFilter.toUpperCase()
         });
     }
 
@@ -148,54 +143,51 @@ export const Register = () => {
             <Header />
             <div className='cads-box'>
                 <div className="box-title">
-                    <Typography className='title' component='span' fontSize={25} >Registros de Consultas</Typography>
-                    <Typography className='title' component='span' fontSize={15} >Aqui você pode <Typography component='span' color='#751b1b'>consultar</Typography> e <Typography component='span' color='#751b1b'>adicionar</Typography> consultas</Typography>
+                    <Typography className='title' component='span' fontSize={25} >Registros de Castração</Typography>
+                    <Typography className='title' component='span' fontSize={15} >Aqui você pode <Typography component='span' color='#751b1b'>consultar</Typography> e <Typography component='span' color='#751b1b'>adicionar</Typography> castrações</Typography>
                 </div>
                 <div className="box-add">
-                    <Button onClick={() => openAdd()} >Adicionar nova consulta</Button>
+                    <Button className='button-add' color='secondary' onClick={() => openAdd()} >Adicionar nova castração</Button>
                 </div>
                 <div className='box-data'>
                     <form action="" onSubmit={(e: any) => applyFilter(e)}>
-                        <div className="box-filter-cads">
-                            <div className="fields-filter">
-                                <TextField value={idCastrationFilter} onChange={(e) => setIdCastrationFilter(e.target.value)} style={{ width: '120px', marginLeft: 20 }} label="ID" variant="outlined" size='small' />
-                                <TextField value={tutorRegisterCadsFilter} onChange={(e) => setTutorRegisterCadFilter(e.target.value)} style={{ width: '120px', marginLeft: 20 }} label="Tutor" variant="outlined" size='small' />
-                                <InputMask
-                                    mask="999.999.999-99"
-                                    maskChar=" "
-                                    value={cpfRegisterFilter}
-                                    onChange={(e: any) => setCpfRegisterFilter(e.target.value)}
-                                    placeholder='CPF'
-                                    className='input-mask-style'
-                                    style={{ borderRadius: '5px', height: '39px', outline: 'none', fontSize: '17px', width: '150px', color: "rgba(0,0,0,0.9)", padding: '15px' }} />
-                                <TextField sx={{ width: '85px' }} value={cityRegisterFilter} onChange={(e) => setCityRegisterFilter(e.target.value)} label="Cidade" variant="outlined" size='small' />
-                                <TextField inputProps={{ maxLength: 15 }} type='text' variant='outlined' label='Microship' size='small' sx={{ width: '160px' }} value={chipRegisterFilter} onChange={(e: any) => setChipRegisterFilter(e.target.value)} />
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DemoContainer sx={{ overflow: 'hidden', height: '55px', width: '200px' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
-                                        <DatePicker
-                                            label="Data Ínicio"
-                                            value={dateStart ? dateStart : null}
-                                            slotProps={{ textField: { size: 'small' } }}
-                                            onChange={(e) => setDateStart(e)}
-                                        />
-                                    </DemoContainer>
-                                </LocalizationProvider>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DemoContainer sx={{ overflow: 'hidden', height: '55px', width: '200px' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
-                                        <DatePicker
-                                            label="Data Final"
-                                            value={dateEnd ? dateEnd : null}
-                                            slotProps={{ textField: { size: 'small' } }}
-                                            onChange={(e) => setDateEnd(e)}
-                                        />
-                                    </DemoContainer>
-                                </LocalizationProvider>
-                            </div>
-                            <div className="search-button-cads">
-                                <Button onClick={() => setCloseExport(true)} size='small' className='button-export-cads' variant='contained' endIcon={<BackupTableRoundedIcon />} >exportar</Button>
-                                <Button type='submit' size='small' className='button-filter-cads' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>
-                                <Button size='small' onClick={(e) => clearFilter(e)} className='button-remove-filter-cads' variant="contained" ><ClearIcon fontSize='small' /></Button>
-                            </div>
+                        <div className="fields-filter">
+                            <TextField inputProps={{ style: { textTransform: 'uppercase' } }} value={tutorRegisterCadsFilter} onChange={(e) => setTutorRegisterCadFilter(e.target.value)} fullWidth label="Tutor" variant="outlined" size='small' />
+                            <InputMask
+                                mask="999.999.999-99"
+                                maskChar=" "
+                                value={cpfRegisterFilter}
+                                onChange={(e: any) => setCpfRegisterFilter(e.target.value)}
+                                placeholder='CPF'
+                                className='input-mask-style'
+                                style={{ borderRadius: '5px', height: '39px', outline: 'none', fontSize: '17px', width: '100%', color: "rgba(0,0,0,0.9)", padding: '15px' }} />
+                            <TextField inputProps={{ style: { textTransform: 'uppercase' } }} value={cityRegisterFilter} fullWidth onChange={(e) => setCityRegisterFilter(e.target.value)} label="Cidade" variant="outlined" size='small' />
+                            <TextField inputProps={{ style: { textTransform: 'uppercase' }, maxLength: 15 }} type='text' variant='outlined' label='Microship' size='small' fullWidth value={chipRegisterFilter} onChange={(e: any) => setChipRegisterFilter(e.target.value)} />
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer sx={{ overflow: 'hidden', height: '55px', width: '100%' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
+                                    <DatePicker
+                                        label="Data Ínicio"
+                                        value={dateStart ? dateStart : null}
+                                        slotProps={{ textField: { size: 'small' } }}
+                                        onChange={(e) => setDateStart(e)}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                <DemoContainer sx={{ overflow: 'hidden', height: '55px', width: '100%' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
+                                    <DatePicker
+                                        label="Data Final"
+                                        value={dateEnd ? dateEnd : null}
+                                        slotProps={{ textField: { size: 'small' } }}
+                                        onChange={(e) => setDateEnd(e)}
+                                    />
+                                </DemoContainer>
+                            </LocalizationProvider>
+                        </div>
+                        <div className="search-button-filter">
+                            <Button onClick={() => setCloseExport(true)} size='small' className='button-export-cads' variant='contained' endIcon={<BackupTableRoundedIcon />} >exportar</Button>
+                            <Button type='submit' size='small' className='button-filter-cads' variant="contained" endIcon={<SearchIcon />} >Filtrar</Button>
+                            <Button size='small' onClick={(e) => clearFilter(e)} className='button-remove-filter-cads' variant="contained" ><ClearIcon fontSize='small' /></Button>
                         </div>
                     </form>
                     {
