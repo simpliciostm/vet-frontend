@@ -9,11 +9,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px;
 }
 
 .container-user-form .modal-user-form {
-    width: 450px;
-    height: 500px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -72,5 +71,11 @@
 
     100% {
         transform: translateY(1);
+    }
+}
+
+@media (max-width: 1200px) {
+    .container-user-form {
+        z-index: 95;
     }
 }

@@ -38,7 +38,6 @@
 }
 
 .user-box .box-add {
-    width: 700px;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -50,12 +49,11 @@
     gap: 15px;
 }
 
-.user-box .box-filter-users {
-    width: 100%;
-    height: 60px;
+.user-box .box-data form {
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
     gap: 10px;
     padding: 10px;
     border-radius: 7px;
@@ -64,22 +62,21 @@
     background-color: white;
 }
 
-.user-box .box-data .box-filter-users .fields-users {
+.user-box form .fields-filter {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
     gap: 20px;
-}
-
-.user-box .box-filter-users .fields-filter {
-    display: flex;
-    gap: 20px;
+    overflow: auto;
+    padding: 10px;
 }
 
 .user-box .box-title .title {
     color: #000000e6;
 }
 
-.user-box .box-filter-users .filter {
+.user-box form .filter {
     color: rgba(0, 0, 0, 0.8);
 }
 
@@ -133,7 +130,7 @@
     opacity: 0.3;
 }
 
-.search-button-users {
+.search-button-filter {
     width: auto;
     display: flex;
     justify-content: center;
@@ -141,23 +138,53 @@
     gap: 20px;
 }
 
-.search-button-users .button-filter-users {
+.search-button-filter .button-filter-users {
     background-color: var(--default-primary-color);
     transition: all 0.3s ease;
 }
 
-.search-button-users .button-filter-users:hover {
+.search-button-filter .button-filter-users:hover {
     background-color: white;
     color: var(--default-primary-color);
 }
 
-.search-button-users .button-remove-filter-users {
+.search-button-filter .button-remove-filter-users {
     width: 25px;
     background-color: var(--default-primary-color);
     transition: all 0.3s ease;
 }
 
-.search-button-users .button-remove-filter-users:hover {
+.search-button-filter .button-remove-filter-users:hover {
     background-color: white;
     color: var(--default-primary-color);
+}
+
+
+@media (max-width: 1200px) {
+    .user-box {
+        padding-bottom: 10px;
+    }
+
+    .box-title {
+        text-align: center;
+    }
+
+    .box-add {
+        align-items: center;
+        justify-content: center;
+    }
+
+    .box-data form {
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+    }
+
+    .box-data form .fields-filter {
+        flex-wrap: wrap;
+    }
+
+    .box-data form .search-button-filter {
+        flex-wrap: wrap;
+    }
 }

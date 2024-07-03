@@ -37,7 +37,6 @@ export const UserFormComponent = (props: props) => {
             }
         }
 
-
         const getPermissions = async () => {
             try {
                 const response = await api.get('/permissionList');

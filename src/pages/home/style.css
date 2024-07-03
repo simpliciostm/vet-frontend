@@ -77,3 +77,10 @@
 .container-home .container-chart .title-chart {
     height: 55px;
 } 
+
+@media  (max-width: 1000px) {
+    .title-home {
+        justify-content: center;
+        align-items: center;
+    }
+}

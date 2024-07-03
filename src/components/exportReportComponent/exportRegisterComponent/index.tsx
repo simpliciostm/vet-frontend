@@ -100,12 +100,12 @@ export const ExportRegisterComponent = ({ onClose }: exportProps) => {
                                 <Typography component={'span'} fontSize={19} color={'primary'} fontWeight={'bold'} >Filtros</Typography>
                             </div>
                             <div className="modal-fields-export">
-                                <TextField variant='outlined' label='Cidade' size='small' sx={{ width: '200px' }} value={city} onChange={(e) => setCity(e.target.value)} />
-                                <TextField variant='outlined' label='Tutor' size='small' sx={{ width: '200px' }} value={name_tutor} onChange={(e) => setNameTutor(e.target.value)} />
+                                <TextField variant='outlined' label='Cidade' size='small' fullWidth value={city} onChange={(e) => setCity(e.target.value)} />
+                                <TextField variant='outlined' label='Tutor' size='small' fullWidth value={name_tutor} onChange={(e) => setNameTutor(e.target.value)} />
                             </div>
                             <div className="modal-fields-export">
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DemoContainer sx={{ overflow: 'hidden', height: '55px', width: '200px' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
+                                    <DemoContainer sx={{ overflow: 'hidden', height: '55px', width: '100%' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
                                         <DatePicker
                                             label="Data Ínicio"
                                             value={dateStart ? dateStart : null}
@@ -115,7 +115,7 @@ export const ExportRegisterComponent = ({ onClose }: exportProps) => {
                                     </DemoContainer>
                                 </LocalizationProvider>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DemoContainer sx={{ height: '55px', width: '200px' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
+                                    <DemoContainer sx={{ height: '55px', width: '100%' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
                                         <DatePicker
                                             label="Data Final"
                                             value={dateEnd ? dateEnd : null}

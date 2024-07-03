@@ -66,7 +66,7 @@ export const Permission = () => {
                     ))
                 }
                 <div className="button-add-permission">
-                    <Button onClick={() => setCloseModal(true)} >Adicionar nova permissão</Button>
+                    <Button className='button-add' color='secondary' onClick={() => setCloseModal(true)} >Adicionar nova permissão</Button>
                 </div>
             </div>
             {deleteConfirm ? <DeletePermissionConfirmComponent msg='Tem certeza que deseja deletar essa permissão ?' id={idPermission} onClose={closeDeletePermision} /> : null}

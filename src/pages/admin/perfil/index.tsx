@@ -118,13 +118,13 @@ export const Perfil = () => {
                 <div className="container-perfil">
                     <form action="">
                         <div className="field-perfil">
-                            <TextField onChange={(e) => setName(e.target.value)} value={name} type='text' variant='outlined' label='nome' ></TextField>
+                            <TextField size='small' onChange={(e) => setName(e.target.value)} value={name} type='text' variant='outlined' label='nome' ></TextField>
                         </div>
                         <div className="field-perfil">
-                            <TextField onChange={(e) => setEmail(e.target.value)} value={email} type='email' variant='outlined' label='email' ></TextField>
+                            <TextField size='small' onChange={(e) => setEmail(e.target.value)} value={email} type='email' variant='outlined' label='email' ></TextField>
                         </div>
                         <div id='field-password' className="field-perfil">
-                            <TextField onChange={(e) => setPassword(e.target.value)} value={password} className='password-box' label="Password" variant="outlined" type={showPassword ? "password" : "text"} size='medium' />
+                            <TextField onChange={(e) => setPassword(e.target.value)} value={password} className='password-box' label="Password" variant="outlined" type={showPassword ? "password" : "text"} size='small' />
                             {showPassword ? (
                                 <i onClick={() => setShowPassword(false)} id='eye' className="bi bi-eye-fill"></i>
                             ) : (
@@ -132,15 +132,16 @@ export const Perfil = () => {
                             )}
                         </div>
                         <div className="field-perfil">
-                            <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Permissão</InputLabel>
+                            <FormControl  fullWidth>
+                                <InputLabel size='small' id="demo-simple-select-label">Permissão</InputLabel>
                                 <Select
+                                    size='small'
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={name_permission}
                                     label="Permissão"
                                     onChange={(e) => { changePermissionUser(e.target.value) }}
-                                    style={{ width: '160px', height: '55px' }}
+                                    style={{ width: '160px', height: '40px' }}
                                 >
                                     {permissions.length >= 1 ? permissions.map((per: any) => (
                                         <MenuItem key={per._id} value={per._id}>{per.name_permission}</MenuItem>
@@ -150,7 +151,7 @@ export const Perfil = () => {
                             </FormControl>
                         </div>
                         <div className="perfil-button">
-                            <Button className='button' onClick={(e) => updateDataUser(e)} sx={{ width: '250px' }} variant="contained">Atualizar Dados</Button>
+                            <Button className='button-add' onClick={(e) => updateDataUser(e)} sx={{ width: '250px' }} variant="contained">Atualizar Dados</Button>
                         </div>
                     </form>
                 </div>

@@ -12,7 +12,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { DeleteCadsConfirmComponent } from '../../deleteComponent/deleteCadsConfirmComponent';
 import { RegisterFormComponent } from '../../registerModalsComponent/registerFormComponent';
 import moment from 'moment';
-import './style.css';
 
 interface props {
     data: {
@@ -42,6 +41,8 @@ interface props {
         address: string,
         district: string,
         number_residence: number,
+        bloco: string,
+        apto: string
     }[];
     columns: string[];
 }
@@ -73,6 +74,8 @@ interface cads {
     address: string,
     district: string,
     number_residence: number,
+    bloco: string,
+    apto: string
 }
 
 export const TableRegisterCadsComponent = ({ data, columns }: props) => {
@@ -136,33 +139,35 @@ export const TableRegisterCadsComponent = ({ data, columns }: props) => {
                                         <button style={{ background: 'transparent', border: 'none', borderRadius: '3px', cursor: 'pointer' }} onClick={(e) => openViewUser(e, row._id)} ><VisibilityIcon style={{ cursor: 'pointer', fontSize: 15 }} htmlColor='#ffae60' fontSize='small' /></button>
                                     </div>
                                 </TableCell>
-                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.idCastration}</TableCell>
-                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.animal.species}</TableCell>
-                                <TableCell sx={{ textAlign: 'center' }} >{row.animal.sexy}</TableCell>
-                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.animal.name}</TableCell>
-                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.animal.color}</TableCell>
-                                <TableCell sx={{ textAlign: 'center' }} >{row.animal.size + 'kg'}</TableCell>
-                                <TableCell sx={{ textAlign: 'center' }} >{row.animal.year}</TableCell>
-                                <TableCell sx={{ minWidth: "120px", textAlign: 'center' }} >{row.animal.chip}</TableCell>
-                                <TableCell sx={{ minWidth: "180px", textAlign: 'center' }} >{row.animal.nis}</TableCell>
-                                <TableCell sx={{ minWidth: "800px", textAlign: 'center' }} >{row.animal.intercorrencia}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.idCastration ? row.idCastration : "--"}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.animal.species ? row.animal.species : "--"}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }} >{row.animal.sexy ? row.animal.sexy : "--"}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.animal.name ? row.animal.name : "--"}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.animal.color ? row.animal.color : "--"}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }} >{row.animal.size ? row.animal.size + 'kg' : "--"}</TableCell>
+                                <TableCell sx={{ textAlign: 'center' }} >{row.animal.year ? row.animal.year : "--"}</TableCell>
+                                <TableCell sx={{ minWidth: "120px", textAlign: 'center' }} >{row.animal.chip ? row.animal.chip : "--"}</TableCell>
+                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.cpf ? row.cpf : "--"}</TableCell>
+                                <TableCell sx={{ minWidth: "180px", textAlign: 'center' }} >{row.animal.nis ? row.animal.nis : "--"}</TableCell>
+                                <TableCell sx={{ minWidth: "800px", textAlign: 'center' }} >{row.animal.intercorrencia ? row.animal.intercorrencia : "--"}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }} >{moment(row.createdAt).format("DD/MM/YYYY")}</TableCell>
                                 <TableCell sx={{ textAlign: 'center' }} >{moment(row.updatedAt).format("DD/MM/YYYY")}</TableCell>
-                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.name_tutor}</TableCell>
-                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.cep}</TableCell>
-                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.cpf}</TableCell>
-                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.phone}</TableCell>
-                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.city.name}</TableCell>
-                                <TableCell sx={{ minWidth: "250px", textAlign: 'center' }} >{row.address}</TableCell>
-                                <TableCell sx={{ minWidth: "200px", textAlign: 'center' }} >{row.number_residence}</TableCell>
-                                <TableCell sx={{ minWidth: "250px", textAlign: 'center' }} >{row.district}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.name_tutor ? row.name_tutor : "--"}</TableCell>
+                                <TableCell sx={{ width: "550px", textAlign: 'center' }} >{row.cep ? row.cep : "--"}</TableCell>
+                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.phone ? row.phone : "--"}</TableCell>
+                                <TableCell sx={{ minWidth: "150px", textAlign: 'center' }} >{row.city.name ? row.city.name : "--"}</TableCell>
+                                <TableCell sx={{ minWidth: "250px", textAlign: 'center' }} >{row.district ? row.district : "--"}</TableCell>
+                                <TableCell sx={{ minWidth: "250px", textAlign: 'center' }} >{row.address ? row.address : "--"}</TableCell>
+                                <TableCell sx={{ minWidth: "200px", textAlign: 'center' }} >{row.number_residence ? row.number_residence : "--"}</TableCell>
+                                <TableCell sx={{ minWidth: "200px", textAlign: 'center' }} >{row.bloco ? row.bloco : "--"}</TableCell>
+                                <TableCell sx={{ minWidth: "200px", textAlign: 'center' }} >{row.apto ? row.apto : "--"}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
             {deleteConfirm ? <DeleteCadsConfirmComponent msg='Tem certeza que deseja deletar esse registro ?' id={idCads} onClose={closeModalConfirmDelete} /> : null}
-            {openModalUpdate ? <RegisterFormComponent operation='update'id={idCads} onClose={closeModalUpdate} /> : null}
+            {openModalUpdate ? <RegisterFormComponent operation='update' id={idCads} onClose={closeModalUpdate} /> : null}
             {openModalView ? <RegisterFormComponent operation='view' id={idCads} onClose={closeModalView} /> : null}
         </div>
     )
