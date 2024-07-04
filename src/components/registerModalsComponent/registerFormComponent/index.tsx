@@ -286,7 +286,7 @@ export const RegisterFormComponent = (props: props) => {
 
     const deleteItemRegister = (e: any, ref: string | any) => {
         e.preventDefault();
-        const newData = register.filter(x => x.name !== ref);
+        const newData = register.filter(x => x.chip !== ref);
 
         setRegister(newData);
     }
@@ -329,7 +329,7 @@ export const RegisterFormComponent = (props: props) => {
                             <Typography fontSize={14} >Dados Base</Typography>
                             <div className="button-increment-register">
                                 {props.operation === 'register' ? (
-                                    <div style={{ opacity: name.length >= 1 || species.length >= 1 || chip.length >= 1 ? 1 : 0.3 }} onClick={() => increment(register)} className="title-increment">
+                                    <div style={{ opacity: chip.length >= 1 ? 1 : 0.3 }} onClick={() => increment(register)} className="title-increment">
                                         <Typography fontSize={13} fontWeight={'bold'} >adicionar outro</Typography>
                                     </div>
                                 ) : null}
@@ -452,7 +452,7 @@ export const RegisterFormComponent = (props: props) => {
                             {register.length >= 1 ? (
                                 <>
                                     {register.map(x => (
-                                        <div key={x.name} className="box-register">
+                                        <div key={x.chip} className="box-register">
                                             <div className="infos-register">
                                                 <TextField disabled variant='outlined' label='Espécie' size='small' sx={{ width: '200px' }} value={x.species} />
                                                 <FormControl>
@@ -481,7 +481,7 @@ export const RegisterFormComponent = (props: props) => {
                                                 <TextField disabled variant='outlined' label='Intercorrência' size='small' sx={{ width: '100%' }} value={x.intercorrencia} />
                                             </div>
                                             <div className="button-register">
-                                                <Button onClick={(e) => deleteItemRegister(e, x.name)} >Excluir</Button>
+                                                <Button onClick={(e) => deleteItemRegister(e, x.chip)} >Excluir</Button>
                                             </div>
                                         </div>
                                     ))}

@@ -105,7 +105,7 @@ export const ExportRegisterComponent = ({ onClose }: exportProps) => {
                             </div>
                             <div className="modal-fields-export">
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DemoContainer sx={{ overflow: 'hidden', height: '55px', width: '100%' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
+                                    <DemoContainer sx={{ overflow: 'hidden', height: '55px', width: '88%' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
                                         <DatePicker
                                             label="Data Ínicio"
                                             value={dateStart ? dateStart : null}
@@ -115,7 +115,7 @@ export const ExportRegisterComponent = ({ onClose }: exportProps) => {
                                     </DemoContainer>
                                 </LocalizationProvider>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DemoContainer sx={{ height: '55px', width: '100%' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
+                                    <DemoContainer sx={{ height: '55px', width: '88%' }} components={['DatePicker', 'DatePicker', 'DatePicker']}>
                                         <DatePicker
                                             label="Data Final"
                                             value={dateEnd ? dateEnd : null}
