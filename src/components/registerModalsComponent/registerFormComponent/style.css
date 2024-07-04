@@ -128,6 +128,83 @@
     color: var(--default-primary-color);
 }
 
+.container-verify-modal {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.container-verify-modal .container-list-register {
+    background-color: white;
+    border-radius: 2px;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    max-height: 450px;
+}
+
+.container-verify-modal .container-list-register::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 7px;
+}
+
+.container-verify-modal .container-list-register::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 3px;
+}
+
+.container-verify-modal .container-list-register .title-container-verify {
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.container-verify-modal .container-list-register ul {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+}
+
+.container-verify-modal .container-list-register .box-register {
+    width: 100%;
+    gap: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.container-verify-modal .container-list-register .box-register .infos-register {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.container-verify-modal .container-list-register .box-register .button-register {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.container-cads-form .loading-container {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 @keyframes animaModal {
     0% {
         transform: translateY(-120%);
@@ -142,6 +219,7 @@
     .container-cads-form {
         z-index: 95;
     }
+
     .container-cads-form .modal-cads-form {
         overflow: auto;
         width: 97%;

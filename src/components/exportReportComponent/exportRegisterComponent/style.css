@@ -37,6 +37,8 @@
 .container-export-register .modal-export-register form .modal-fields-export {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
 }
